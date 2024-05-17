@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'app.dart';
+import 'utils/core/helpers/global_helper.dart';
+import 'utils/ui_utils/dialogs/app_toast.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+Future<void> main() async {
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: Container(),
-    );
+  await GlobalInit().globalInitializer();
+
+  ///list of bloc used
+  blocProvider() {
+    return MyApp();
   }
+
+  await GetStorage.init();
+  configLoading();
+
+  ///run app
+  runApp(blocProvider());
 }
