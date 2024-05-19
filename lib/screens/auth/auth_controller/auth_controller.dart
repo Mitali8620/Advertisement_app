@@ -82,7 +82,7 @@ class AuthController extends GetxController {
       );
     } else {
       GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
-        AppRoutes.onBoardingMainScreen,
+        AppRoutes.myHomeTabBarScreen,
         (Route<dynamic> route) => false,
       ); /*  GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
         AppRoutes.onBoardingLoginScreen,

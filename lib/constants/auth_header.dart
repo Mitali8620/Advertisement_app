@@ -73,7 +73,7 @@ class _AuthHeaderState extends State<AuthHeader> {
                       color: widget.iconColor ??
                           (widget.isProfile
                               ? Theme.of(context).colorScheme.onError
-                              : Colors.transparent),
+                              : Colors.black),
                     ),
                   )),
                 ),

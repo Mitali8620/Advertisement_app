@@ -12,3 +12,12 @@ class PersonalInformationScreenArgs {
     this.isFromInitialSplash = false,
   });
 }
+
+
+class ImagePreviewScreenArgs {
+  final List<String> imagesList;
+
+  ImagePreviewScreenArgs({
+    required this.imagesList,
+  });
+}

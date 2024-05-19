@@ -36,24 +36,37 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-
+  # for state-management
   get:
+
   # package for local storage
   get_storage: ^2.1.1
+
   # for loading feature
   flutter_easyloading: ^3.0.5
+
   # date format
   intl: ^0.18.0
+
+  #for api calling
   dio: 4.0.6
+  pretty_dio_logger:
+
   # location package
   #location: 6.0.2
+
+  # for single-tone object
   get_it:
+
+  #for url sharing
   url_launcher:
+
   #for network checking
   connectivity_plus: ^5.0.2
+
   # package for adding fonts
   google_fonts: ^6.1.0
-  pretty_dio_logger:
+
   # for show images
   flutter_svg: ^2.0.9
 
@@ -65,6 +78,10 @@ dependencies:
 
   # The responsive builder package contains widgets that allows you to create a readable responsive UI.
   responsive_builder: ^0.4.2
+
+  # for cached image
+  cached_network_image:
+
 
 dev_dependencies:
   flutter_test:

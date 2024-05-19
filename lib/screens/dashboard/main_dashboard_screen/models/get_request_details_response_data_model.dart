@@ -35,7 +35,7 @@ class GetRequestDetailsResponseDataModel {
 class RequestData {
   final String? id;
   final String? userId;
-  final String? images;
+  final List<String>? images;
 
   RequestData({
     this.id,
@@ -46,7 +46,9 @@ class RequestData {
   factory RequestData.fromJson(Map<String, dynamic> json) => RequestData(
         id: json["id"],
         userId: json["userId"],
-        images: json["images"],
+        images: json["images"] != null
+            ? List<String>.from(json["images"])
+            : [],
       );
 
   Map<String, dynamic> toJson() => {

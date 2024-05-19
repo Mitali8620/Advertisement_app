@@ -1,3 +1,5 @@
+import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
+import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screens/widgets/image_preview_scren.dart';
 import 'package:flutter/material.dart';
 import '../../constants/page_transition.dart';
 import '../../screens/auth/screens/login_screen/view/login_main_screen.dart';
@@ -27,8 +29,13 @@ class AppRouter {
         return PageTransition(const NetWorkHomePage());
       case AppRoutes.dashboardScreen:
         return PageTransition(const DashboardMainScreen());
-        case AppRoutes.myHomeTabBarScreen:
+      case AppRoutes.myHomeTabBarScreen:
         return PageTransition(const MyHomeTabBarScreen());
+      case AppRoutes.imagePreviewScreen:
+        final args = settings.arguments as ImagePreviewScreenArgs;
+        return PageTransition(ImagePreviewScreen(
+          imageData: args.imagesList ?? [],
+        ));
       default:
         return MaterialPageRoute(builder: (_) => const InitiallyHomePage());
     }

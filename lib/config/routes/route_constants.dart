@@ -8,4 +8,5 @@ class AppRoutes {
   static const onBoardingMainScreen = "/on_boarding_main_screen";
   static const newtWorkScreen = "/network_screen";
   static const myHomeTabBarScreen = "/my_home_tab_bar_screen";
+  static const imagePreviewScreen = "/image_preview_screen";
 }
