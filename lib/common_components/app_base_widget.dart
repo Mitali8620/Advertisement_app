@@ -21,12 +21,14 @@ class AppBaseScaffold extends StatelessWidget {
     this.bottomNavigationBar,
     this.floatingButtonLocation,
     this.resizeToAvoidBottomInset,
+    this.drawerWidget,
   }) : super(key: key);
 
   /// child widget
   final Widget child;
   final EdgeInsetsGeometry? padding;
   final Widget? appbar;
+  final Widget? drawerWidget;
   final Color? backgroundColor;
   final bool? resizeToAvoidBottomInset;
 
@@ -63,6 +65,7 @@ class AppBaseScaffold extends StatelessWidget {
             Scaffold(
           backgroundColor: Theme.of(context).colorScheme.onSecondary,
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          drawer: Drawer(),
           appBar: appbar != null
               ? PreferredSize(
                   preferredSize: Size(

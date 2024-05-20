@@ -38,6 +38,7 @@ class AppTheme{
   static Color lightRed =  Color(0xFFFFEBED);
   static Color green =  Color(0xFFE8F5E9);
   static Color blueF2F4FFColor =  Color(0xFFF2F4FF);
+  static const Color dividerColor = Color(0xff667085);
 
   /// for wallet screen
 

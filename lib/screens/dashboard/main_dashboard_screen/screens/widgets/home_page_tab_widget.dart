@@ -91,11 +91,10 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                           LoginModel? storedLoginModel = locator<StoreService>()
                               .getLoginModel(key: StoreKeys.logInData);
 
-                          GlobalInit.navKey.currentState
-                              ?.pushNamedAndRemoveUntil(
+                          GlobalInit.navKey.currentState?.pushNamed(
                             AppRoutes.imagePreviewScreen,
-                            arguments: ImagePreviewScreenArgs(imagesList: requestListDataAssign.images ??[]),
-                            (Route<dynamic> route) => false,
+                            arguments: ImagePreviewScreenArgs(
+                                imagesList: requestListDataAssign.images ?? []),
                           );
 
                           ///for this when call tile to request details pass just uncomment and pass requestId here
@@ -115,16 +114,12 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
 
                               Expanded(
                                 child: PageView.builder(
-                                  itemCount:
-                                      requestListDataAssign.images?.length ?? 0,
+                                  itemCount: requestListDataAssign.images?.length ?? 0,
                                   itemBuilder: (context, imageIndex) {
-                                    print(
-                                        "requestListDataAssign.images![imageIndex] $imageIndex ${requestListDataAssign.images![imageIndex]}");
-                                    return Stack(
+                                     return Stack(
                                       children: [
                                         cachedNetworkImageWidget(
-                                          netWorkImageUrl: requestListDataAssign
-                                              .images![imageIndex],
+                                          netWorkImageUrl: requestListDataAssign.images![imageIndex],
                                         ),
                                         ((requestListDataAssign
                                                         .images?.length ??

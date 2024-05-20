@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../config/routes/route_constants.dart';
+import '../../../../utils/core/helpers/global_helper.dart';
 import '../../../../utils/core/services/locator_service.dart';
 import '../../../../utils/core/services/store_keys.dart';
 import '../../../../utils/core/services/store_service.dart';
 import '../../../auth/models/auth_model.dart';
 import '../models/get_request_details_response_data_model.dart';
+final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class DashBoardController extends GetxController {
   int currentIndex = 0;
@@ -27,6 +30,83 @@ class DashBoardController extends GetxController {
   void changeTabBarIndex(int newIndex) {
     tabBarIndex = newIndex;
     update();
+  }
+
+  ///for web left panel
+  final currentDrawerIndex = 0.obs;
+  webMainScreenInit() {
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
+  }
+
+  void firstMenuOnTap() {
+    currentDrawerIndex.value = 0;
+    GlobalInit.navKey.currentState!
+        .pushReplacementNamed(AppRoutes.logInMainScreen);
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
+  }
+  void secondMenuOnTap() {
+    currentDrawerIndex.value = 1;
+    GlobalInit.navKey.currentState!
+        .pushReplacementNamed(AppRoutes.logInMainScreen);
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
+  }  void thirdMenuOnTap() {
+    currentDrawerIndex.value = 2;
+    GlobalInit.navKey.currentState!
+        .pushReplacementNamed(AppRoutes.logInMainScreen);
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
+  }void fourMenuOnTap() {
+    currentDrawerIndex.value = 3;
+    GlobalInit.navKey.currentState!
+        .pushReplacementNamed(AppRoutes.logInMainScreen);
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
+  }void fiveMenuOnTap() {
+    currentDrawerIndex.value = 4;
+    GlobalInit.navKey.currentState!
+        .pushReplacementNamed(AppRoutes.logInMainScreen);
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
+  }void sixMenuOnTap() {
+    currentDrawerIndex.value = 5;
+    GlobalInit.navKey.currentState!
+        .pushReplacementNamed(AppRoutes.logInMainScreen);
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
+  }
+  void sevenMenuOnTap() {
+    currentDrawerIndex.value = 6;
+    GlobalInit.navKey.currentState!
+        .pushReplacementNamed(AppRoutes.logInMainScreen);
+    if (scaffoldKey.currentState!.isDrawerOpen) {
+      Future.delayed(const Duration(microseconds: 0)).then((value) {
+        Get.back();
+      });
+    }
   }
 
   ///-------------------------------------- for tabBar
@@ -74,8 +154,8 @@ class DashBoardController extends GetxController {
     RequestData(
         id: "1",
         images: [
-          "https://imgs.search.brave.com/hn8zKSWqXcFo-YaT9HAzqq1II8PRlo4lBCsOx3A7Mj8/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxOC8w/Mi8wOC8yMi8yNy9m/bG93ZXItMzE0MDQ5/Ml82NDAuanBn"
-              "https://imgs.search.brave.com/dpeg8Vh7_2zu4lDcDcuIkwYZNXY5rHHbQhBNmumlwL0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGljanVt/Ym8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9iZWF1dGlmdWwt/bmF0dXJlLW1vdW50/YWluLXNjZW5lcnkt/d2l0aC1mbG93ZXJz/LWZyZWUtcGhvdG8u/anBnP3c9NjAwJnF1/YWxpdHk9ODA"
+          "https://imgs.search.brave.com/hn8zKSWqXcFo-YaT9HAzqq1II8PRlo4lBCsOx3A7Mj8/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxOC8w/Mi8wOC8yMi8yNy9m/bG93ZXItMzE0MDQ5/Ml82NDAuanBn",
+          "https://imgs.search.brave.com/dpeg8Vh7_2zu4lDcDcuIkwYZNXY5rHHbQhBNmumlwL0/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcGljanVt/Ym8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy9iZWF1dGlmdWwt/bmF0dXJlLW1vdW50/YWluLXNjZW5lcnkt/d2l0aC1mbG93ZXJz/LWZyZWUtcGhvdG8u/anBnP3c9NjAwJnF1/YWxpdHk9ODA"
         ],
         userId: "1"),
     RequestData(

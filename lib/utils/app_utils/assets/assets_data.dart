@@ -65,4 +65,10 @@ class Assets {
       'assets/lottie_animation/no_network_animation.json';
   static const String lottieAnimationRequestProcess =
       'assets/lottie_animation/request_process.json';
+
+
+ // static const String placeholderImage = 'assets/placeholder.png';
+  static const String placeholderImage = 'assets/images/img_trofy.png';
+
+
 }

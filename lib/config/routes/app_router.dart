@@ -5,7 +5,7 @@ import '../../constants/page_transition.dart';
 import '../../screens/auth/screens/login_screen/view/login_main_screen.dart';
 import '../../screens/auth/screens/sign_uo_screen/view/sign_up_main_screen.dart';
 import '../../screens/dashboard/main_dashboard_screen/screens/dashboard_main_screen.dart';
-import '../../screens/dashboard/main_dashboard_screen/screens/widgets/my_home_tabbar_screen.dart';
+import '../../screens/dashboard/main_dashboard_screen/screens/main_home_screen/my_home_tabbar_screen.dart';
 import '../../screens/onboarding/screens/view/onboarding_main_screen.dart';
 import 'route_constants.dart';
 import '../../screens/network_home_page/initial_page.dart';

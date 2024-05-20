@@ -4,7 +4,7 @@ import '../../../../common/bottom_navigation_bar.dart';
 import '../../../../common_components/app_base_widget.dart';
 import '../dashboard_controller/dashboard_controller.dart';
 import 'widgets/bottom_floating_button.dart';
-import 'widgets/my_home_tabbar_screen.dart';
+import 'main_home_screen/my_home_tabbar_screen.dart';
 
 class DashboardMainScreen extends StatefulWidget {
   const DashboardMainScreen({super.key});
