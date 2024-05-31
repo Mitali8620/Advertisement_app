@@ -1,11 +1,13 @@
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
-import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screens/widgets/image_preview_scren.dart';
+import 'package:advertisement_app/screens/image_preview_screens/screens/view/image_preview_mobile_page.dart';
 import 'package:flutter/material.dart';
 import '../../constants/page_transition.dart';
 import '../../screens/auth/screens/login_screen/view/login_main_screen.dart';
 import '../../screens/auth/screens/sign_uo_screen/view/sign_up_main_screen.dart';
 import '../../screens/dashboard/main_dashboard_screen/screens/dashboard_main_screen.dart';
 import '../../screens/dashboard/main_dashboard_screen/screens/main_home_screen/my_home_tabbar_screen.dart';
+import '../../screens/image_preview_screens/screens/image_preview_main_screen.dart';
+import '../../screens/dashboard/main_dashboard_screen/screens/widgets/home_page_tablet_web_tab_widget.dart';
 import '../../screens/onboarding/screens/view/onboarding_main_screen.dart';
 import 'route_constants.dart';
 import '../../screens/network_home_page/initial_page.dart';
@@ -31,9 +33,12 @@ class AppRouter {
         return PageTransition(const DashboardMainScreen());
       case AppRoutes.myHomeTabBarScreen:
         return PageTransition(const MyHomeTabBarScreen());
-      case AppRoutes.imagePreviewScreen:
+
+        case AppRoutes.homePageTabletWebTabWidget:
+        return PageTransition(const HomePageTabletWebTabWidget());
+      case AppRoutes.imagePreviewMainScreen:
         final args = settings.arguments as ImagePreviewScreenArgs;
-        return PageTransition(ImagePreviewScreen(
+        return PageTransition(ImagePreviewMainScreen(
           imageData: args.imagesList ?? [],
         ));
       default:

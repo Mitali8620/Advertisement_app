@@ -60,4 +60,13 @@ class AppTheme{
   static Color pageBgColor = const Color(0xFFEEEEEE);
 
 
+  static Color tabSelectedColor({required BuildContext context}) {
+    Color tabSelectedColor = Theme.of(context).colorScheme.primary;
+    return tabSelectedColor;
+  }
+
+  static Color tabUnSelectedColor({required BuildContext context}) {
+    Color tabSelectedColor = Theme.of(context).colorScheme.shadow;
+    return tabSelectedColor;
+  }
 }

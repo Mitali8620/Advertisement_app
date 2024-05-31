@@ -1,11 +1,11 @@
+import 'package:advertisement_app/constants/app_spacer_constants.dart';
 import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
-import '../../../../../../common_components/app_base_widget.dart';
+import '../../../../../../config/routes/app_router.dart';
+import '../../../../../../utils/core/helpers/global_helper.dart';
+import '../../../../../network_home_page/initial_page.dart';
 import '../../widgets/main_menu.dart';
-import 'main_home_screen_mobile_page.dart';
 
 class MainHomeScreenTabBarTabletWebPage extends StatefulWidget {
   const MainHomeScreenTabBarTabletWebPage({super.key});
@@ -21,15 +21,32 @@ class _MainHomeScreenTabBarTabletWebPageState
 
   @override
   void initState() {
+    // dashBoardController.webMainScreenInit();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppBaseScaffold(
-        key: scaffoldKey,
-        //    drawerWidget:SideMenu(),
-
-        child: SideMenu());
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          SideMenu(),
+         AppSpacer.p10(),
+          Expanded(
+              child: Navigator(
+            key: GlobalInit.mainNavigation,
+            reportsRouteUpdateToEngine: true,
+            initialRoute: "/homePage_tablet_web_tab_widget",
+            onGenerateRoute: AppRouter.generateRoute,
+            onUnknownRoute: (settings) {
+              return MaterialPageRoute(
+                  builder: (_) => const InitiallyHomePage());
+            },
+          ))
+        ],
+      ),
+    );
   }
 }

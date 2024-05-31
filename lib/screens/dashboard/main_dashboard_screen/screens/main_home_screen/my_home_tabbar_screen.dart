@@ -52,8 +52,10 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
             dashBoardController.setInitialAllHomeDataValue();
           },
           child: AppBaseScaffold(
+            key: scaffoldKey,
             child: ResponsiveBuilder(builder: (context, sizingInformation) {
-              if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
+              if (sizingInformation.deviceScreenType ==
+                  DeviceScreenType.desktop) {
                 return const MainHomeScreenTabBarTabletWebPage();
               }
 

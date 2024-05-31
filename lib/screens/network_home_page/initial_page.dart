@@ -24,14 +24,14 @@ class _InitiallyHomePageState extends State<InitiallyHomePage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Lottie.asset(Assets.lottieAnimationNoNetworkAnimation),
+        Lottie.asset(Assets.someThingWentWrongJson),
         AppSpacer.p32(),
         TabViewTextWidget(
             color: Theme.of(context).colorScheme.shadow,
             fontSize: 20,
             fontWeight: FontWeight.w600,
             textAlign: TextAlign.center,
-            text: "OOSps"),
+            text: "Please refresh"),
       ],
     );
   }

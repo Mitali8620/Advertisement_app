@@ -65,6 +65,8 @@ class Assets {
       'assets/lottie_animation/no_network_animation.json';
   static const String lottieAnimationRequestProcess =
       'assets/lottie_animation/request_process.json';
+  static const String someThingWentWrongJson =
+      'assets/lottie_animation/something_went_wrong.json';
 
 
  // static const String placeholderImage = 'assets/placeholder.png';

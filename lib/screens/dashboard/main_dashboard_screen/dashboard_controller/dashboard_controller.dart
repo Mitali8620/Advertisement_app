@@ -35,7 +35,7 @@ class DashBoardController extends GetxController {
   ///for web left panel
   final currentDrawerIndex = 0.obs;
   webMainScreenInit() {
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });
@@ -44,9 +44,9 @@ class DashBoardController extends GetxController {
 
   void firstMenuOnTap() {
     currentDrawerIndex.value = 0;
-    GlobalInit.navKey.currentState!
-        .pushReplacementNamed(AppRoutes.logInMainScreen);
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    GlobalInit.mainNavigation.currentState!
+        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });
@@ -54,45 +54,45 @@ class DashBoardController extends GetxController {
   }
   void secondMenuOnTap() {
     currentDrawerIndex.value = 1;
-    GlobalInit.navKey.currentState!
-        .pushReplacementNamed(AppRoutes.logInMainScreen);
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    GlobalInit.mainNavigation.currentState!
+        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });
     }
   }  void thirdMenuOnTap() {
     currentDrawerIndex.value = 2;
-    GlobalInit.navKey.currentState!
-        .pushReplacementNamed(AppRoutes.logInMainScreen);
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    GlobalInit.mainNavigation.currentState!
+        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });
     }
   }void fourMenuOnTap() {
     currentDrawerIndex.value = 3;
-    GlobalInit.navKey.currentState!
-        .pushReplacementNamed(AppRoutes.logInMainScreen);
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    GlobalInit.mainNavigation.currentState!
+        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });
     }
   }void fiveMenuOnTap() {
     currentDrawerIndex.value = 4;
-    GlobalInit.navKey.currentState!
-        .pushReplacementNamed(AppRoutes.logInMainScreen);
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    GlobalInit.mainNavigation.currentState!
+        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });
     }
   }void sixMenuOnTap() {
     currentDrawerIndex.value = 5;
-    GlobalInit.navKey.currentState!
-        .pushReplacementNamed(AppRoutes.logInMainScreen);
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    GlobalInit.mainNavigation.currentState!
+        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });
@@ -100,9 +100,9 @@ class DashBoardController extends GetxController {
   }
   void sevenMenuOnTap() {
     currentDrawerIndex.value = 6;
-    GlobalInit.navKey.currentState!
-        .pushReplacementNamed(AppRoutes.logInMainScreen);
-    if (scaffoldKey.currentState!.isDrawerOpen) {
+    GlobalInit.mainNavigation.currentState!
+        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
       Future.delayed(const Duration(microseconds: 0)).then((value) {
         Get.back();
       });

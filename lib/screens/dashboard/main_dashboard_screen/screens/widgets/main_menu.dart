@@ -12,14 +12,15 @@ class SideMenu extends StatelessWidget {
   final DashBoardController drawerController2 = Get.put(DashBoardController());
 
   @override
+
   Widget build(BuildContext context) {
     return Drawer(
-      width: 500,
+      width: 300,
       backgroundColor: Colors.deepPurple,
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Obx(() => Container(
-                color: AppTheme.black,
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.06),
                 height: Get.height,
                 padding: const EdgeInsets.only(
                     left: AppConstant.defaultPadding,
@@ -46,7 +47,7 @@ class SideMenu extends StatelessWidget {
                                 color: drawerController2
                                             .currentDrawerIndex.value ==
                                         0
-                                    ? AppTheme.lightGrey
+                                    ? AppTheme.tabSelectedColor(context: context)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(15)),
                             child: DrawerListTile(
@@ -63,7 +64,7 @@ class SideMenu extends StatelessWidget {
                                 color: drawerController2
                                             .currentDrawerIndex.value ==
                                         1
-                                    ? AppTheme.lightGrey
+                                    ? AppTheme.tabSelectedColor(context: context)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(15)),
                             child: DrawerListTile(
@@ -80,7 +81,7 @@ class SideMenu extends StatelessWidget {
                                 color: drawerController2
                                             .currentDrawerIndex.value ==
                                         2
-                                    ? AppTheme.lightGrey
+                                    ? AppTheme.tabSelectedColor(context: context)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(15)),
                             child: DrawerListTile(
@@ -97,7 +98,7 @@ class SideMenu extends StatelessWidget {
                                 color: drawerController2
                                             .currentDrawerIndex.value ==
                                         3
-                                    ? AppTheme.lightGrey
+                                    ? AppTheme.tabSelectedColor(context: context)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(15)),
                             child: DrawerListTile(
@@ -114,7 +115,7 @@ class SideMenu extends StatelessWidget {
                                 color: drawerController2
                                             .currentDrawerIndex.value ==
                                         4
-                                    ? AppTheme.lightGrey
+                                    ? AppTheme.tabSelectedColor(context: context)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(15)),
                             child: DrawerListTile(
@@ -131,7 +132,7 @@ class SideMenu extends StatelessWidget {
                                 color: drawerController2
                                             .currentDrawerIndex.value ==
                                         5
-                                    ? AppTheme.lightGrey
+                                    ? AppTheme.tabSelectedColor(context: context)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(15)),
                             child: DrawerListTile(
@@ -148,7 +149,7 @@ class SideMenu extends StatelessWidget {
                                 color: drawerController2
                                             .currentDrawerIndex.value ==
                                         6
-                                    ? AppTheme.lightGrey
+                                    ? AppTheme.tabSelectedColor(context: context)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(15)),
                             child: DrawerListTile(
@@ -239,7 +240,8 @@ class PersonalInfo extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("AdminInformation.adminData.value.fullName ?? ''",
+              Text("AdminInformation",
+                  maxLines: 2,
                   style: TextStyle(
                     color: AppTheme.white,
                     fontSize: AppConstant.defaultPadding * 0.9,
