@@ -54,6 +54,8 @@ dependencies:
 
   # location package
   #location: 6.0.2
+  geolocator: ^10.1.0
+  geocoding: ^2.1.1
 
   # for single-tone object
   get_it:
@@ -88,8 +90,13 @@ dependencies:
   # for website left side bar
   collapsible_sidebar: ^2.0.7
 
+  #for serch location
+  flutter_typeahead: 4.3.3
 
+  #For create unique Id
+  uuid: ^4.3.3
 
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:

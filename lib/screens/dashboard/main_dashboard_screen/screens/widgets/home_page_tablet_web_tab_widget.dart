@@ -33,10 +33,7 @@ class _HomePageTabletWebTabWidgetState
 
   @override
   void initState() {
-    // TODO: implement initState
-
-    print(
-        "requestCubit.requestItemsList :: ${requestCubit.requestItemsList.length}");
+    print("requestCubit.requestItemsList :: ${requestCubit.requestItemsList.length}");
     super.initState();
   }
 
@@ -48,7 +45,8 @@ class _HomePageTabletWebTabWidgetState
   Widget buildBody() {
     return ((requestCubit.isNoData))
         ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(Assets.imagesNoActivityFoundIcon,
                   height: MediaQuery.of(context).size.height * 0.3),
@@ -214,7 +212,8 @@ class _HomePageTabletWebTabWidgetState
                 crossAxisAlignment: WrapCrossAlignment.start,
                 spacing: 10,
                 runSpacing: 10,
-                children: requestCubit.requestItemsList.map((requestListDataAssign) {
+                children:
+                    requestCubit.requestItemsList.map((requestListDataAssign) {
                   return Container(
                     color: Colors.deepPurple,
                     height: 200,

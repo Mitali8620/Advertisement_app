@@ -32,7 +32,7 @@ class AppTheme{
   static Color pendingColor =  Color(0xFFD3180C);
   static Color successColor =  Color(0xFF0065D0);
 
-  /// for profile screen
+  /// for location_update screen
   static Color lightBlue =  Color(0xFFEAEBFF);
   static Color lightYellow =  Color(0xFFFFF9C5);
   static Color lightRed =  Color(0xFFFFEBED);

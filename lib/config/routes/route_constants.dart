@@ -11,4 +11,5 @@ class AppRoutes {
   static const imagePreviewMainScreen = "/image_preview_main_screen";
   static const initiallyHomePage = "/initially_home_page";
   static const homePageTabletWebTabWidget = "/homePage_tablet_web_tab_widget";
+  static const locationUpdateMainScreen = "/location_update_main_screen";
 }

@@ -75,7 +75,7 @@ class AppBaseScaffold extends StatelessWidget {
                               sizingInformation.deviceScreenType ==
                                   DeviceScreenType.tablet)
                           ? 120
-                          : 70),
+                          : MediaQuery.of(context).size.height *0.13),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10),

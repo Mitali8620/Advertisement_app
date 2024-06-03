@@ -2,7 +2,7 @@ class Strings {
   static String fontFamily = "JakartaSans";
 
   /// for splash screen
-  static const String appName = "";
+  static const String appName = "FyndEG";
   static const String appNAmeLink =
       "https://play.google.com/store/apps/details?id=com.scrapzoo.scrapzoo";
   static const String myRequest = "My Request";
@@ -31,6 +31,11 @@ class Strings {
   static String donHaveAnAccount = "Don’t have an account?";
   static String alreadyHaveAnAccount = "Already have an account?";
 
+
+  ///profile_text
+
+  static String save = "Save";
+
   /// error text
   static const String enterYourEmail = "Please enter your E-mail";
   static const String enterYourPassword = "Please enter your password";
@@ -41,4 +46,11 @@ class Strings {
   ///tab_text
   static const String active = "Active";
   static const String past = "Past";
+
+
+  ///location_update
+  static const String lblYourDesiredSearchPlace = "Please enter your desired search place";
+  static const String lblSearchHere = "Search here";
+  static const String updateLocation = "Update location";
+  static const String updateLocationDescription = "Search and find location";
 }

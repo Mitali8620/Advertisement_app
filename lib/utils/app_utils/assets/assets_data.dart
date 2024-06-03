@@ -45,7 +45,7 @@ class Assets {
       'assets/images/onboarding_picture.png';
   static const String imagesPerson = 'assets/images/person.png';
   static const String imagesPersonIcon = 'assets/images/person_icon.png';
-  static const String imagesProfile = 'assets/images/profile.svg';
+  static const String imagesProfile = 'assets/images/location_update.svg';
   static const String imagesProfileAddress =
       'assets/images/profile_address.svg';
   static const String imagesProfileContact =
@@ -65,8 +65,8 @@ class Assets {
       'assets/lottie_animation/no_network_animation.json';
   static const String lottieAnimationRequestProcess =
       'assets/lottie_animation/request_process.json';
-  static const String someThingWentWrongJson =
-      'assets/lottie_animation/something_went_wrong.json';
+  static const String someThingWentWrongJson = 'assets/lottie_animation/something_went_wrong.json';
+  static const String locationJson = 'assets/lottie_animation/location_place.json';
 
 
  // static const String placeholderImage = 'assets/placeholder.png';

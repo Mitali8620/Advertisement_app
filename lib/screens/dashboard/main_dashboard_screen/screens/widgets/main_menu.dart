@@ -1,9 +1,11 @@
 import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import 'package:advertisement_app/utils/app_utils/assets/assets_data.dart';
 import 'package:advertisement_app/utils/app_utils/colors/app_colors.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../../utils/core/constants/app_constants.dart';
 
 class SideMenu extends StatelessWidget {
@@ -34,11 +36,29 @@ class SideMenu extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(
-                            height: AppConstant.defaultPadding * 2,
+                          const SizedBox( height: AppConstant.defaultPadding * 2,),
+
+                          ///side menu top image
+                          Lottie.asset(Assets.locationJson, height: 50),
+
+                          SizedBox(height: 8,),
+
+
+
+                          ///dotted box with container
+
+
+                          DottedBorder(
+                            color: Colors.black,
+                            strokeWidth: 1,
+                            child: const Center(
+                              child: Text("-----------------"),
+                            ),
                           ),
-                          Image.asset(Assets.placeholderImage, height: 50),
+
+
                           const SizedBox(
                             height: AppConstant.defaultPadding * 3,
                           ),

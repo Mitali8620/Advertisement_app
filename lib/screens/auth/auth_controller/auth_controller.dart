@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 import '../../../config/routes/route_constants.dart';
+import '../../../network/locations_Api.dart';
 import '../../../utils/core/helpers/global_helper.dart';
 import '../../../utils/core/services/locator_service.dart';
 import '../../../utils/core/services/store_keys.dart';
@@ -26,11 +32,82 @@ class AuthController extends GetxController {
   RxString password = "".obs;
   RxString confirmPassword = "".obs;
 
+  ///for location_update location
+
+  TextEditingController locationSearchCtr = TextEditingController();
+
+  validateStringIfEmptyOnly(String value, String validationString) {
+    if (value.trim().isEmpty) {
+      return validationString;
+    }
+    return null;
+  }
+
+  String sessionToken = '123456';
+  var uuid = const Uuid();
+  List<String> places = [];
+  List placesList = [];
+
+  Position? currentPosition;
+  String? currentAddress;
+
+  getSuggestion(String input) async {
+    if (sessionToken.isEmpty) {
+      sessionToken = uuid.v4();
+    }
+    var response = await getPlaces(input, sessionToken);
+    places.clear();
+    if (response != null) {
+      placesList = jsonDecode(response.body.toString())['predictions'];
+
+      for (int i = 0; i < placesList.length; i++) {
+        places.add(placesList[i]['description']);
+      }
+      update();
+      return places;
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  chooseSearchableLocation({required String text}) {
+    locationSearchCtr.text = text;
+    getLocationFromAddress(searchingAddress: text);
+  }
+
+  Future<void> getLocationFromAddress(
+      {required String searchingAddress}) async {
+    try {
+      List<Location> locations = await locationFromAddress(searchingAddress);
+
+      if (locations.isNotEmpty) {
+        Location location = locations.first;
+        double latitude = location.latitude;
+        double longitude = location.longitude;
+
+        print('Latitude: $latitude, Longitude: $longitude');
+        update();
+        if (location.latitude != 0 && location.longitude != 0) {
+          update();
+        } else {
+          Future.delayed(Duration(seconds: 2), () {
+            Get.back();
+          });
+        }
+      } else {
+        print('No location found for the provided address');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
   ///for password visibility
   RxBool isPasswordVisible = true.obs;
   RxBool isConfirmPasswordVisible = true.obs;
   RxBool isLogInLoading = false.obs;
   RxBool isSignUpLoading = false.obs;
+  RxBool isProfileUpdateLoading = false.obs;
 
   RxString errorMsg = "".obs;
   RxString loginErrorMsg = "".obs;
