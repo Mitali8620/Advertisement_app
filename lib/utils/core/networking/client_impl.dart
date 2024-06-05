@@ -150,7 +150,7 @@ class ClientImpl {
   }) async {
     try {
       Response? response;
-      LoginModel? storedLoginModel =
+      UserDetails? storedLoginModel =
           locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
       final Map<String, String> headers = {
         'Accept': 'text/plain',
@@ -158,7 +158,7 @@ class ClientImpl {
       };
 
       final Map<String, dynamic> body = {
-        'refreshToken': storedLoginModel?.result?.refreshToken
+        'refreshToken': storedLoginModel?.userData?.token
       };
 
       final refreshTokenResponse = await dio.post(
@@ -171,7 +171,7 @@ class ClientImpl {
         final Map<String, dynamic> responseData = refreshTokenResponse.data;
         final String newAccessToken = responseData['refreshToken'];
 
-        LoginModel loginModel = LoginModel.fromJson(responseData);
+        UserDetails loginModel = UserDetails.fromJson(responseData);
 
         locator<StoreService>().storage.remove(StoreKeys.authToken);
         locator<StoreService>()

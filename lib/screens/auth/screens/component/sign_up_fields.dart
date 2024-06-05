@@ -131,7 +131,7 @@ Widget buildSignUpButton({required AuthController authController}) {
             ValidationString.enterConfirmPassWord;
       } else if (authController.confirmSignUpPassWordCtr.text.length <= 8) {
         authController.signUpErrorMsg.value =
-            ValidationString.enterValidConfirmPassword;
+            ValidationString.enterValidLengthPassword;
       } else if (authController.logInPassWordCtr.text.isEmpty) {
         authController.signUpErrorMsg.value =
             ValidationString.passWordAndConfirmPasswordMisMatchError;

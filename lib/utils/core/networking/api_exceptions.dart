@@ -18,12 +18,12 @@ class CustomErrorHandlerInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    LoginModel? storedLoginModel =
+    UserDetails? storedLoginModel =
         await locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
-    print("token value :: ${storedLoginModel?.result?.token}");
-    if (storedLoginModel?.result?.token != null ||
-        storedLoginModel?.result?.token == '') {
-      options.headers['Authorization'] = storedLoginModel?.result?.token;
+    print("token value :: ${storedLoginModel?.userData?.token}");
+    if (storedLoginModel?.userData?.token != null ||
+        storedLoginModel?.userData?.token == '') {
+      options.headers['Authorization'] = storedLoginModel?.userData?.token;
       options.headers['Content-Type'] = 'application/json';
     }
     super.onRequest(options, handler);

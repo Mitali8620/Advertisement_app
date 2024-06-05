@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../../../common_components/app_elevated_button.dart';
 import '../../../../common_components/common_textfield.dart';
@@ -10,65 +11,53 @@ import '../../../../utils/app_utils/string/validation_string.dart';
 import '../../../../utils/core/helpers/global_helper.dart';
 import '../../auth_controller/auth_controller.dart';
 
-class LogInFields extends StatefulWidget {
-  const LogInFields({super.key});
+Widget LogInFields ({required AuthController authController}){
+  return SingleChildScrollView(
+    physics: const BouncingScrollPhysics(),
+    child: Form(
+      child: Column(
 
-  @override
-  State<LogInFields> createState() => _LogInFieldsState();
-}
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            AppSpacer.p12(),
 
-class _LogInFieldsState extends State<LogInFields> {
-  AuthController authController = AuthController();
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Form(
-        child: Column(
-
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-          AppSpacer.p12(),
-
-          ///email
-          KCommonTextField(
+            ///email
+            KCommonTextField(
                 controller: authController.logInEmailCtr,
                 errorMsg: Strings.enterYourEmail,
                 hintText: Strings.emailHint,
                 prefixIcon: const Icon(Icons.email_outlined)),
 
-          AppSpacer.p12(),
+            AppSpacer.p12(),
 
-          ///password
-          Obx(
-            () => KCommonTextField(
-              controller: authController.logInPassWordCtr,
-              hintText: Strings.password,
-              errorMsg: Strings.enterYourPassword,
-              prefixIcon: const Icon(Icons.lock),
-              obscureText: authController.isPasswordVisible.value,
-              suffixOnPressed: () {
-                authController.isShowPassword();
-              },
-              suffixIcon: authController.isPasswordVisible.value
-                  ? Icons.visibility_rounded
-                  : Icons.visibility_off_rounded,
+            ///password
+            Obx(
+                  () => KCommonTextField(
+                controller: authController.logInPassWordCtr,
+                hintText: Strings.password,
+                errorMsg: Strings.enterYourPassword,
+                prefixIcon: const Icon(Icons.lock),
+                obscureText: authController.isPasswordVisible.value,
+                suffixOnPressed: () {
+                  authController.isShowPassword();
+                },
+                suffixIcon: authController.isPasswordVisible.value
+                    ? Icons.visibility_rounded
+                    : Icons.visibility_off_rounded,
+              ),
             ),
-          ),
-          /* Obx(() =>
+            /* Obx(() =>
               CommonErrorWidget(message: authController.loginErrorMsg.value)),
 */
 
-          AppSpacer.p12(),
+            AppSpacer.p12(),
 
-          ///show purpose text
-          logInBottomText(),
-          AppSpacer.p24(),
-        ]),
-      ),
-    );
-  }
+            ///show purpose text
+            logInBottomText(),
+            AppSpacer.p24(),
+          ]),
+    ),
+  );
 }
 
 Widget logInBottomText() {
@@ -99,17 +88,26 @@ Widget buildLoginButton({required AuthController authController}) {
     title: Strings.login,
     isLoading: authController.isLogInLoading.value,
     onPressed: () async {
+      EasyLoading.show();
       /// step 1 add mobile number
       ///login
       if (authController.logInEmailCtr.text.isEmpty) {
-        authController.loginErrorMsg.value = ValidationString.enterEmailAddress;
-      } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$')
-          .hasMatch(authController.logInEmailCtr.text)) {
+     //   authController.loginErrorMsg.value = ValidationString.enterEmailAddress;
+
+        EasyLoading.showError(ValidationString.enterEmailAddress);
+      } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(authController.logInEmailCtr.text)) {
         authController.loginErrorMsg.value =
             ValidationString.enterValidEmailAddress;
+
+        EasyLoading.showError(ValidationString.enterValidEmailAddress);
       } else if (authController.logInPassWordCtr.text.isEmpty) {
-        authController.loginErrorMsg.value = "enater password";
-      } else {
+        authController.loginErrorMsg.value =ValidationString.enterPassWord ;
+        EasyLoading.showError(ValidationString.enterPassWord);
+
+      } else if (authController.logInPassWordCtr.text.length <8) {
+        EasyLoading.showError(ValidationString.enterValidLengthPassword);
+
+      }else {
         authController.userLogin(
             email: authController.logInEmailCtr.text,
             password: authController.logInPassWordCtr.text);

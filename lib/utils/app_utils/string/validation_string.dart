@@ -6,10 +6,16 @@ class ValidationString {
       "Please enter a valid password (minimum 8 characters)";
   static String enterPhoneNumber = "Please enter a phone number";
   static String enterPassWord = "Please enter a password";
-  static String enterValidConfirmPassword =
+  static String enterPassWordSpaceError = "Password can't contains a space";
+  static String enterValidLengthPassword =
       "Please enter a valid password (minimum 8 characters)";
   static String enterConfirmPassWord = "Please enter a confirm password";
   static String enterValidPhoneNumber = "Please enter a valid phone number";
-  static String passWordAndConfirmPasswordMisMatchError =
-      "Please check your Password & confirm password value";
+  static String passWordAndConfirmPasswordMisMatchError = "Please check your Password & confirm password value";
+  static String failedToLoginError = "Failed to login";
+  static String loginSuccessfully = "Login successfully";
+
+
+
+
 }

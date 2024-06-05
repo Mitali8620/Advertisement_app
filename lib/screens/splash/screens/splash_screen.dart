@@ -9,6 +9,7 @@ import '../../../utils/core/services/store_service.dart';
 import '../../auth/auth_controller/auth_controller.dart';
 import '../../auth/models/auth_model.dart';
 import '../widget/text_widget.dart';
+ValueNotifier<UserDetails?> userDetailsValue = ValueNotifier(null);
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -23,25 +24,21 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> checkUserData() async {
     String? authToken =
         locator<StoreService>().getAuthKey(authKey: StoreKeys.authToken);
-    LoginModel? storedLoginModel =
+    UserDetails? storedLoginModel =
         locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
 
     SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp],
     );
 
-    if ((authToken != "" && authToken != null) ||
-        (storedLoginModel?.result?.token != null &&
-            storedLoginModel?.result?.token != "")) {
-    } else {}
-
     Timer(const Duration(seconds: 5), () async {
       authController.redirectionCheckAfterLogin(
           authToken: authToken ?? "null",
-          userType: storedLoginModel?.result?.user?.type ?? "",
-          modelAuthToken: storedLoginModel?.result?.token ?? "",
+          modelAuthToken: storedLoginModel?.userData?.token ?? "",
           isFromVerification: false);
     });
+
+
   }
 
   @override

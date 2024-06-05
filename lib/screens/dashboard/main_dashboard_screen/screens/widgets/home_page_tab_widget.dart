@@ -86,7 +86,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                         borderRadius: BorderRadius.circular(10),
                         onTap: () {
                           widget.onTapTile(index);
-                          LoginModel? storedLoginModel = locator<StoreService>()
+                          UserDetails? storedLoginModel = locator<StoreService>()
                               .getLoginModel(key: StoreKeys.logInData);
 
                           GlobalInit.navKey.currentState?.pushNamed(

@@ -13,7 +13,7 @@ class LogInTabLetWebPage extends StatefulWidget {
 }
 
 class _LogInTabLetWebPageState extends State<LogInTabLetWebPage> {
-  AuthController authController = Get.put(AuthController());
+  AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,9 @@ class _LogInTabLetWebPageState extends State<LogInTabLetWebPage> {
                   elevation: 10,
                   margin: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width * 0.05),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                    child: LogInPageBody(),
+                  child:  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    child: logInPageBody(context: context,authController: authCubit),
                   ),
                 ),
               ),

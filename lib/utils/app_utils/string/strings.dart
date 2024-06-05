@@ -53,4 +53,7 @@ class Strings {
   static const String lblSearchHere = "Search here";
   static const String updateLocation = "Update location";
   static const String updateLocationDescription = "Search and find location";
+
+
+
 }

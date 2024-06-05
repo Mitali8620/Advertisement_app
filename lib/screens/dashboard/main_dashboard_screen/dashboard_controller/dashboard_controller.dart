@@ -14,9 +14,9 @@ class DashBoardController extends GetxController {
   int tabBarIndex = 0;
   TabController? tabController;
 
-  LoginModel? storedLoginModel;
+  UserDetails? storedLoginModel;
 
-  LoginModel? getLogInData() {
+  UserDetails? getLogInData() {
     storedLoginModel =
         locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
     return storedLoginModel;

@@ -29,14 +29,14 @@ class StoreService {
   }
 
   Future<void> saveLoginModel(
-      {required LoginModel loginModel, required String key}) async {
+      {required UserDetails loginModel, required String key}) async {
     await storage.write(key, loginModel.toJson());
   }
 
-  LoginModel? getLoginModel({required String key}) {
+  UserDetails? getLoginModel({required String key}) {
     final json = storage.read(key);
     return json != null
-        ? LoginModel.fromJson(Map<String, dynamic>.from(json))
+        ? UserDetails.fromJson(Map<String, dynamic>.from(json))
         : null;
   }
 
@@ -46,6 +46,15 @@ class StoreService {
 
   String? getAuthKey({required String authKey}) {
     String? data = storage.read(authKey);
+    return data;
+  }
+
+  setUserToken({required String tokenKey, required String data}) async {
+    await storage.write(tokenKey, data);
+  }
+
+  String? getUserToken({required String tokenKey}) {
+    String? data = storage.read(tokenKey);
     return data;
   }
 

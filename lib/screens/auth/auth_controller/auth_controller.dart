@@ -1,16 +1,19 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import '../../../config/routes/route_constants.dart';
+import '../../../network/api_urls.dart';
 import '../../../network/locations_Api.dart';
+import '../../../utils/app_utils/string/validation_string.dart';
 import '../../../utils/core/helpers/global_helper.dart';
 import '../../../utils/core/services/locator_service.dart';
 import '../../../utils/core/services/store_keys.dart';
 import '../../../utils/core/services/store_service.dart';
+import '../../splash/screens/splash_screen.dart';
 import '../models/auth_model.dart';
 import 'package:dio/dio.dart' as d;
 import 'package:dio/dio.dart';
@@ -146,33 +149,34 @@ class AuthController extends GetxController {
   redirectionCheckAfterLogin(
       {required bool isFromVerification,
       required String authToken,
-      required String userType,
       required String modelAuthToken}) async {
-    LoginModel? storedLoginModel =
+    UserDetails? storedLoginModel =
         locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
 
-    if (storedLoginModel?.result?.token != null &&
-        storedLoginModel?.result?.token != "") {
+    if (storedLoginModel?.userData?.token != null && storedLoginModel?.userData?.token != "") {
       GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
         AppRoutes.myHomeTabBarScreen,
         (Route<dynamic> route) => false,
       );
     } else {
-      GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
+    /*  GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
         AppRoutes.myHomeTabBarScreen,
         (Route<dynamic> route) => false,
-      ); /*  GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
-        AppRoutes.onBoardingLoginScreen,
-        (Route<dynamic> route) => false,
-      );*/
+      ); */
+
+
+      GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
+        AppRoutes.onBoardingMainScreen,
+            (Route<dynamic> route) => false,
+      );
+
     }
   }
 
   ///for login
   Future<void> userLogin(
       {required String email, required String password}) async {
-    // String apiUrl = '${APIUrls().baseUrl}${APIUrls().login}';
-    String apiUrl = '';
+     String apiUrl = '${APIUrls().baseUrl}${APIUrls().login}';
 
     try {
       errorMsg.value = "";
@@ -186,26 +190,51 @@ class AuthController extends GetxController {
       });
 
       if (response.statusCode == 200) {
+        print("------------- 1 ------------");
         var responseData = response.data;
-/*
         UserDetails userDetails = UserDetails.fromJson(responseData);
 
-        if (userDetails.data != null) {
+        if (userDetails.userData != null) {
+          print("------------- 2 ------------");
+
           userDetailsValue.value = userDetails;
-          successToast(AppString.successLogin);
-          StorageServices().setUserToken(userDetails.data!.apiToken);
-          Get.offAllNamed(Routes.dashboardScreen);
+
+          locator<StoreService>()
+              .saveLoginModel(key: StoreKeys.logInData, loginModel: userDetails);
+
+          EasyLoading.showSuccess(userDetails.message ?? "");
+          StoreService().setUserToken(tokenKey: StoreKeys.token,data:userDetails.userData?.token ?? "");
+
+          GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
+            AppRoutes.myHomeTabBarScreen,
+                (Route<dynamic> route) => false,
+          );
         } else {
+          print("------------- 3 ------------");
+
           loginErrorMsg.value = "Failed to login";
-        }*/
+          EasyLoading.showError(userDetails.message ??"");
+        }
       } else {
-        loginErrorMsg.value = "Failed to login";
+        print("------------- 4 ------------");
+
+        //    EasyLoading.showError(responseData.message);
       }
     } catch (e) {
-      loginErrorMsg.value = "Failed to login";
+      print("------------- 5 ------------");
+
+      EasyLoading.dismiss();
+      loginErrorMsg.value = "";
+
+      print("-------------e:: $e");
+      EasyLoading.showError(ValidationString.failedToLoginError);
     } finally {
       isLogInLoading.value = false;
       loginErrorMsg.value = "";
+      print("------------- 6 ------------");
+
+
+
     }
   }
 

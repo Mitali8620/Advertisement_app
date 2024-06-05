@@ -229,7 +229,7 @@ class _HomePageTabletWebTabWidgetState
                       child: InkWell(
                         borderRadius: BorderRadius.circular(10),
                         onTap: () {
-                          LoginModel? storedLoginModel = locator<StoreService>()
+                          UserDetails? storedLoginModel = locator<StoreService>()
                               .getLoginModel(key: StoreKeys.logInData);
 
                           GlobalInit.mainNavigation.currentState?.pushNamed(

@@ -17,7 +17,7 @@ class _LoginMobilePageState extends State<LoginMobilePage> {
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
       builder: (authCubit) {
-        return LogInPageBody();
+        return logInPageBody(context: context,authController: authCubit);
       },
     );
   }
