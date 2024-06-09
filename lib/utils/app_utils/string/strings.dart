@@ -19,6 +19,7 @@ class Strings {
   static const String continueButton = "Continue";
   static const String noInternetc = "";
   static const String emailHint = "jhon@gmail.com";
+  static const String nameHint = "jhon";
   static const String passwordHint = "Enter your password";
   static const String confirmPasswordHint = "Enter your confirm password";
   static const String onBoardingDes =
@@ -38,6 +39,7 @@ class Strings {
 
   /// error text
   static const String enterYourEmail = "Please enter your E-mail";
+  static const String enterYourName = "Please enter your name";
   static const String enterYourPassword = "Please enter your password";
   static const String enterYourConfirmPassword = "Please enter your password";
   static const String passWordAndConfirmPasswordNotMatch =
@@ -55,5 +57,21 @@ class Strings {
   static const String updateLocationDescription = "Search and find location";
 
 
+  ///category item
+
+  static const String allFyndEG = "All FyndEG";
+  static const String groceries = "Groceries";
+  static const String restaurants = "Restaurants";
+  static const String homeAndGarden = "Home & garden";
+  static const String pharmacy = "Pharmacy";
+  static const String generalMerchandise = "General-merchandise";
+  static const String electronics = "Electronics";
+  static const String babyAndKids = "Baby & kids";
+  static const String fashion = "Fashion";
+  static const String automotive = "Atomotive";
+  static const String sportingGoods = "Sporting-goods";
+  static const String pets = "Pets";
+  static const String office = "Office";
+  static const String specialty = "Specialty";
 
 }

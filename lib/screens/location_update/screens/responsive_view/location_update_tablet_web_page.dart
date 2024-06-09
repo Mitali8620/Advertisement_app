@@ -15,12 +15,10 @@ class LocationUpdateTabletWebPage extends StatefulWidget {
 
 class _LocationUpdateTabletWebPageState
     extends State<LocationUpdateTabletWebPage> {
-  AuthController authController = Get.put(AuthController());
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
-      builder: (authCubit) {
+      builder: (authController) {
         return Container(
           decoration: BoxDecoration(color: AppTheme.white),
           child: ResponsiveBuilder(builder: (context, sizingInformation) {
@@ -42,9 +40,11 @@ class _LocationUpdateTabletWebPageState
                   elevation: 10,
                   margin: EdgeInsets.symmetric(
                       horizontal: MediaQuery.of(context).size.width * 0.05),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                    child: LocationUpdateBody(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 20),
+                    child: locationUpdateBody(
+                        context: context, authController: authController),
                   ),
                 ),
               ),

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../../common_components/app_base_widget.dart';
+import '../../../../location_update/location_controller/location_controller.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
+import '../widgets/mobile_drawer_menu.dart';
 import 'view/main_home_screen_mobile_page.dart';
 import 'view/main_home_screen_tabbar_teblet_web_page.dart';
 
@@ -17,29 +19,36 @@ class MyHomeTabBarScreen extends StatefulWidget {
 class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
     with SingleTickerProviderStateMixin {
   DashBoardController dashBoardController = Get.put(DashBoardController());
+  LocationController locationController = Get.put(LocationController());
 
   void initState() {
     super.initState();
-    dashBoardController.tabController = TabController(length: 2, vsync: this);
+
+
+
+
+    dashBoardController.tabController = TabController(length: dashBoardController.homeTabsCategoryItem.length, vsync: this);
     dashBoardController.setInitialAllHomeDataValue();
     dashBoardController.scrollController.addListener(() {
       if (dashBoardController.scrollController.position.pixels ==
           dashBoardController.scrollController.position.maxScrollExtent) {
-        /*Future.delayed(Duration(milliseconds: 200)).then((value) {
+        Future.delayed(const Duration(milliseconds: 200)).then((value) {
           dashBoardController.getLoginUserAllRequestData(
             pageSize: dashBoardController.paginationDataPageSize,
             pageValue: dashBoardController.page,
             isFirstPage: false,
+            category: 0
           );
-        });*/
+        });
       }
     });
 
-    /*dashBoardController.getLoginUserAllRequestData(
+    dashBoardController.getLoginUserAllRequestData(
       pageSize: dashBoardController.paginationDataPageSize,
       pageValue: dashBoardController.page,
       isFirstPage: true,
-    );*/
+      category: 0
+    );
   }
 
   @override

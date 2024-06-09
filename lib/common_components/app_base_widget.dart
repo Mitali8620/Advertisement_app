@@ -45,27 +45,15 @@ class AppBaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, sizingInformation) {
-      return Obx(() {
-        /*     if (state is NetworkConnectivityInitial) {
-            EasyLoading.dismiss();
-            cubitData.isNetWorkOn = false;
-            cubitData.netWorkInitialize();
-          } else if (state is NetworkConnectivityChanged) {
-            if (state.status == NetworkConnectivityStatus.connected) {
-              cubitData.isNetWorkOn = true;
-            } else if (state.status == NetworkConnectivityStatus.disconnected) {
-              cubitData.isNetWorkOn = false;
-            }
-          }
-        */
 
+      return Obx(() {
         return
 
             /// don't remove this, print("IsNetworkConnected:: ${cubitData.isNetWorkOn}");
             Scaffold(
           backgroundColor: Theme.of(context).colorScheme.onSecondary,
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-          drawer: Drawer(),
+          drawer: (drawerWidget != null) ? drawerWidget! : SizedBox(),
           appBar: appbar != null
               ? PreferredSize(
                   preferredSize: Size(
@@ -75,7 +63,7 @@ class AppBaseScaffold extends StatelessWidget {
                               sizingInformation.deviceScreenType ==
                                   DeviceScreenType.tablet)
                           ? 120
-                          : MediaQuery.of(context).size.height *0.13),
+                          : MediaQuery.of(context).size.height * 0.13),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: 10),

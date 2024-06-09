@@ -1,6 +1,7 @@
 class ValidationString {
 
   static String enterEmailAddress = "Please enter an email address";
+  static String enterName = "Please enter name";
   static String enterValidEmailAddress = "Please enter a valid email address";
   static String enterValidPassword =
       "Please enter a valid password (minimum 8 characters)";
@@ -13,7 +14,9 @@ class ValidationString {
   static String enterValidPhoneNumber = "Please enter a valid phone number";
   static String passWordAndConfirmPasswordMisMatchError = "Please check your Password & confirm password value";
   static String failedToLoginError = "Failed to login";
+  static String failedToSignUpError = "Failed to signup";
   static String loginSuccessfully = "Login successfully";
+  static String enterLocation = "Please search and choose your location";
 
 
 

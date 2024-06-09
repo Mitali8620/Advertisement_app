@@ -21,47 +21,49 @@ class SideMenu extends StatelessWidget {
       backgroundColor: Colors.deepPurple,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return Obx(() => Container(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.06),
-                height: Get.height,
-                padding: const EdgeInsets.only(
-                    left: AppConstant.defaultPadding,
-                    right: AppConstant.defaultPadding),
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: IntrinsicHeight(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox( height: AppConstant.defaultPadding * 2,),
+          return Container(
+            color: Theme.of(context).colorScheme.primary.withOpacity(0.06),
+            height: Get.height,
+            padding: const EdgeInsets.only(
+                left: AppConstant.defaultPadding,
+                right: AppConstant.defaultPadding),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: ConstrainedBox(
+                constraints:
+                BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox( height: AppConstant.defaultPadding * 2,),
 
-                          ///side menu top image
-                          Lottie.asset(Assets.locationJson, height: 50),
+                      ///side menu top image
+                      Lottie.asset(Assets.locationJson, height: 50),
 
-                          SizedBox(height: 8,),
-
-
-
-                          ///dotted box with container
+                      const SizedBox(height: 8,),
 
 
-                          DottedBorder(
-                            color: Colors.black,
-                            strokeWidth: 1,
-                            child: const Center(
-                              child: Text("-----------------"),
-                            ),
-                          ),
+
+                      ///dotted box with container
 
 
-                          const SizedBox(
-                            height: AppConstant.defaultPadding * 3,
-                          ),
+                      DottedBorder(
+                        color: Colors.black,
+                        strokeWidth: 1,
+                        child:
+                        Center(
+                          child: Text(drawerController2.currentLocation ?? ""),
+                        ),
+                      ),
+
+
+                      const SizedBox(
+                        height: AppConstant.defaultPadding * 3,
+                      ),
+/*
                           Container(
                             decoration: BoxDecoration(
                                 color: drawerController2
@@ -79,6 +81,7 @@ class SideMenu extends StatelessWidget {
                               },
                             ),
                           ),
+
                           Container(
                             decoration: BoxDecoration(
                                 color: drawerController2
@@ -181,28 +184,75 @@ class SideMenu extends StatelessWidget {
                               },
                             ),
                           ),
-                          const Spacer(),
-                          const Divider(
-                              color: AppTheme.dividerColor,
-                              indent: AppConstant.defaultPadding,
-                              endIndent: AppConstant.defaultPadding),
-                          const SizedBox(
-                            height: AppConstant.defaultPadding * 1.3,
-                          ),
-                          PersonalInfo(
-                              email: 'abc@gmail.com',
-                              onTapLogout: () {
-                                // drawerController2.logoutOnTap();
-                              }),
-                          const SizedBox(
-                            height: AppConstant.defaultPadding * 2,
-                          ),
-                        ],
+                          */
+
+                      Container(
+                        height: Get.height *0.9,
+                        width: Get.width *0.3,
+                        color: Colors.yellow,
+                        child: ListView.builder(
+                          itemCount: Get.find<DashBoardController>().homeTabsCategoryItem.length ?? 0,
+                          shrinkWrap: true,
+
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return  Container(
+                              decoration: BoxDecoration(
+                                  color: drawerController2
+                                      .currentDrawerIndex.value ==
+                                      0
+                                      ? AppTheme.tabSelectedColor(context: context)
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: DrawerListTile(
+                                title: Get.find<DashBoardController>()
+                                    .homeTabsCategoryItem[index],
+                                icon: Icon(Icons.supervisor_account,
+                                    color: AppTheme.white),
+                                press: () {
+
+                                  drawerController2. currentDrawerIndex.value = index;
+
+                                  drawerController2.firstMenuOnTap();
+                                },
+                              ),
+                            );
+                          },),
                       ),
-                    ),
+
+
+
+
+
+
+
+
+
+
+
+
+                      const Spacer(),
+                      const Divider(
+                          color: AppTheme.dividerColor,
+                          indent: AppConstant.defaultPadding,
+                          endIndent: AppConstant.defaultPadding),
+                      const SizedBox(
+                        height: AppConstant.defaultPadding * 1.3,
+                      ),
+                      PersonalInfo(
+                          email: 'abc@gmail.com',
+                          onTapLogout: () {
+                            // drawerController2.logoutOnTap();
+                          }),
+                      const SizedBox(
+                        height: AppConstant.defaultPadding * 2,
+                      ),
+                    ],
                   ),
                 ),
-              ));
+              ),
+            ),
+          );
         },
       ),
     );

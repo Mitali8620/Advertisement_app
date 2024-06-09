@@ -181,8 +181,7 @@ class ClientImpl {
 
         if (authToken != null && authToken != "") {
           locator<StoreService>().storage.remove(StoreKeys.logInData);
-          locator<StoreService>()
-              .setAuthKey(authKey: StoreKeys.authToken, data: newAccessToken);
+          locator<StoreService>() .setAuthKey(authKey: StoreKeys.authToken, data: newAccessToken);
         }
 
         //   dio.options.headers.remove("Content-Type");

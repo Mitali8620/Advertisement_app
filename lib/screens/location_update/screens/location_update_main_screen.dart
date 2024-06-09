@@ -2,7 +2,6 @@ import 'package:advertisement_app/common_components/app_base_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
 import '../../../constants/auth_header.dart';
 import '../../../utils/core/helpers/global_helper.dart';
 import '../../auth/auth_controller/auth_controller.dart';
@@ -28,7 +27,8 @@ class _LocationUpdateMainScreenState extends State<LocationUpdateMainScreen> {
           child: AppBaseScaffold(appbar: AuthHeader(arrowOnTap: () async {
             print("------------------- back from profile ------------------- **");
             GlobalInit.navKey.currentState?.pop();
-          }), child: ResponsiveBuilder(builder: (context, sizingInformation) {
+          }),
+              child: ResponsiveBuilder(builder: (context, sizingInformation) {
             if (sizingInformation.deviceScreenType ==
                 DeviceScreenType.desktop) {
               return const LocationUpdateTabletWebPage();
@@ -39,7 +39,7 @@ class _LocationUpdateMainScreenState extends State<LocationUpdateMainScreen> {
             }
 
             if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
-              return LocationUpdateMobilePage();
+              return const LocationUpdateMobilePage();
             }
             return const SizedBox.shrink();
           })),

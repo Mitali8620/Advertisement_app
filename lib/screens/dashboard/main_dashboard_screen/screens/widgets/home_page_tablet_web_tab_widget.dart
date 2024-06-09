@@ -232,11 +232,11 @@ class _HomePageTabletWebTabWidgetState
                           UserDetails? storedLoginModel = locator<StoreService>()
                               .getLoginModel(key: StoreKeys.logInData);
 
-                          GlobalInit.mainNavigation.currentState?.pushNamed(
+                         /* GlobalInit.mainNavigation.currentState?.pushNamed(
                             AppRoutes.imagePreviewMainScreen,
                             arguments: ImagePreviewScreenArgs(
                                 imagesList: requestListDataAssign.images ?? []),
-                          );
+                          );*/
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -245,19 +245,29 @@ class _HomePageTabletWebTabWidgetState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: PageView.builder(
+                                child: /*requestListDataAssign
+                                            .image.runtimeType ==
+                                        String
+                                    ? cachedNetworkImageWidget(
+                                        netWorkImageUrl:
+                                            requestListDataAssign.image??[],
+                                        width: itemWidth - 2,
+                                      )
+                                    :
+*/
+                                PageView.builder(
                                   itemCount:
-                                      requestListDataAssign.images?.length ?? 0,
+                                      requestListDataAssign.image?.length ?? 0,
                                   itemBuilder: (context, imageIndex) {
                                     return Stack(
                                       children: [
                                         cachedNetworkImageWidget(
                                           netWorkImageUrl: requestListDataAssign
-                                              .images![imageIndex],
+                                              .image![imageIndex],
                                           width: itemWidth - 2,
                                         ),
                                         ((requestListDataAssign
-                                                        .images?.length ??
+                                                        .image?.length ??
                                                     0) >
                                                 1)
                                             ? Row(

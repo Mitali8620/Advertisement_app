@@ -10,6 +10,11 @@ class StoreKeys {
   static const language = 'language';
   static const logInData = 'logInData';
   static const authToken = 'authToken';
+  static const latitude = 'latitude';
+  static const longitude = 'longitude';
+  static const currentLocation = 'current_location';
   static const categoryListItems = 'categoryListItems';
   static const categoryApiListItems = 'categoryAPiListItems';
+  static const permissionStatus = 'permissionStatus';
+
 }

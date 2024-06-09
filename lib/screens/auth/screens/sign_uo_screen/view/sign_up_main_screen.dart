@@ -17,19 +17,29 @@ class SignUpMainScreen extends StatefulWidget {
 }
 
 class _SignUpMainScreenState extends State<SignUpMainScreen> {
+
+
+  @override
+  void initState() {
+    Future.delayed(
+      const Duration(milliseconds: 300),
+      () {
+        Get.find<AuthController>().clearSignUpDate();
+      },
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
       builder: (authCubit) {
         return PopScope(
           canPop: true,
-          onPopInvoked: (didPop) async {
-
-          },
+          onPopInvoked: (didPop) async {},
           child: AppBaseScaffold(
             appbar: AuthHeader(arrowOnTap: () async {
-              print(
-                  "------------------- back from login ------------------- **");
+              print("------------------- back from login ------------------- **");
               await GlobalInit.navKey.currentState?.pushReplacementNamed(
                 AppRoutes.onBoardingMainScreen,
               );
@@ -37,17 +47,17 @@ class _SignUpMainScreenState extends State<SignUpMainScreen> {
             child: ResponsiveBuilder(builder: (context, sizingInformation) {
               if (sizingInformation.deviceScreenType ==
                   DeviceScreenType.desktop) {
-                return const SignUpTabletWebPage();
+                return signUpTabletWebPage();
               }
 
               if (sizingInformation.deviceScreenType ==
                   DeviceScreenType.tablet) {
-                return const SignUpTabletWebPage();
+                return signUpTabletWebPage();
               }
 
               if (sizingInformation.deviceScreenType ==
                   DeviceScreenType.mobile) {
-                return const SignUpMobilePage();
+                return signUpMobilePage(context: context);
               }
               return const SizedBox.shrink();
             }),

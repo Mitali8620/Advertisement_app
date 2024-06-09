@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:advertisement_app/screens/auth/models/user_error_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
@@ -6,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import '../../../config/routes/route_constants.dart';
+import '../../../network/api_const_string.dart';
 import '../../../network/api_urls.dart';
 import '../../../network/locations_Api.dart';
 import '../../../utils/app_utils/string/validation_string.dart';
@@ -21,6 +23,14 @@ import 'package:dio/dio.dart';
 class AuthController extends GetxController {
   final Dio _dio = Dio();
 
+  @override
+  void onInit() {
+///clear initial data;
+    clearInitialData();
+    super.onInit();
+  }
+
+
   ///for log_In
   TextEditingController logInEmailCtr = TextEditingController();
   TextEditingController logInPassWordCtr = TextEditingController();
@@ -31,6 +41,7 @@ class AuthController extends GetxController {
   ///for sign_Up
   TextEditingController signUpEmailCtr = TextEditingController();
   TextEditingController signUpPassWordCtr = TextEditingController();
+  TextEditingController nameCtr = TextEditingController();
   TextEditingController confirmSignUpPassWordCtr = TextEditingController();
   RxString password = "".obs;
   RxString confirmPassword = "".obs;
@@ -73,13 +84,13 @@ class AuthController extends GetxController {
     }
   }
 
-  chooseSearchableLocation({required String text}) {
+  chooseSearchableLocation({required String text, required bool isSaveLatLng}) {
     locationSearchCtr.text = text;
-    getLocationFromAddress(searchingAddress: text);
+    getLocationFromAddress(searchingAddress: text, isSaveLatLng: isSaveLatLng);
   }
 
   Future<void> getLocationFromAddress(
-      {required String searchingAddress}) async {
+      {required String searchingAddress, required bool isSaveLatLng}) async {
     try {
       List<Location> locations = await locationFromAddress(searchingAddress);
 
@@ -91,9 +102,15 @@ class AuthController extends GetxController {
         print('Latitude: $latitude, Longitude: $longitude');
         update();
         if (location.latitude != 0 && location.longitude != 0) {
+
+          if(isSaveLatLng == true){
+            StoreService().setLatitude(latitudeKey: StoreKeys.latitude, data: location.latitude ?? 0);
+            StoreService().setLongitude(longitude: StoreKeys.longitude, data: location.longitude ?? 0);
+          }
+
           update();
         } else {
-          Future.delayed(Duration(seconds: 2), () {
+          Future.delayed(const Duration(seconds: 2), () {
             Get.back();
           });
         }
@@ -124,10 +141,34 @@ class AuthController extends GetxController {
     isConfirmPasswordVisible.value = !isConfirmPasswordVisible.value;
   }
 
-  clearInitialDAta() {
+
+  clearSignUpDate(){
+    signUpEmailCtr.clear();
+    signUpPassWordCtr.clear();
+    confirmSignUpPassWordCtr.clear();
+    nameCtr.clear();
+    email = "";
+    password.value = "";
+    confirmPassword.value = "";
+    isPasswordVisible.value = true;
+    isConfirmPasswordVisible.value = true;
+    isSignUpLoading.value = false;
+  }
+
+  clearLogInData(){
     logInEmailCtr.clear();
     logInPassWordCtr.clear();
-    signUpEmailCtr.clear();
+    email = "";
+    password.value = "";
+    isLogInLoading.value = false;
+    isPasswordVisible.value = true;
+  }
+
+
+  clearInitialData() {
+    logInEmailCtr.clear();
+    logInPassWordCtr.clear();
+    nameCtr.clear();
     signUpPassWordCtr.clear();
     confirmSignUpPassWordCtr.clear();
     email = "";
@@ -176,7 +217,7 @@ class AuthController extends GetxController {
   ///for login
   Future<void> userLogin(
       {required String email, required String password}) async {
-     String apiUrl = '${APIUrls().baseUrl}${APIUrls().login}';
+    String apiUrl = '${APIUrls().baseUrl}${APIUrls().login}';
 
     try {
       errorMsg.value = "";
@@ -199,21 +240,25 @@ class AuthController extends GetxController {
 
           userDetailsValue.value = userDetails;
 
-          locator<StoreService>()
-              .saveLoginModel(key: StoreKeys.logInData, loginModel: userDetails);
+          locator<StoreService>().saveLoginModel(
+              key: StoreKeys.logInData, loginModel: userDetails);
+          locator<StoreService>() .setAuthKey(authKey: StoreKeys.authToken, data: userDetails.userData?.token ?? "");
 
           EasyLoading.showSuccess(userDetails.message ?? "");
-          StoreService().setUserToken(tokenKey: StoreKeys.token,data:userDetails.userData?.token ?? "");
+          StoreService().setUserToken(
+              tokenKey: StoreKeys.token,
+              data: userDetails.userData?.token ?? "");
 
           GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
             AppRoutes.myHomeTabBarScreen,
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         } else {
           print("------------- 3 ------------");
+          print("------------- 3 ------------ :: ${userDetails.message}");
 
           loginErrorMsg.value = "Failed to login";
-          EasyLoading.showError(userDetails.message ??"");
+          EasyLoading.showError(userDetails.message ?? "");
         }
       } else {
         print("------------- 4 ------------");
@@ -232,17 +277,17 @@ class AuthController extends GetxController {
       isLogInLoading.value = false;
       loginErrorMsg.value = "";
       print("------------- 6 ------------");
-
-
-
     }
   }
 
   ///for signUp
-  Future<void> userSignUp(
-      {required String signUpEmail, required String signUpPassword}) async {
-    // String apiUrl = '${APIUrls().baseUrl}${APIUrls().login}';
-    String apiUrl = '';
+  Future<void> userSignUp({
+    required String signUpEmail,
+    required String signUpPassword,
+    required String name,
+  }) async {
+    String apiUrl = '${APIUrls().baseUrl}${APIUrls().signup}';
+    EasyLoading.show();
 
     try {
       errorMsg.value = "";
@@ -250,31 +295,52 @@ class AuthController extends GetxController {
       isSignUpLoading.value = true;
       password.value = "";
       confirmPassword.value = "";
+
       d.Response response = await _dio.post(apiUrl, data: {
-        'email': signUpEmail,
-        'password': signUpPassword,
+        ApiConstString.name: name,
+        ApiConstString.email: signUpEmail,
+        ApiConstString.password: signUpPassword,
       });
 
       if (response.statusCode == 200) {
         var responseData = response.data;
-/*
-        UserDetails userDetails = UserDetails.fromJson(responseData);
 
-        if (userDetails.data != null) {
-          userDetailsValue.value = userDetails;
-          successToast(AppString.successLogin);
-          StorageServices().setUserToken(userDetails.data!.apiToken);
-          Get.offAllNamed(Routes.dashboardScreen);
+        print("responseData -------- :: $responseData");
+        if (response.data['status'] != false) {
+          UserDetails userDetails = UserDetails.fromJson(responseData);
+
+          if (userDetails.userData != null) {
+            userDetailsValue.value = userDetails;
+            EasyLoading.showSuccess(userDetails.message ?? "");
+
+          Future.delayed(Duration(milliseconds: 300)).then((value) {
+            GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
+              AppRoutes.logInMainScreen,
+                  (Route<dynamic> route) => false,
+            );
+          });
+
+          } else {
+            EasyLoading.showError(userDetails.message ?? "");
+          }
         } else {
-          loginErrorMsg.value = "Failed to login";
-        }*/
+          UserErrorModel userErrorModel = UserErrorModel.fromJson(responseData);
+          EasyLoading.showError(userErrorModel.message?.email?.first ?? "");
+        }
+        EasyLoading.dismiss();
       } else {
         loginErrorMsg.value = "Failed to login";
+        EasyLoading.showError(ValidationString.failedToSignUpError);
+        EasyLoading.dismiss();
       }
     } catch (e) {
       loginErrorMsg.value = "Failed to login";
+      EasyLoading.showError(e.toString());
+      EasyLoading.dismiss();
     } finally {
+      EasyLoading.dismiss();
       isLogInLoading.value = false;
+      isSignUpLoading.value = false;
       loginErrorMsg.value = "";
     }
   }

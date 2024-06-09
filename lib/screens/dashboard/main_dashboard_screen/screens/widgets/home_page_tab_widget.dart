@@ -34,8 +34,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
 
   @override
   void initState() {
-    print(
-        "requestCubit.requestItemsList :: ${requestCubit.requestItemsList.length}");
+    print("requestCubit.requestItemsList :: ${requestCubit.requestItemsList.length}");
     super.initState();
   }
 
@@ -59,7 +58,8 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                 child: AppElevatedButton(
                   title: "S.of(context).createNewOrder",
                   onPressed: () {
-                    ///call create request page
+                    requestCubit.changeTabBarIndex(requestCubit.currentTabIndex);
+                    requestCubit.setInitialAllHomeDataValue();
                   },
                 ),
               ),
@@ -89,11 +89,11 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                           UserDetails? storedLoginModel = locator<StoreService>()
                               .getLoginModel(key: StoreKeys.logInData);
 
-                          GlobalInit.navKey.currentState?.pushNamed(
+                        /*  GlobalInit.navKey.currentState?.pushNamed(
                             AppRoutes.imagePreviewMainScreen,
                             arguments: ImagePreviewScreenArgs(
                                 imagesList: requestListDataAssign.images ?? []),
-                          );
+                          );*/
 
                           ///for this when call tile to request details pass just uncomment and pass requestId here
                         },
@@ -111,18 +111,24 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                               ),*/
 
                               Expanded(
-                                child: PageView.builder(
-                                  itemCount:
-                                      requestListDataAssign.images?.length ?? 0,
+                                child:requestListDataAssign
+                                    .image.runtimeType ==
+                                    String
+                                    ? cachedNetworkImageWidget(
+                                  netWorkImageUrl: requestListDataAssign
+                                      .imagePath!,
+                                )
+                                    : PageView.builder(
+                                  itemCount:  requestListDataAssign.image?.length ?? 0,
                                   itemBuilder: (context, imageIndex) {
                                     return Stack(
                                       children: [
                                         cachedNetworkImageWidget(
                                           netWorkImageUrl: requestListDataAssign
-                                              .images![imageIndex],
+                                              .image![imageIndex],
                                         ),
                                         ((requestListDataAssign
-                                                        .images?.length ??
+                                                        .image?.length ??
                                                     0) >
                                                 1)
                                             ? Row(
@@ -151,7 +157,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                                                       )),
                                                 ],
                                               )
-                                            : SizedBox(),
+                                            : const SizedBox(),
                                       ],
                                     );
                                   },
@@ -166,7 +172,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                                   fontSize: 12,
                                   maxLines: 2,
                                   fontWeight: FontWeight.w500,
-                                  text: "Number of item"),
+                                  text: requestListDataAssign.title ?? ""),
                             ],
                           ),
                         ),

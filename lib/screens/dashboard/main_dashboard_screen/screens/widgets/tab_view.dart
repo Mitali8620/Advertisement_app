@@ -14,6 +14,7 @@ class TabView extends StatelessWidget {
       iconMargin: EdgeInsets.zero,
       child: Center(
         child: Text(
+         // isView ? "" : text.toString(),
           isView ? "" : text.toString(),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

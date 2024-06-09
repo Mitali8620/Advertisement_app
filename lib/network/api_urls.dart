@@ -8,7 +8,7 @@ class APIUrls{
 
 
    ///post
-    String getPosts ="usergetposts"; ///?page=1
+    String getPosts ="getposts"; ///?page=1
 ///post filtering
 ////getposts?page=1&category=Technology
     String getPostsWithCategory ="usergetposts"; ///?page=1

@@ -1,5 +1,7 @@
 import 'package:advertisement_app/screens/auth/auth_controller/auth_controller.dart';
+import 'package:advertisement_app/utils/app_utils/string/validation_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import '../../../../common_components/app_elevated_button.dart';
@@ -90,7 +92,8 @@ Widget typeAheadLocationSearchField(
           ));
     },
     onSuggestionSelected: (suggestion) {
-      authController.chooseSearchableLocation(text: suggestion.toString());
+      authController.chooseSearchableLocation(
+          text: suggestion.toString(), isSaveLatLng: false);
     },
     suggestionsBoxDecoration: SuggestionsBoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
@@ -104,12 +107,14 @@ Widget buildSaveLocationButton({required AuthController authController}) {
     title: Strings.save,
     isLoading: authController.isProfileUpdateLoading.value,
     onPressed: () async {
-      /// step 1 add mobile number
       ///location_update image update
       ///location_update location
       if (authController.locationSearchCtr.text.isNotEmpty) {
-        GlobalInit.navKey.currentState?.pop();
-      } else {}
+        authController.chooseSearchableLocation(
+            text: authController.locationSearchCtr.text, isSaveLatLng: false);
+      } else {
+        EasyLoading.showError(ValidationString.enterLocation);
+      }
     },
   );
 }

@@ -5,43 +5,32 @@ import '../../auth_controller/auth_controller.dart';
 import '../component/sign_up_fields.dart';
 import '../component/sign_up_widget_top_text.dart';
 
-class SignUpBody extends StatefulWidget {
-  const SignUpBody({super.key});
+Widget signUpBody({required BuildContext context}) {
+  return GetBuilder<AuthController>(builder: (authController) {
+    authController. isSignUpLoading.value = false;
 
-  @override
-  State<SignUpBody> createState() => _SignUpBodyState();
-}
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ///top text
+        signUpWidgetTopText(context: context),
 
-class _SignUpBodyState extends State<SignUpBody> {
+        ///center_field_widget
 
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<AuthController>(
-      builder: (authController) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ///top text
-            signUpWidgetTopText(context: context),
+        Expanded(
+            child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [signUpFields(authController: authController)],
+          ),
+        )),
 
-            ///center_field_widget
-
-            const Expanded(
-                child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [SignUpFields()],
-              ),
-            )),
-
-            ///continue_login_Button
-            buildSignUpButton(authController: authController),
-            AppSpacer.p12(),
-          ],
-        );
-      }
+        ///continue_login_Button
+        buildSignUpButton(authController: authController),
+        AppSpacer.p12(),
+      ],
     );
-  }
+  });
 }

@@ -157,7 +157,7 @@ class _KCommonTextFieldState extends State<KCommonTextField> {
               ),
             ),
             Visibility(
-                visible: widget.errorMsg != "",
+                visible: (widget.controller.text == "")?false: widget.errorMsg != "",
                 child: Container(
                     padding: const EdgeInsets.only(left: 15.0, top: 2.0),
                     child: Text(

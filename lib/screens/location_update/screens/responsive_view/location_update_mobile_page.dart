@@ -4,15 +4,14 @@ import '../../../auth/auth_controller/auth_controller.dart';
 import 'location_update_body.dart';
 
 class LocationUpdateMobilePage extends StatelessWidget {
-  LocationUpdateMobilePage({super.key});
-
-  AuthController authController = Get.put(AuthController());
+  const LocationUpdateMobilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
-      builder: (authCubit) {
-        return const LocationUpdateBody();
+      builder: (authController) {
+        return locationUpdateBody(
+            context: context, authController: authController);
       },
     );
   }
