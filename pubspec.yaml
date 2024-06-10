@@ -98,6 +98,7 @@ dependencies:
   uuid: ^4.3.3
 
   dotted_border: ^2.1.0
+  js: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -129,6 +130,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/lottie_animation/
+    - assets/category_icon/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -1,6 +1,7 @@
 import 'package:advertisement_app/common_components/cached_network_image_widget.dart';
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
 import 'package:advertisement_app/constants/app_constants.dart';
+import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screens/widgets/category_data_not_found_Widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -41,30 +42,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
   @override
   Widget build(BuildContext context) {
     return ((requestCubit.isNoData))
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(Assets.imagesNoActivityFoundIcon,
-                  height: MediaQuery.of(context).size.height * 0.3),
-              AppSpacer.p24(),
-              TabViewTextWidget(
-                  color: Theme.of(context).colorScheme.shadow,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  text: "S.of(context).noActiveOrder"),
-              AppSpacer.p18(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: AppElevatedButton(
-                  title: "S.of(context).createNewOrder",
-                  onPressed: () {
-                    requestCubit.changeTabBarIndex(requestCubit.currentTabIndex);
-                    requestCubit.setInitialAllHomeDataValue();
-                  },
-                ),
-              ),
-            ],
-          )
+        ? categoryDataNotFound(context: context)
         : GridView.builder(
             gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             shrinkWrap: true,
@@ -111,13 +89,13 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                               ),*/
 
                               Expanded(
-                                child:requestListDataAssign
-                                    .image.runtimeType ==
-                                    String
+                                child: requestListDataAssign
+                                            .image.runtimeType ==
+                                        String
                                     ? cachedNetworkImageWidget(
-                                  netWorkImageUrl: requestListDataAssign
-                                      .imagePath!,
-                                )
+                                        netWorkImageUrl:
+                                            requestListDataAssign.imagePath!,
+                                      )
                                     : PageView.builder(
                                   itemCount:  requestListDataAssign.image?.length ?? 0,
                                   itemBuilder: (context, imageIndex) {

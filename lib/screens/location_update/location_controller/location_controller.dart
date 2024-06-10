@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
@@ -15,6 +16,8 @@ class LocationController extends GetxController {
                 locationAddressKey: StoreKeys.currentLocation) ??
         "";
     EasyLoading.show();
+    print("isUserSavedLocation :: $isUserSavedLocation");
+
     if (isUserSavedLocation == "") {
       handleLocationPermission().then((value) async {
         print("value :: $value");
@@ -67,8 +70,9 @@ class LocationController extends GetxController {
   Future<String> storeLocation() async {
   //  try {
       Position position = await Geolocator.getCurrentPosition();
-      print("From current latitude :: ${position.latitude}");
-      print("From current longitude :: ${position.longitude}");
+
+      print("position.latitude :: ${position.longitude}");
+
       return await buildFullAddressFromLatLong(
           latitude: position.latitude, longitude: position.longitude);
 /*    } catch (e) {
@@ -79,13 +83,11 @@ class LocationController extends GetxController {
 
   Future<String> buildFullAddressFromLatLong(
       {required double latitude, required double longitude}) async {
-    List<Placemark> placeMark =
-        await placemarkFromCoordinates(latitude, longitude)
-            .catchError((e) async {
-      log("-------------------------------  ::::: $e");
-      throw "Something went wrong";
-    });
 
+
+    List<Placemark> placeMark =
+        await placemarkFromCoordinates(latitude, longitude);
+    print("placeMark :: $placeMark");
     await locator<StoreService>()
         .setLatitude(latitudeKey: StoreKeys.latitude, data: latitude);
     await locator<StoreService>()
@@ -93,6 +95,7 @@ class LocationController extends GetxController {
 
     Placemark place = placeMark[0];
     print("place :: $place");
+
 
     String address = '';
 

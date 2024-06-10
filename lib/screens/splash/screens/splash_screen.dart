@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
+      /*  decoration: BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
             AppTheme.purple.withOpacity(0.9),
             Theme.of(context).colorScheme.primary
           ],
-        )),
+        )),*/
         child: Center(
           child: SizedBox(
             height: MediaQuery.of(context).size.height * 0.08,

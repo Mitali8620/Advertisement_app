@@ -16,8 +16,13 @@ Widget cachedNetworkImageWidget({
         width: width ?? 150,
         imageUrl: netWorkImageUrl,
         fit: BoxFit.cover,
+        httpHeaders:  {
+      'Access-Control-Allow-Origin': '*',
+      },
         errorWidget: (context, url, error) {
-          return Icon(Icons.image_not_supported_outlined);
+
+          print("url :: $url");
+          return const Icon(Icons.image_not_supported_outlined);
         },
         /* placeholder: (context, url) {
           return Icon(Icons.image_not_supported_outlined);

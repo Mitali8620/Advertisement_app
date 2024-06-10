@@ -73,4 +73,8 @@ class Assets {
   static const String placeholderImage = 'assets/images/img_trofy.png';
 
 
+  ///category_icon
+  static const String allFynderg = 'assets/category_icon/img_all_fynderg.png';
+
+
 }

@@ -1,3 +1,4 @@
+import 'package:advertisement_app/utils/app_utils/assets/assets_data.dart';
 import 'package:advertisement_app/utils/app_utils/colors/app_colors.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,12 @@ Widget clientHeader({String? title, required String? subTitle}) {
               maxFontSize: 20,
               minFontSize: 10,
               style: const TextStyle(fontSize: 20, color: AppTheme.dividerColor))),
+      Container(
+        decoration: BoxDecoration(shape: BoxShape.circle,color: AppTheme.primaryColor),
+        height: 50,
+        width: 50,
+        child: Image.asset(Assets.imagesBuyerTabImage),
+      ),
     ],
   );
 }

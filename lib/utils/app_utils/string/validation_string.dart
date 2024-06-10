@@ -19,6 +19,10 @@ class ValidationString {
   static String enterLocation = "Please search and choose your location";
 
 
+  static String dataNotFoundInCategory = "No data found in this category";
+  static String reload = "Reload";
+
+
 
 
 }

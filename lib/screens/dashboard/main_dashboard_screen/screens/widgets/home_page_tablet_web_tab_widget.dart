@@ -1,10 +1,14 @@
+import 'package:advertisement_app/common_components/app_base_widget.dart';
 import 'package:advertisement_app/common_components/cached_network_image_widget.dart';
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
 import 'package:advertisement_app/constants/app_constants.dart';
+import 'package:advertisement_app/utils/app_utils/string/strings.dart';
+import 'package:advertisement_app/utils/app_utils/string/validation_string.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../../../../../common/tabView_text_widget.dart';
 import '../../../../../common_components/app_elevated_button.dart';
 import '../../../../../config/routes/route_constants.dart';
@@ -17,6 +21,7 @@ import '../../../../../utils/core/services/store_keys.dart';
 import '../../../../../utils/core/services/store_service.dart';
 import '../../../../auth/models/auth_model.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
+import 'category_data_not_found_Widget.dart';
 import 'web_data_header.dart';
 
 class HomePageTabletWebTabWidget extends StatefulWidget {
@@ -29,11 +34,11 @@ class HomePageTabletWebTabWidget extends StatefulWidget {
 
 class _HomePageTabletWebTabWidgetState
     extends State<HomePageTabletWebTabWidget> {
-  DashBoardController requestCubit = Get.put(DashBoardController());
+ // DashBoardController requestCubit = Get.put(DashBoardController());
 
   @override
   void initState() {
-    print("requestCubit.requestItemsList :: ${requestCubit.requestItemsList.length}");
+    print("requestCubit.requestItemsList :: ${Get.find<DashBoardController>().requestItemsList.length}");
     super.initState();
   }
 
@@ -43,152 +48,26 @@ class _HomePageTabletWebTabWidgetState
   }
 
   Widget buildBody() {
-    return ((requestCubit.isNoData))
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return GetBuilder<DashBoardController>(builder: (requestCubit) {
+      return ((requestCubit.isNoData))
+          ? Column(
             children: [
-              Image.asset(Assets.imagesNoActivityFoundIcon,
-                  height: MediaQuery.of(context).size.height * 0.3),
-              AppSpacer.p24(),
-              TabViewTextWidget(
-                  color: Theme.of(context).colorScheme.shadow,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  text: "S.of(context).noActiveOrder"),
-              AppSpacer.p18(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: AppElevatedButton(
-                  title: "S.of(context).createNewOrder",
-                  onPressed: () {
-                    ///call create request page
-                  },
-                ),
-              ),
+              clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value)),
+              AppSpacer.p10(),
+              categoryDataNotFoundWeb(context: context),
             ],
           )
-        : /*GridView.builder(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            shrinkWrap: true,
-            itemCount: requestCubit.requestItemsList.length,
-            controller: requestCubit.scrollController,
-            itemBuilder: (context, index) {
-              var requestListDataAssign = requestCubit.requestItemsList[index];
-
-              return ((requestCubit.requestItemsList.isNotEmpty))
-                  ? Card(
-                      color: Theme.of(context).colorScheme.onTertiary,
-                      surfaceTintColor:
-                          Theme.of(context).colorScheme.onTertiary,
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none),
-                      elevation: 1,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(10),
-                        onTap: () {
-                          //  widget.onTapTile(index);
-                          LoginModel? storedLoginModel = locator<StoreService>()
-                              .getLoginModel(key: StoreKeys.logInData);
-
-                          GlobalInit.navKey.currentState?.pushNamed(
-                            AppRoutes.imagePreviewScreen,
-                            arguments: ImagePreviewScreenArgs(
-                                imagesList: requestListDataAssign.images ?? []),
-                          );
-
-                          ///for this when call tile to request details pass just uncomment and pass requestId here
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5.0, vertical: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              */ /* Expanded(
-                    ˀ            child: cachedNetworkImageWidget(
-                                    netWorkImageUrl:
-                                        requestListDataAssign.images?.first ??
-                                            ""),
-                              ),*/ /*
-
-                              Expanded(
-                                child: PageView.builder(
-                                  itemCount:
-                                      requestListDataAssign.images?.length ?? 0,
-                                  itemBuilder: (context, imageIndex) {
-                                    return Stack(
-                                      children: [
-                                        cachedNetworkImageWidget(
-                                          netWorkImageUrl: requestListDataAssign
-                                              .images![imageIndex],
-                                        ),
-                                        ((requestListDataAssign
-                                                        .images?.length ??
-                                                    0) >
-                                                1)
-                                            ? Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Icon(
-                                                        Icons
-                                                            .arrow_back_ios_new_sharp,
-                                                        color: blackColor,
-                                                      )),
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: RotatedBox(
-                                                        quarterTurns: 2,
-                                                        child: Icon(
-                                                          Icons
-                                                              .arrow_back_ios_new_sharp,
-                                                          color: blackColor,
-                                                        ),
-                                                      )),
-                                                ],
-                                              )
-                                            : SizedBox(),
-                                      ],
-                                    );
-                                  },
-                                ),
-                              ),
-                              AppSpacer.p4(),
-                              TabViewTextWidget(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .shadow
-                                      .withOpacity(0.6),
-                                  fontSize: 12,
-                                  maxLines: 2,
-                                  fontWeight: FontWeight.w500,
-                                  text: "Number of item"),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  : Center(child: Container());
-            },
-          )*/
-        Column(
-            children: [
-              clientHeader(title: "Client", subTitle: "Management"),
-              AppSpacer.p10(),
-              buildWebTabletBody(),
-            ],
-          );
+          : Column(
+              children: [
+                clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value)),
+                AppSpacer.p10(),
+                buildWebTabletBody(dashBoardController: requestCubit),
+              ],
+            );
+    });
   }
 
-  Widget buildWebTabletBody() {
+  Widget buildWebTabletBody({required DashBoardController dashBoardController}) {
     double screenWith = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(right: 0),
@@ -204,7 +83,7 @@ class _HomePageTabletWebTabWidgetState
                       : 4)) -
               10;
           return Container(
-            height: MediaQuery.of(context).size.height - 80,
+            height: MediaQuery.of(context).size.height - 105,
             color: Colors.yellow,
             child: SingleChildScrollView(
               child: Wrap(
@@ -213,7 +92,7 @@ class _HomePageTabletWebTabWidgetState
                 spacing: 10,
                 runSpacing: 10,
                 children:
-                    requestCubit.requestItemsList.map((requestListDataAssign) {
+                dashBoardController.requestItemsList.map((requestListDataAssign) {
                   return Container(
                     color: Colors.deepPurple,
                     height: 200,
@@ -245,25 +124,21 @@ class _HomePageTabletWebTabWidgetState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: /*requestListDataAssign
-                                            .image.runtimeType ==
-                                        String
+                                child: requestListDataAssign.image.runtimeType == String
                                     ? cachedNetworkImageWidget(
                                         netWorkImageUrl:
-                                            requestListDataAssign.image??[],
+                                            requestListDataAssign.imagePath ?? "",
                                         width: itemWidth - 2,
                                       )
                                     :
-*/
                                 PageView.builder(
-                                  itemCount:
-                                      requestListDataAssign.image?.length ?? 0,
+                                  itemCount: requestListDataAssign.image?.length ?? 0,
                                   itemBuilder: (context, imageIndex) {
                                     return Stack(
                                       children: [
                                         cachedNetworkImageWidget(
                                           netWorkImageUrl: requestListDataAssign
-                                              .image![imageIndex],
+                                              .imagePath![imageIndex],
                                           width: itemWidth - 2,
                                         ),
                                         ((requestListDataAssign
@@ -296,7 +171,7 @@ class _HomePageTabletWebTabWidgetState
                                                       )),
                                                 ],
                                               )
-                                            : SizedBox(),
+                                            : const SizedBox(),
                                       ],
                                     );
                                   },
@@ -311,7 +186,7 @@ class _HomePageTabletWebTabWidgetState
                                   fontSize: 12,
                                   maxLines: 2,
                                   fontWeight: FontWeight.w500,
-                                  text: "Number of item"),
+                                  text: requestListDataAssign.title ?? ""),
                             ],
                           ),
                         ),

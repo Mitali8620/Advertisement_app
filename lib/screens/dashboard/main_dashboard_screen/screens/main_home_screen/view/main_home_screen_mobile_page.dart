@@ -68,13 +68,7 @@ class _MainHomeScreenTabBarMobilePageState
 
                     InkWell(
                       onTap: () {
-                        Future.delayed(const Duration(milliseconds: 300)).then((value) {
-                          StoreService().clearData();
-                          GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
-                            AppRoutes.logInMainScreen,
-                                (Route<dynamic> route) => false,
-                          );
-                        });
+                        dashBoardController.logOutOnTap();
                       },
                       child: const Icon(
                         Icons.logout,
@@ -121,13 +115,15 @@ class _MainHomeScreenTabBarMobilePageState
                           .toList(),
                       onTap: (index) {
                         print("index :: $index");
+                        dashBoardController.setInitialAllHomeDataValue();
+
                         dashBoardController.currentTabIndex = index;
                         dashBoardController.update();
-                        setState(() {
-                        });
-                        Future.delayed(Duration(milliseconds: 300)).then((value) {
+                        setState(() { });
+
+                        Future.delayed(const Duration(milliseconds: 300)).then((value) {
                           dashBoardController.changeTabBarIndex(index);
-                          dashBoardController.setInitialAllHomeDataValue();
+                          setState(() { });
                         });
 
                       },

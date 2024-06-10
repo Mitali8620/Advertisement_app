@@ -18,7 +18,7 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       width: 300,
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Container(
@@ -189,35 +189,49 @@ class SideMenu extends StatelessWidget {
                       Container(
                         height: Get.height *0.9,
                         width: Get.width *0.3,
-                        color: Colors.yellow,
-                        child: ListView.builder(
-                          itemCount: Get.find<DashBoardController>().homeTabsCategoryItem.length ?? 0,
-                          shrinkWrap: true,
+                        child: GetBuilder <DashBoardController>(
+                          builder: (dController) {
+                            return ListView.builder(
+                              itemCount:dController.homeTabsCategoryItem.length ?? 0,
+                              shrinkWrap: true,
 
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return  Container(
-                              decoration: BoxDecoration(
-                                  color: drawerController2
-                                      .currentDrawerIndex.value ==
-                                      0
-                                      ? AppTheme.tabSelectedColor(context: context)
-                                      : Colors.transparent,
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: DrawerListTile(
-                                title: Get.find<DashBoardController>()
-                                    .homeTabsCategoryItem[index],
-                                icon: Icon(Icons.supervisor_account,
-                                    color: AppTheme.white),
-                                press: () {
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
 
-                                  drawerController2. currentDrawerIndex.value = index;
+                                print("******* index :: ******* $index");
 
-                                  drawerController2.firstMenuOnTap();
-                                },
-                              ),
-                            );
-                          },),
+                                return  Container(
+                                  margin: const EdgeInsets.only(bottom: 10),
+                                  decoration: BoxDecoration(
+                                      color: dController.currentDrawerIndex.value ==  index
+                                          ? AppTheme.tabSelectedColor(context: context)
+                                          : Colors.transparent,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  child: DrawerListTile(
+                                    title: dController.homeTabsCategoryItem[index],
+                                    icon: Image.asset(Assets.allFynderg,width: 30,height: 30,),
+                                  press: () {
+                                    dController.setInitialAllHomeDataValue();
+                                    dController.currentDrawerIndex.value = index;
+
+                                    dController.update();
+
+                                    Future.delayed(const Duration(milliseconds: 300))
+                                        .then((value) {
+                                      dController.changeTabBarIndex(index);
+                                      dController.update();
+                                    });
+
+                                    dController.firstMenuOnTap();
+
+                                    print("drawerController2.currentDrawerIndex.value :: ${dController.currentDrawerIndex.value}");
+                                    print("drawerController2.currentDrawerIndex.value index :: ${dController.homeTabsCategoryItem[index]}");
+                                  },
+                                ),
+                                );
+                              },);
+                          }
+                        ),
                       ),
 
 
@@ -239,11 +253,15 @@ class SideMenu extends StatelessWidget {
                       const SizedBox(
                         height: AppConstant.defaultPadding * 1.3,
                       ),
-                      PersonalInfo(
-                          email: 'abc@gmail.com',
-                          onTapLogout: () {
-                            // drawerController2.logoutOnTap();
-                          }),
+                      GetBuilder<DashBoardController>(builder: (dController){
+                        return PersonalInfo(
+                            email: dController.storedLoginModel?.userData?.email ?? "",
+                            name: dController.storedLoginModel?.userData?.name ?? "",
+                            onTapLogout: () {
+                               drawerController2.logOutOnTap();
+                            });
+
+                      }),
                       const SizedBox(
                         height: AppConstant.defaultPadding * 2,
                       ),
@@ -293,9 +311,13 @@ class DrawerListTile extends StatelessWidget {
 
 class PersonalInfo extends StatelessWidget {
   final String email;
+  final String name;
   final GestureTapCallback? onTapLogout;
 
-  const PersonalInfo({required this.email, required this.onTapLogout, Key? key})
+  const PersonalInfo({
+    required this.email,
+    required this.name,
+    required this.onTapLogout, Key? key})
       : super(key: key);
 
   @override
@@ -310,7 +332,7 @@ class PersonalInfo extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("AdminInformation",
+              Text(name,
                   maxLines: 2,
                   style: TextStyle(
                     color: AppTheme.white,

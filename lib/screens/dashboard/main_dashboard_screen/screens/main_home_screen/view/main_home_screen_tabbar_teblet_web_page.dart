@@ -3,6 +3,7 @@ import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/dashbo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../../config/routes/app_router.dart';
+import '../../../../../../config/routes/route_constants.dart';
 import '../../../../../../utils/core/helpers/global_helper.dart';
 import '../../../../../network_home_page/initial_page.dart';
 import '../../widgets/main_menu.dart';
@@ -38,7 +39,7 @@ class _MainHomeScreenTabBarTabletWebPageState
               child: Navigator(
             key: GlobalInit.mainNavigation,
             reportsRouteUpdateToEngine: true,
-            initialRoute: "/homePage_tablet_web_tab_widget",
+            initialRoute: AppRoutes.homePageTabletWebTabWidget,
             onGenerateRoute: AppRouter.generateRoute,
             onUnknownRoute: (settings) {
               return MaterialPageRoute(

@@ -40,7 +40,8 @@ String currentLocation = "";
   void onInit() {
     isCheckLocationPermissionStatus();
    // updateRequestItemsList(newList: requestItemsListData);
-
+    storedLoginModel =
+        locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
     displaySavedLocation();
     super.onInit();
   }
@@ -104,11 +105,13 @@ isCheckLocationPermissionStatus(){
     update();
   }
 
-  void changeTabBarIndex(int newIndex) {
+  Future<void> changeTabBarIndex(int newIndex) async {
     tabBarIndex = newIndex;
-    print("===========================::");
+    print("=========================== 1 ::  $tabBarIndex ");
+    print("=========================== 2 :: $newIndex ");
+    print("=========================== 3 ::  $tabBarIndex ");
 
-    getLoginUserAllRequestData(
+    await getLoginUserAllRequestData(
       pageSize: paginationDataPageSize,
       pageValue: page,
       category: newIndex ?? 0,
@@ -203,6 +206,16 @@ isCheckLocationPermissionStatus(){
         Get.back();
       });
     }
+  }
+
+  void logOutOnTap(){
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
+      StoreService().clearData();
+      GlobalInit.navKey.currentState?.pushNamedAndRemoveUntil(
+        AppRoutes.logInMainScreen,
+            (Route<dynamic> route) => false,
+      );
+    });
   }
 
   ///-------------------------------------- for tabBar
@@ -302,18 +315,15 @@ isCheckLocationPermissionStatus(){
     required int category,
     bool? isFirstPage,
   }) async {
-    double latitude =
-        StoreService().getLatitude(latitudeKey: StoreKeys.latitude) ?? 0;
-    double longitude =
-        StoreService().getLongitude(longitude: StoreKeys.longitude) ?? 0;
+    double latitude = StoreService().getLatitude(latitudeKey: StoreKeys.latitude) ?? 0;
+    double longitude = StoreService().getLongitude(longitude: StoreKeys.longitude) ?? 0;
 
     print("Latitude :: $latitude");
     print("longitude :: $longitude");
 
     String apiUrl = '${APIUrls().baseUrl}${APIUrls().getPosts}';
     Map<String, dynamic>? queryParameters = {};
-    UserDetails? storedLoginModel =
-        locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
+    UserDetails? storedLoginModel =locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
     try {
       if (hasReachedEnd != true) {
         isFetchDataLoading = true;
@@ -355,11 +365,11 @@ isCheckLocationPermissionStatus(){
             if (isFirstPage ?? false) {
               /// Clear the list if it's the first page
               requestItemsList.clear();
-           //   requestItemsList.addAll(data);
+              requestItemsList.addAll(data);
               isFetchDataLoading = false;
               update();
             } else {
-            //  requestItemsList.addAll(data);
+              requestItemsList.addAll(data);
               isFetchDataLoading = false;
               update();
             }

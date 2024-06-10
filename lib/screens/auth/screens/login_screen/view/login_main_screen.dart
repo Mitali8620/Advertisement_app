@@ -17,10 +17,16 @@ class LogInMainScreen extends StatefulWidget {
 }
 
 class _LogInMainScreenState extends State<LogInMainScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
       builder: (authCubit) {
+
+        authCubit.logInEmailCtr.text = "mexa@gmail.com";
+        authCubit.logInPassWordCtr.text = "12345678";
+
         return PopScope(
           canPop: true,
           onPopInvoked: (didPop) async {},
