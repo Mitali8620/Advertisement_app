@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../../common_components/custom_dialog.dart';
+import '../../../../../utils/app_utils/string/strings.dart';
 import '../../../../../utils/core/constants/app_constants.dart';
+import '../../../../location_update/screens/widgets/location_update_web_dialog.dart';
 
 class SideMenu extends StatelessWidget {
   SideMenu({Key? key}) : super(key: key);
@@ -41,7 +44,21 @@ class SideMenu extends StatelessWidget {
                       const SizedBox( height: AppConstant.defaultPadding * 2,),
 
                       ///side menu top image
-                      Lottie.asset(Assets.locationJson, height: 50),
+
+                      InkWell(
+                        onTap:(){
+                          locationUpdateWebDialog(
+                            context: context,
+                            des: Strings.updateLocation,
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                        child: Lottie.asset(Assets.locationJson, height: 50),
+
+                      ),
+
 
                       const SizedBox(height: 8,),
 
@@ -258,7 +275,19 @@ class SideMenu extends StatelessWidget {
                             email: dController.storedLoginModel?.userData?.email ?? "",
                             name: dController.storedLoginModel?.userData?.name ?? "",
                             onTapLogout: () {
-                               drawerController2.logOutOnTap();
+
+
+                              showConfirmDialog(
+                                  headerText: Strings.logOutText,
+                                  isHide: false,
+                                  contentText: Strings.logOutDescriptionText,
+                                  context: context,
+                                  positiveOnTapBtnEvent: () {
+                                    drawerController2.logOutOnTap();
+                                  });
+
+
+
                             });
 
                       }),
@@ -292,6 +321,7 @@ class DrawerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+
       contentPadding: EdgeInsets.zero,
       onTap: press,
       leading: Padding(

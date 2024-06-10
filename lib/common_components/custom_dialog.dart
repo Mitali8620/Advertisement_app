@@ -30,7 +30,7 @@ Future showConfirmDialog({
             text: contentText),
         actions: <Widget>[
           (isHide ?? false)
-              ? SizedBox.shrink()
+              ? const SizedBox.shrink()
               : TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: Text(
