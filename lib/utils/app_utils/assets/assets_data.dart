@@ -74,7 +74,19 @@ class Assets {
 
 
   ///category_icon
-  static const String allFynderg = 'assets/category_icon/img_all_fynderg.png';
-
+  static const String allFyndergImage = 'assets/category_icon/img_all_fynderg.png';
+  static const String groceriesImage = "assets/category_icon/img_groceries.png";
+  static const String restaurantsImage = "assets/category_icon/img_restaurants.png";
+  static const String homeAndGardenImage = "assets/category_icon/img_home_garden.png";
+  static const String pharmacyImage = "assets/category_icon/img_Pharmacy.png";
+  static const String generalMerchandiseImage = "assets/category_icon/img_general-merchandise.png";
+  static const String electronicsImage = "assets/category_icon/img_electronics.png";
+  static const String babyAndKidsImage = "assets/category_icon/img_baby_kids.png";
+  static const String fashionImage = "assets/category_icon/img_fashion.png";
+  static const String automotiveImage = "assets/category_icon/img_atomotive.png";
+  static const String sportingGoodsImage = "assets/category_icon/img_sporting_goods.png";
+  static const String petsImage = "assets/category_icon/img_pets.png";
+  static const String officeImage = "assets/category_icon/img_office.png";
+  static const String specialtyImage = "assets/category_icon/img_speciality.png";
 
 }

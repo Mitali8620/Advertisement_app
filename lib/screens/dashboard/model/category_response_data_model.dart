@@ -2,7 +2,6 @@ class CategoryResponseDataModel {
   bool? status;
   String? message;
   ResponseData? data;
-
   CategoryResponseDataModel({this.status, this.message, this.data});
 
   CategoryResponseDataModel.fromJson(Map<String, dynamic> json) {
@@ -15,6 +14,7 @@ class CategoryResponseDataModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
+
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -109,7 +109,7 @@ class CategoryData {
   String? category;
   String? createdAt;
   String? updatedAt;
-  String? imagePath;
+   List<String>?imagePath;
 
   CategoryData(
       {this.id,
@@ -129,7 +129,7 @@ class CategoryData {
     category = json['category'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    imagePath = json['image_path'];
+    imagePath = json['images'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
@@ -141,7 +141,7 @@ class CategoryData {
     data['category'] = category;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
-    data['image_path'] = imagePath;
+    data['images'] = imagePath;
     return data;
   }
 }

@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../../common_components/app_base_widget.dart';
+import '../../../../../constants/auth_header.dart';
+import '../../../../../utils/app_utils/string/strings.dart';
 import '../../../../location_update/location_controller/location_controller.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
+import '../widgets/home_screen_mobile_header.dart';
 import '../widgets/mobile_drawer_menu.dart';
 import 'view/main_home_screen_mobile_page.dart';
 import 'view/main_home_screen_tabbar_teblet_web_page.dart';
@@ -23,9 +26,6 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
 
   void initState() {
     super.initState();
-
-
-
 
     dashBoardController.tabController = TabController(length: dashBoardController.homeTabsCategoryItem.length, vsync: this);
     dashBoardController.setInitialAllHomeDataValue();
@@ -53,35 +53,53 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DashBoardController>(
-      builder: (dashBoardController) {
-        return PopScope(
-          canPop: true,
-          onPopInvoked: (didPop) async {
-            dashBoardController.setInitialAllHomeDataValue();
+    return ResponsiveBuilder(builder: (context, sizingInformation) {
+        return GetBuilder<DashBoardController>(
+          builder: (dashBoardController) {
+            return PopScope(
+              canPop: true,
+              onPopInvoked: (didPop) async {
+                dashBoardController.setInitialAllHomeDataValue();
+              },
+              child: AppBaseScaffold(topPadding: 0,
+                padding:  EdgeInsets.symmetric(
+                  horizontal: 15.0, vertical: (sizingInformation.deviceScreenType ==
+                    DeviceScreenType.mobile) ? 0:10),
+                drawerWidget: (sizingInformation.deviceScreenType ==
+                      DeviceScreenType.mobile)
+                  ? mobileDrawerMenu(context: context)
+                  : null,
+              appbar: (sizingInformation.deviceScreenType ==
+                    DeviceScreenType.mobile) ? AppBar(
+                  title: const AuthHeader(
+                    headerText: Strings.appName,
+                    hasBackButton: false,
+                    isCenter: false,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                  ),
+                ):null,
+                child: ResponsiveBuilder(builder: (context, sizingInformation) {
+                  if (sizingInformation.deviceScreenType ==
+                      DeviceScreenType.desktop) {
+                    return const MainHomeScreenTabBarTabletWebPage();
+                  }
+
+                  if (sizingInformation.deviceScreenType ==
+                      DeviceScreenType.tablet) {
+                    return const MainHomeScreenTabBarTabletWebPage();
+                  }
+
+                  if (sizingInformation.deviceScreenType ==
+                      DeviceScreenType.mobile) {
+                    return const MainHomeScreenTabBarMobilePage();
+                  }
+                  return const SizedBox.shrink();
+                }),
+              ),
+            );
           },
-          child: AppBaseScaffold(
-            key: scaffoldKey,
-            child: ResponsiveBuilder(builder: (context, sizingInformation) {
-              if (sizingInformation.deviceScreenType ==
-                  DeviceScreenType.desktop) {
-                return const MainHomeScreenTabBarTabletWebPage();
-              }
-
-              if (sizingInformation.deviceScreenType ==
-                  DeviceScreenType.tablet) {
-                return const MainHomeScreenTabBarTabletWebPage();
-              }
-
-              if (sizingInformation.deviceScreenType ==
-                  DeviceScreenType.mobile) {
-                return const MainHomeScreenTabBarMobilePage();
-              }
-              return const SizedBox.shrink();
-            }),
-          ),
         );
-      },
+      }
     );
   }
 

@@ -31,133 +31,124 @@ class HomePageTabWidget extends StatefulWidget {
 }
 
 class _HomePageTabWidgetState extends State<HomePageTabWidget> {
-  DashBoardController requestCubit = Get.put(DashBoardController());
-
-  @override
-  void initState() {
-    print("requestCubit.requestItemsList :: ${requestCubit.requestItemsList.length}");
-    super.initState();
-  }
+  // DashBoardController requestCubit = Get.put(DashBoardController());
 
   @override
   Widget build(BuildContext context) {
-    return ((requestCubit.isNoData))
-        ? categoryDataNotFound(context: context)
-        : GridView.builder(
-            gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            shrinkWrap: true,
-            itemCount: requestCubit.requestItemsList.length,
-            controller: requestCubit.scrollController,
-            itemBuilder: (context, index) {
-              var requestListDataAssign = requestCubit.requestItemsList[index];
+    return GetBuilder<DashBoardController>(
+      builder: (requestCubit) {
+        return ((requestCubit.isNoData))
+            ? categoryDataNotFound(context: context, reLoadOnTap: () {})
+            : GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                shrinkWrap: true,
+                itemCount: requestCubit.requestItemsList.length,
+                controller: requestCubit.scrollController,
+                itemBuilder: (context, index) {
+                  var requestListDataAssign =
+                      requestCubit.requestItemsList[index];
 
-              return ((requestCubit.requestItemsList.isNotEmpty))
-                  ? Card(
-                      color: Theme.of(context).colorScheme.onTertiary,
-                      surfaceTintColor:
-                          Theme.of(context).colorScheme.onTertiary,
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide.none),
-                      elevation: 1,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(10),
-                        onTap: () {
-                          widget.onTapTile(index);
-                          UserDetails? storedLoginModel = locator<StoreService>()
-                              .getLoginModel(key: StoreKeys.logInData);
+                  return ((requestCubit.requestItemsList.isNotEmpty))
+                      ? Card(
+                          color: Theme.of(context).colorScheme.onTertiary,
+                          surfaceTintColor:
+                              Theme.of(context).colorScheme.onTertiary,
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none),
+                          elevation: 1,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(10),
+                            onTap: () {
+                              widget.onTapTile(index);
+                              UserDetails? storedLoginModel =
+                                  locator<StoreService>()
+                                      .getLoginModel(key: StoreKeys.logInData);
 
-                        /*  GlobalInit.navKey.currentState?.pushNamed(
-                            AppRoutes.imagePreviewMainScreen,
-                            arguments: ImagePreviewScreenArgs(
-                                imagesList: requestListDataAssign.images ?? []),
-                          );*/
+                              GlobalInit.navKey.currentState?.pushNamed(
+                                AppRoutes.imagePreviewMainScreen,
+                                arguments: ImagePreviewScreenArgs(
+                                    imagesList:
+                                        requestListDataAssign.imagePath ?? []),
+                              );
 
-                          ///for this when call tile to request details pass just uncomment and pass requestId here
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5.0, vertical: 5.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              /* Expanded(
-                    ˀ            child: cachedNetworkImageWidget(
-                                    netWorkImageUrl:
-                                        requestListDataAssign.images?.first ??
-                                            ""),
-                              ),*/
-
-                              Expanded(
-                                child: requestListDataAssign
-                                            .image.runtimeType ==
-                                        String
-                                    ? cachedNetworkImageWidget(
-                                        netWorkImageUrl:
-                                            requestListDataAssign.imagePath!,
-                                      )
-                                    : PageView.builder(
-                                  itemCount:  requestListDataAssign.image?.length ?? 0,
-                                  itemBuilder: (context, imageIndex) {
-                                    return Stack(
-                                      children: [
-                                        cachedNetworkImageWidget(
-                                          netWorkImageUrl: requestListDataAssign
-                                              .image![imageIndex],
-                                        ),
-                                        ((requestListDataAssign
-                                                        .image?.length ??
-                                                    0) >
-                                                1)
-                                            ? Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Icon(
-                                                        Icons
-                                                            .arrow_back_ios_new_sharp,
-                                                        color: blackColor,
-                                                      )),
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: RotatedBox(
-                                                        quarterTurns: 2,
-                                                        child: Icon(
-                                                          Icons
-                                                              .arrow_back_ios_new_sharp,
-                                                          color: blackColor,
-                                                        ),
-                                                      )),
-                                                ],
-                                              )
-                                            : const SizedBox(),
-                                      ],
-                                    );
-                                  },
-                                ),
+                              ///for this when call tile to request details pass just uncomment and pass requestId here
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 5.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: PageView.builder(
+                                      itemCount:
+                                          requestListDataAssign.image?.length ??
+                                              0,
+                                      itemBuilder: (context, imageIndex) {
+                                        return Stack(
+                                          children: [
+                                            cachedNetworkImageWidget(
+                                              netWorkImageUrl:
+                                                  requestListDataAssign
+                                                      .image![imageIndex],
+                                            ),
+                                            ((requestListDataAssign
+                                                            .image?.length ??
+                                                        0) >
+                                                    1)
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Icon(
+                                                            Icons
+                                                                .arrow_back_ios_new_sharp,
+                                                            color: blackColor,
+                                                          )),
+                                                      Align(
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: RotatedBox(
+                                                            quarterTurns: 2,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .arrow_back_ios_new_sharp,
+                                                              color: blackColor,
+                                                            ),
+                                                          )),
+                                                    ],
+                                                  )
+                                                : const SizedBox(),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  AppSpacer.p4(),
+                                  TabViewTextWidget(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .shadow
+                                          .withOpacity(0.6),
+                                      fontSize: 12,
+                                      maxLines: 2,
+                                      fontWeight: FontWeight.w500,
+                                      text: requestListDataAssign.title ?? ""),
+                                ],
                               ),
-                              AppSpacer.p4(),
-                              TabViewTextWidget(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .shadow
-                                      .withOpacity(0.6),
-                                  fontSize: 12,
-                                  maxLines: 2,
-                                  fontWeight: FontWeight.w500,
-                                  text: requestListDataAssign.title ?? ""),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    )
-                  : Center(child: Container());
-            },
-          );
+                        )
+                      : Center(child: Container());
+                },
+              );
+      },
+    );
   }
 }

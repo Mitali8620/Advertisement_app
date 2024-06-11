@@ -54,7 +54,9 @@ class _HomePageTabletWebTabWidgetState
             children: [
               clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value)),
               AppSpacer.p10(),
-              categoryDataNotFoundWeb(context: context),
+              categoryDataNotFoundWeb(context: context,reLoadOnTap: () {
+                requestCubit.reloadCategoryData();
+              }),
             ],
           )
           : Column(
@@ -84,6 +86,7 @@ class _HomePageTabletWebTabWidgetState
               10;
           return Container(
             height: MediaQuery.of(context).size.height - 105,
+            width: MediaQuery.of(context).size.width,
             color: Colors.yellow,
             child: SingleChildScrollView(
               child: Wrap(
@@ -111,11 +114,11 @@ class _HomePageTabletWebTabWidgetState
                           UserDetails? storedLoginModel = locator<StoreService>()
                               .getLoginModel(key: StoreKeys.logInData);
 
-                         /* GlobalInit.mainNavigation.currentState?.pushNamed(
+                          GlobalInit.mainNavigation.currentState?.pushNamed(
                             AppRoutes.imagePreviewMainScreen,
                             arguments: ImagePreviewScreenArgs(
-                                imagesList: requestListDataAssign.images ?? []),
-                          );*/
+                                imagesList: requestListDataAssign.imagePath ?? []),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -124,16 +127,11 @@ class _HomePageTabletWebTabWidgetState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: requestListDataAssign.image.runtimeType == String
-                                    ? cachedNetworkImageWidget(
-                                        netWorkImageUrl:
-                                            requestListDataAssign.imagePath ?? "",
-                                        width: itemWidth - 2,
-                                      )
-                                    :
-                                PageView.builder(
+                                child: PageView.builder(
                                   itemCount: requestListDataAssign.image?.length ?? 0,
                                   itemBuilder: (context, imageIndex) {
+                                    print("------- :: ${requestListDataAssign.imagePath![imageIndex]}");
+
                                     return Stack(
                                       children: [
                                         cachedNetworkImageWidget(

@@ -72,8 +72,9 @@ class Strings {
   static const String sportingGoods = "Sporting-goods";
   static const String pets = "Pets";
   static const String office = "Office";
-  static const String specialty = "Specialty";
+  static const String specialty = "star.png";
   static const String yes = "Yes";
+  static const String update = "Update";
   static const String no = "No";
   static const String logOutText = "Logout";
   static const String logOutDescriptionText = "Are you sure you want to logout?";

@@ -22,6 +22,7 @@ class AppBaseScaffold extends StatelessWidget {
     this.floatingButtonLocation,
     this.resizeToAvoidBottomInset,
     this.drawerWidget,
+    this.topPadding,
   }) : super(key: key);
 
   /// child widget
@@ -31,6 +32,7 @@ class AppBaseScaffold extends StatelessWidget {
   final Widget? drawerWidget;
   final Color? backgroundColor;
   final bool? resizeToAvoidBottomInset;
+  final double? topPadding;
 
   /// floatingWidget widget
   final Widget? floatingWidget;
@@ -63,13 +65,13 @@ class AppBaseScaffold extends StatelessWidget {
                               sizingInformation.deviceScreenType ==
                                   DeviceScreenType.tablet)
                           ? 120
-                          : MediaQuery.of(context).size.height * 0.13),
+                          : MediaQuery.of(context).size.height * 0.09),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0, vertical: 10),
+                    padding:  EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: topPadding ?? 10),
                     child: Column(
                       children: [
-                        AppSpacer.p24(),
+                       // AppSpacer.p24(),
                         appbar ?? const SizedBox.shrink()
                       ],
                     ),

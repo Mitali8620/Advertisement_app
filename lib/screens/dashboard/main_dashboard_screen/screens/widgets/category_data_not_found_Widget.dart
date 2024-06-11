@@ -6,10 +6,11 @@ import '../../../../../common_components/app_elevated_button.dart';
 import '../../../../../constants/app_spacer_constants.dart';
 import '../../../../../utils/app_utils/string/validation_string.dart';
 
-Widget categoryDataNotFound({required BuildContext context}){
- return Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.start,
+Widget categoryDataNotFound(
+    {required BuildContext context, required Function()? reLoadOnTap}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
     children: [
       Image.asset(Assets.imagesNoActivityFoundIcon,
           height: MediaQuery.of(context).size.height * 0.3),
@@ -20,61 +21,54 @@ Widget categoryDataNotFound({required BuildContext context}){
           fontWeight: FontWeight.w600,
           text: ValidationString.dataNotFoundInCategory),
       AppSpacer.p18(),
-      Padding(
+      /*Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18.0),
         child: AppElevatedButton(
           title: ValidationString.reload,
-          onPressed: () {
-            ///call create request page
-          },
+          onPressed: reLoadOnTap,
         ),
-      ),
+      ),*/
     ],
   );
 }
 
-Widget categoryDataNotFoundWeb({required BuildContext context}){
+Widget categoryDataNotFoundWeb(
+    {required BuildContext context, required Function()? reLoadOnTap}) {
   return ResponsiveBuilder(builder: (context, sizingInformation) {
     double size = MediaQuery.of(context).size.width * 0.5;
-    if (sizingInformation.deviceScreenType ==
-        DeviceScreenType.desktop) {
+    if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
       size = 700;
-    } else if (sizingInformation.deviceScreenType ==
-        DeviceScreenType.tablet) {
+    } else if (sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
       size = MediaQuery.of(context).size.width * 0.7;
-    } else if (sizingInformation.deviceScreenType ==
-        DeviceScreenType.mobile) {
+    } else if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
       size = MediaQuery.of(context).size.width;
     }
-      return SizedBox(
-        width: size,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(Assets.imagesNoActivityFoundIcon,
-                  height: MediaQuery.of(context).size.height * 0.3),
-              AppSpacer.p24(),
-              TabViewTextWidget(
-                  color: Theme.of(context).colorScheme.shadow,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  text: ValidationString.dataNotFoundInCategory),
-              AppSpacer.p18(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                child: AppElevatedButton(
-                  title: ValidationString.reload,
-                  onPressed: () {
-                    ///call create request page
-                  },
-                ),
+    return SizedBox(
+      width: size,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(Assets.imagesNoActivityFoundIcon,
+                height: MediaQuery.of(context).size.height * 0.3),
+            AppSpacer.p24(),
+            TabViewTextWidget(
+                color: Theme.of(context).colorScheme.shadow,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                text: ValidationString.dataNotFoundInCategory),
+            AppSpacer.p18(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18.0),
+              child: AppElevatedButton(
+                title: ValidationString.reload,
+                onPressed: reLoadOnTap,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-    }
-  );
+      ),
+    );
+  });
 }

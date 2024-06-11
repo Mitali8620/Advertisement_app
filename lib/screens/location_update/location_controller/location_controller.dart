@@ -81,8 +81,7 @@ class LocationController extends GetxController {
     }*/
   }
 
-  Future<String> buildFullAddressFromLatLong(
-      {required double latitude, required double longitude}) async {
+  Future<String> buildFullAddressFromLatLong({required double latitude, required double longitude}) async {
 
 
     List<Placemark> placeMark =

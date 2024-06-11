@@ -226,7 +226,7 @@ class SideMenu extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(15)),
                                   child: DrawerListTile(
                                     title: dController.homeTabsCategoryItem[index],
-                                    icon: Image.asset(Assets.allFynderg,width: 30,height: 30,),
+                                    icon: Image.asset(dController.homeTabsCategoryItemImages[index],width: 30,height: 30,),
                                   press: () {
                                     dController.setInitialAllHomeDataValue();
                                     dController.currentDrawerIndex.value = index;
@@ -275,7 +275,6 @@ class SideMenu extends StatelessWidget {
                             email: dController.storedLoginModel?.userData?.email ?? "",
                             name: dController.storedLoginModel?.userData?.name ?? "",
                             onTapLogout: () {
-
 
                               showConfirmDialog(
                                   headerText: Strings.logOutText,
@@ -362,17 +361,8 @@ class PersonalInfo extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name,
-                  maxLines: 2,
-                  style: TextStyle(
-                    color: AppTheme.white,
-                    fontSize: AppConstant.defaultPadding * 0.9,
-                  )),
-              Text(email,
-                  style: TextStyle(
-                      color: AppTheme.white,
-                      fontSize: AppConstant.defaultPadding * 0.9,
-                      fontWeight: FontWeight.w500)),
+              buildUserName(name: name),
+              buildUserEmail(email: email),
             ],
           ),
           InkWell(
@@ -387,4 +377,21 @@ class PersonalInfo extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget buildUserName({required String name}) {
+  return Text(name,
+      maxLines: 2,
+      style: TextStyle(
+        color: AppTheme.white,
+        fontSize: AppConstant.defaultPadding * 0.9,
+      ));
+}
+
+Widget buildUserEmail({required String email}) {
+  return Text(email,
+      style: TextStyle(
+          color: AppTheme.white,
+          fontSize: AppConstant.defaultPadding * 0.9,
+          fontWeight: FontWeight.w500));
 }

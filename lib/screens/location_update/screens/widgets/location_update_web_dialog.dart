@@ -64,18 +64,23 @@ locationUpdateWebDialog(
                             fontWeight: FontWeight.w400,
                             text: des),
                         AppSpacer.p24(),
-                        AppElevatedButton(
-                          title: Strings.yes,
-                          onPressed: onTap,
-                        ),
-                        AppSpacer.p16(),
-                        AppElevatedButton(
-                          title: Strings.no,
-                          backGroundColor: AppTheme.transparent,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
+                        Row(
+                          children: [
+                            Expanded(child: AppElevatedButton(
+                              title: Strings.update,
+                              onPressed: onTap,
+                            )),
+                            AppSpacer.p16(),
+                            Expanded(child: AppElevatedButton(
+                              title: Strings.no,
+                              backGroundColor: AppTheme.transparent,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            )),
+                            
+                          ],
+                        )
                       ],
                     ),
                   ),

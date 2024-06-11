@@ -1,4 +1,5 @@
 import 'package:advertisement_app/screens/location_update/location_controller/location_controller.dart';
+import 'package:advertisement_app/utils/app_utils/assets/assets_data.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -74,7 +75,23 @@ String currentLocation = "";
     Strings.office,
     Strings.specialty,
   ];
-
+  ///tab list item
+  List<String> homeTabsCategoryItemImages = [
+    Assets.allFyndergImage,
+    Assets.groceriesImage,
+    Assets.restaurantsImage,
+    Assets.homeAndGardenImage,
+    Assets.pharmacyImage,
+    Assets.generalMerchandiseImage,
+    Assets.electronicsImage,
+    Assets.babyAndKidsImage,
+    Assets.fashionImage,
+    Assets.automotiveImage,
+    Assets.sportingGoodsImage,
+    Assets.petsImage,
+    Assets.officeImage,
+    Assets.specialtyImage,
+  ];
   ///start location permission
 
 
@@ -252,7 +269,14 @@ isCheckLocationPermissionStatus(){
       requestItemsList = [];
   }
 
-
+  reloadCategoryData() {
+    setInitialAllHomeDataValue();
+    update();
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
+      changeTabBarIndex(currentDrawerIndex.value);
+      update();
+    });
+  }
 
   void updateRequestItemsList({required List<RequestData> newList}) {
   //  requestItemsList = requestItemsListData;
@@ -315,6 +339,8 @@ isCheckLocationPermissionStatus(){
     required int category,
     bool? isFirstPage,
   }) async {
+
+    EasyLoading.show();
     double latitude = StoreService().getLatitude(latitudeKey: StoreKeys.latitude) ?? 0;
     double longitude = StoreService().getLongitude(longitude: StoreKeys.longitude) ?? 0;
 
@@ -353,8 +379,7 @@ isCheckLocationPermissionStatus(){
         final responseData = getLoginUSerAllRequestDataResponse.data;
 
         if (getLoginUSerAllRequestDataResponse.statusCode == 200) {
-          getRequestAllData = CategoryResponseDataModel.fromJson(
-              getLoginUSerAllRequestDataResponse.data);
+          getRequestAllData = CategoryResponseDataModel.fromJson(getLoginUSerAllRequestDataResponse.data);
           List<CategoryData> data =
               getRequestAllData.data?.categoryListData ?? [];
           totalData += data.length;
@@ -374,7 +399,7 @@ isCheckLocationPermissionStatus(){
               update();
             }
 
-            if (totalData >= (responseData['data']['total'] ?? 0)) {
+            if (totalData >= 0/*(responseData['data']['total'] ?? 0)*/) {
               hasReachedEnd = true;
               isFetchDataLoading = false;
               isLezyLoading = false;
@@ -402,9 +427,13 @@ isCheckLocationPermissionStatus(){
         print("hasReachedEnd 3 :: $hasReachedEnd");
         update();
       }
+
+      EasyLoading.dismiss();
     } on DioError catch (e) {
       isFetchDataLoading = false;
       update();
+
+      print("Error :: ${e.response?.data['message'] ?? ""}");
       EasyLoading.showError(e.response?.data['message'] ?? "");
     } finally {
       isLoading = false;
