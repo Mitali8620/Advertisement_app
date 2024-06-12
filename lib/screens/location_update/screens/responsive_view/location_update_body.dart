@@ -13,8 +13,24 @@ Widget locationUpdateBody(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       buildLocationUpdateTopText(context: context),
-      const Expanded(child: SingleChildScrollView(child: ProfileFields())),
+      Expanded(child: SingleChildScrollView(child: ProfileFields(context: context,authController: authController))),
 
+      ///location_save__Button
+      ///location save
+      Obx(() => buildSaveLocationButton(authController: authController)),
+      AppSpacer.p12(),
+    ],
+  );
+}
+Widget locationUpdateWebBody(
+    {required BuildContext context, required AuthController authController}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      buildLocationUpdateTopText(context: context),
+      SingleChildScrollView(child: ProfileFields(context: context,authController: authController)),
+      AppSpacer.p24(),
       ///location_save__Button
       ///location save
       Obx(() => buildSaveLocationButton(authController: authController)),

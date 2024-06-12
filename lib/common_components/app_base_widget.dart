@@ -68,7 +68,7 @@ class AppBaseScaffold extends StatelessWidget {
                           : MediaQuery.of(context).size.height * 0.09),
                   child: Padding(
                     padding:  EdgeInsets.symmetric(
-                        horizontal: 15.0, vertical: topPadding ?? 10),
+                        horizontal: 15.0, vertical: topPadding ?? 8),
                     child: Column(
                       children: [
                        // AppSpacer.p24(),

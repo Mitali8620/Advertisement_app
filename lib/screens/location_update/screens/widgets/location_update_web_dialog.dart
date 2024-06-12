@@ -9,6 +9,8 @@ import '../../../../constants/app_spacer_constants.dart';
 import '../../../../utils/app_utils/assets/assets_data.dart';
 import '../../../../utils/app_utils/colors/app_colors.dart';
 import '../../../../utils/app_utils/string/strings.dart';
+import '../../../auth/auth_controller/auth_controller.dart';
+import '../responsive_view/location_update_body.dart';
 
 locationUpdateWebDialog(
     {required BuildContext context,
@@ -19,12 +21,12 @@ locationUpdateWebDialog(
     builder: (context) {
       return Dialog(
         surfaceTintColor: Theme.of(context).colorScheme.onError,
-        insetPadding: EdgeInsets.symmetric(horizontal: 15),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 15),
         shape: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none),
-        child: GetBuilder<DashBoardController>(
-          builder: (authCubit) {
+        child: GetBuilder<AuthController>(
+          builder: (authController) {
             return Container(
               // height: MediaQuery.of(context).size.height,
               // width: MediaQuery.of(context).size.width,
@@ -45,43 +47,54 @@ locationUpdateWebDialog(
                   width: size,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AppSpacer.p24(),
-                        SvgPicture.asset(Assets.imagesConfirmImg),
-                        AppSpacer.p16(),
-                        TabViewTextWidget(
-                            color: Theme.of(context).colorScheme.shadow,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            text: Strings.updateLocation),
-                        AppSpacer.p2(),
-                        TabViewTextWidget(
-                            color: Theme.of(context).colorScheme.shadow,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            text: des),
-                        AppSpacer.p24(),
-                        Row(
-                          children: [
-                            Expanded(child: AppElevatedButton(
-                              title: Strings.update,
-                              onPressed: onTap,
-                            )),
-                            AppSpacer.p16(),
-                            Expanded(child: AppElevatedButton(
-                              title: Strings.no,
-                              backGroundColor: AppTheme.transparent,
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )),
-                            
-                          ],
-                        )
-                      ],
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AppSpacer.p24(),
+                          SvgPicture.asset(Assets.imagesConfirmImg),
+                          AppSpacer.p16(),
+                          TabViewTextWidget(
+                              color: Theme.of(context).colorScheme.shadow,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              text: Strings.updateLocation),
+                          AppSpacer.p2(),
+                      
+                      
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 20),
+                            child: locationUpdateWebBody(
+                                context: context, authController: authController),
+                          ),
+                      
+                          TabViewTextWidget(
+                              color: Theme.of(context).colorScheme.shadow,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              text: des),
+                          AppSpacer.p24(),
+                          Row(
+                            children: [
+                              Expanded(child: AppElevatedButton(
+                                title: Strings.update,
+                                onPressed: onTap,
+                              )),
+                              AppSpacer.p16(),
+                              Expanded(child: AppElevatedButton(
+                                title: Strings.no,
+                                backGroundColor: AppTheme.transparent,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )),
+                              
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );

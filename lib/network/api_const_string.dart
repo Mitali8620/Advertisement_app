@@ -6,5 +6,8 @@ class ApiConstString{
   static const name = "name";
   static const page = "page";
   static const category = "category";
+  static const latLng = "latlng";
+  static const key = "key";
+  static const address = "addres";
 
 }

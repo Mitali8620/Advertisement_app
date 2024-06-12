@@ -87,7 +87,6 @@ class _HomePageTabletWebTabWidgetState
           return Container(
             height: MediaQuery.of(context).size.height - 105,
             width: MediaQuery.of(context).size.width,
-            color: Colors.yellow,
             child: SingleChildScrollView(
               child: Wrap(
                 alignment: WrapAlignment.start,
@@ -97,7 +96,7 @@ class _HomePageTabletWebTabWidgetState
                 children:
                 dashBoardController.requestItemsList.map((requestListDataAssign) {
                   return Container(
-                    color: Colors.deepPurple,
+                 //   color: Colors.deepPurple,
                     height: 200,
                     width: itemWidth,
                     child: Card(
@@ -128,10 +127,8 @@ class _HomePageTabletWebTabWidgetState
                             children: [
                               Expanded(
                                 child: PageView.builder(
-                                  itemCount: requestListDataAssign.image?.length ?? 0,
+                                  itemCount: requestListDataAssign.imagePath?.length ?? 0,
                                   itemBuilder: (context, imageIndex) {
-                                    print("------- :: ${requestListDataAssign.imagePath![imageIndex]}");
-
                                     return Stack(
                                       children: [
                                         cachedNetworkImageWidget(
@@ -140,7 +137,7 @@ class _HomePageTabletWebTabWidgetState
                                           width: itemWidth - 2,
                                         ),
                                         ((requestListDataAssign
-                                                        .image?.length ??
+                                                        .imagePath?.length ??
                                                     0) >
                                                 1)
                                             ? Row(

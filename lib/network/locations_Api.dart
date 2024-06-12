@@ -1,13 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import '../utils/core/networking/api_endpoints.dart';
 
 Future getPlaces(String input, String sessionToken) async {
-  String kPlacesApiKey = "AIzaSyD77iSXiorGVMdVXMwrkIBsFdEjePBdtTU";
-  String baseURL =
-      'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+  String kPlacesApiKey = ApiEndpoints.googleMapsApiKey;
+  String baseURL = (kIsWeb)
+      ? 'https://proxy.cors.sh/https://maps.googleapis.com/maps/api/place/autocomplete/json'
+      : 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+
+  var headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
+  };
+
   String data = input == "" ? "a" : input;
   String request =
-      '$baseURL?input=$data&key=$kPlacesApiKey&sessiontoken=$sessionToken';
-  var response =
-      await http.get(Uri.parse(request)).timeout(const Duration(seconds: 4));
+      '$baseURL?input=$data&key=$kPlacesApiKey';
+
+  print("request :: $request");
+  var response = await http
+      .get(Uri.parse(request), headers: headers)
+      .timeout(const Duration(seconds: 4));
+
   return response;
 }

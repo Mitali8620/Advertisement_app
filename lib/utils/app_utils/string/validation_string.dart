@@ -21,6 +21,7 @@ class ValidationString {
 
   static String dataNotFoundInCategory = "No data found in this category";
   static String reload = "Reload";
+  static String locationUpdatedSuccessFully = "Location updated successfully";
 
 
 

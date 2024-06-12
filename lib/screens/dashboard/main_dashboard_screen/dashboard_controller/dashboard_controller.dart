@@ -40,9 +40,8 @@ String currentLocation = "";
   @override
   void onInit() {
     isCheckLocationPermissionStatus();
-   // updateRequestItemsList(newList: requestItemsListData);
-    storedLoginModel =
-        locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
+    print("----------------- location find");
+    storedLoginModel =locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
     displaySavedLocation();
     super.onInit();
   }
@@ -53,9 +52,10 @@ String currentLocation = "";
   int currentTabIndex = 0;
 
 
- Future<void> displaySavedLocation() async {
+ Future<String> displaySavedLocation() async {
     currentLocation = StoreService().getCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation) ?? "";
-
+    update();
+    return currentLocation;
   }
 
   ///tab list item

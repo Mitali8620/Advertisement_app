@@ -3,34 +3,20 @@ import 'package:advertisement_app/utils/app_utils/string/validation_string.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:get/get.dart';
 import '../../../../common_components/app_elevated_button.dart';
 import '../../../../constants/app_spacer_constants.dart';
 import '../../../../utils/app_utils/colors/app_colors.dart';
 import '../../../../utils/app_utils/string/strings.dart';
-import '../../../../utils/core/helpers/global_helper.dart';
 
-class ProfileFields extends StatefulWidget {
-  const ProfileFields({super.key});
-
-  @override
-  State<ProfileFields> createState() => _ProfileFieldsState();
-}
-
-class _ProfileFieldsState extends State<ProfileFields> {
-  AuthController authController = Get.put(AuthController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        AppSpacer.p12(),
-        typeAheadLocationSearchField(
-            authController: authController, context: context),
-      ],
-    );
-  }
+Widget ProfileFields({required AuthController authController , required BuildContext context}) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      AppSpacer.p12(),
+      typeAheadLocationSearchField(
+          authController: authController, context: context),
+    ],
+  );
 }
 
 Widget typeAheadLocationSearchField(
@@ -42,7 +28,9 @@ Widget typeAheadLocationSearchField(
           type!, Strings.lblYourDesiredSearchPlace);
     },
     errorBuilder: (context, val) {
-      return Container();
+
+      print("====== ${val}");
+      return Container(child: Text(val.toString()),);
     },
     textFieldConfiguration: TextFieldConfiguration(
         onChanged: (val) {
@@ -82,6 +70,8 @@ Widget typeAheadLocationSearchField(
       return await authController.getSuggestion(pattern);
     },
     itemBuilder: (context, suggestion) {
+
+      print("suggestionsuggestion: ${suggestion}");
       return ListTile(
           minLeadingWidth: 10,
           dense: true,

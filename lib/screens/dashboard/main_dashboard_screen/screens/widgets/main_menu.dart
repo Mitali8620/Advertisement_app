@@ -9,6 +9,9 @@ import 'package:lottie/lottie.dart';
 import '../../../../../common_components/custom_dialog.dart';
 import '../../../../../utils/app_utils/string/strings.dart';
 import '../../../../../utils/core/constants/app_constants.dart';
+import '../../../../../utils/core/services/locator_service.dart';
+import '../../../../../utils/core/services/store_keys.dart';
+import '../../../../../utils/core/services/store_service.dart';
 import '../../../../location_update/screens/widgets/location_update_web_dialog.dart';
 
 class SideMenu extends StatelessWidget {
@@ -70,12 +73,18 @@ class SideMenu extends StatelessWidget {
                       DottedBorder(
                         color: Colors.black,
                         strokeWidth: 1,
-                        child:
-                        Center(
-                          child: Text(drawerController2.currentLocation ?? ""),
+                        child: Center(
+                          child: GetBuilder<DashBoardController>(
+                              builder: (controller) {
+                            controller.currentLocation = locator<StoreService>()
+                                    .getCurrentAddressLocation(
+                                        locationAddressKey:
+                                            StoreKeys.currentLocation) ??
+                                "";
+                            return Text(controller.currentLocation);
+                          }),
                         ),
                       ),
-
 
                       const SizedBox(
                         height: AppConstant.defaultPadding * 3,
@@ -214,8 +223,6 @@ class SideMenu extends StatelessWidget {
 
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-
-                                print("******* index :: ******* $index");
 
                                 return  Container(
                                   margin: const EdgeInsets.only(bottom: 10),

@@ -163,7 +163,7 @@ class ClientImpl {
 
       final refreshTokenResponse = await dio.post(
         data: body,
-        ApiEndpoints.refreshToken,
+        "ApiEndpoints.refreshToken",
         options: Options(headers: headers),
       );
 
@@ -221,7 +221,7 @@ class ClientImpl {
   ///logout user
   Future<void> logOutToUser() async {
     try {
-      final response = await dio.post(ApiEndpoints.logOut);
+      final response = await dio.post("ApiEndpoints.logOut");
 
       print("logOut data :: ${response.data}");
       if (response.statusCode == 200 || response.data != null) {
@@ -242,15 +242,5 @@ class ClientImpl {
     }
   }
 
-  ///update_user_profile_image
-  Future<Response> upLoadUserProfileImageFile({
-    required String profileImage,
-  }) async {
-    var imageUploadResponse = await postFormData(
-        endpoint: ApiEndpoints.fileUpload,
-        file: File(profileImage),
-        fileName: File(profileImage).path.split('/').last);
 
-    return imageUploadResponse;
-  }
 }

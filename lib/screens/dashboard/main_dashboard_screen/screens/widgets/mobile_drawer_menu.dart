@@ -45,7 +45,7 @@ Widget mobileDrawerMenu({required BuildContext context}) {
                     onTap: () {
                       GlobalInit.navKey.currentState?.pop();
                       GlobalInit.navKey.currentState
-                          ?.pushNamed(AppRoutes.logInMainScreen);
+                          ?.pushNamed(AppRoutes.locationUpdateMainScreen);
                     },
                     text: Strings.updateLocation,
                     leading: Lottie.asset(Assets.locationJson, height: 30)),

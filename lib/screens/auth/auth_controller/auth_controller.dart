@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:advertisement_app/screens/auth/models/user_error_model.dart';
+import 'package:advertisement_app/screens/location_update/location_controller/location_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
@@ -86,11 +88,17 @@ class AuthController extends GetxController {
 
   chooseSearchableLocation({required String text, required bool isSaveLatLng}) {
     locationSearchCtr.text = text;
-    getLocationFromAddress(searchingAddress: text, isSaveLatLng: isSaveLatLng);
+    if(!kIsWeb){
+      Get.find<LocationController>().getCoordinatesFromAddress(address:text,isSaveLatLng:  isSaveLatLng);
+    }else{
+      getLocationFromAddress(searchingAddress: text, isSaveLatLng: isSaveLatLng);
+    }
   }
 
   Future<void> getLocationFromAddress(
       {required String searchingAddress, required bool isSaveLatLng}) async {
+    
+    
     try {
       List<Location> locations = await locationFromAddress(searchingAddress);
 
@@ -106,9 +114,17 @@ class AuthController extends GetxController {
           if(isSaveLatLng == true){
             StoreService().setLatitude(latitudeKey: StoreKeys.latitude, data: location.latitude ?? 0);
             StoreService().setLongitude(longitude: StoreKeys.longitude, data: location.longitude ?? 0);
+
+
+            Future.delayed(Duration(milliseconds: 150)).then((value){
+              EasyLoading.showSuccess(ValidationString.locationUpdatedSuccessFully);
+            });
           }
 
           update();
+          
+
+          
         } else {
           Future.delayed(const Duration(seconds: 2), () {
             Get.back();
