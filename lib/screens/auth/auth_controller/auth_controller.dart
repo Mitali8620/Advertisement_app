@@ -115,8 +115,8 @@ class AuthController extends GetxController {
             StoreService().setLatitude(latitudeKey: StoreKeys.latitude, data: location.latitude ?? 0);
             StoreService().setLongitude(longitude: StoreKeys.longitude, data: location.longitude ?? 0);
 
-
-            Future.delayed(Duration(milliseconds: 150)).then((value){
+              update();
+            Future.delayed(const Duration(milliseconds: 150)).then((value){
               EasyLoading.showSuccess(ValidationString.locationUpdatedSuccessFully);
             });
           }

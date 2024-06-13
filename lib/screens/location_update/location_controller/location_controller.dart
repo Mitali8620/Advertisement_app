@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geocoding/geocoding.dart';
@@ -16,29 +17,29 @@ import 'package:http/http.dart' as http;
 class LocationController extends GetxController {
   Future<void> askPermission() async {
     String isUserSavedLocation = locator<StoreService>()
-            .getCurrentAddressLocation(
-                locationAddressKey: StoreKeys.currentLocation) ??
+            .getCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation) ??
         "";
+
+    bool isUserPermission = locator<StoreService>().getLocationPermissionStatus(
+            locationStatusKey: StoreKeys.permissionStatus) ??
+        false;
+
     EasyLoading.show();
     print("isUserSavedLocation :: $isUserSavedLocation");
 
-    if (isUserSavedLocation == "") {
+    if (!(isUserPermission == true)) {
       handleLocationPermission().then((value) async {
         print("value :: $value");
 
         await locator<StoreService>().setLocationPermissionStatus(
             locationStatusKey: StoreKeys.permissionStatus, data: value);
-        storeLocation();
+       await storeLocation();
       }).catchError((e) {
         log("Location error :: $e");
         EasyLoading.dismiss();
       });
     } else {
-      handleLocationPermission().then((value) async {
-        await locator<StoreService>().setLocationPermissionStatus(
-        locationStatusKey: StoreKeys.permissionStatus, data: value);
-        storeLocation();
-      });
+
     }
   }
 
@@ -54,6 +55,11 @@ class LocationController extends GetxController {
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if(serviceEnabled){
+      storeLocation();
+    }
+
 
     if (!serviceEnabled) {
       await Geolocator.checkPermission();
@@ -178,6 +184,12 @@ class LocationController extends GetxController {
     String url = '${ApiEndpoints.googlePlaceSearchFromLatLagApi}?${ApiConstString.latLng}=$latitude,$longitude&${ApiConstString.key}=$apiKey';
     String address = "";
 
+
+    await locator<StoreService>()
+        .setLatitude(latitudeKey: StoreKeys.latitude, data: latitude);
+    await locator<StoreService>()
+        .setLongitude(longitude: StoreKeys.longitude, data: longitude);
+
     print("url :: $url");
     print("latitude  in address to lat:: $latitude");
     print("longitude :: $longitude");
@@ -212,8 +224,10 @@ class LocationController extends GetxController {
       address = "";
     }*/
     print("=============== :: $address");
-    await locator<StoreService>().setCurrentAddressLocation(
-        locationAddressKey: StoreKeys.currentLocation, data: address);
+    await locator<StoreService>().setCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation, data: address);
+
+    Get.find<DashBoardController>().currentLocation.value = address;
+      update();
     return address;
   }
 

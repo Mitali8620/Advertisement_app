@@ -34,8 +34,8 @@ class DashBoardController extends GetxController {
       compact: false,
     ));
 
-String currentLocation = "";
-
+final  currentLocation = "".obs;
+  PageController pageController = PageController();
 
   @override
   void onInit() {
@@ -53,9 +53,9 @@ String currentLocation = "";
 
 
  Future<String> displaySavedLocation() async {
-    currentLocation = StoreService().getCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation) ?? "";
+    currentLocation.value = StoreService().getCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation) ?? "";
     update();
-    return currentLocation;
+    return currentLocation.value;
   }
 
   ///tab list item
@@ -346,7 +346,7 @@ isCheckLocationPermissionStatus(){
 
     print("Latitude :: $latitude");
     print("longitude :: $longitude");
-
+      update();
     String apiUrl = '${APIUrls().baseUrl}${APIUrls().getPosts}';
     Map<String, dynamic>? queryParameters = {};
     UserDetails? storedLoginModel =locator<StoreService>().getLoginModel(key: StoreKeys.logInData);
@@ -356,29 +356,29 @@ isCheckLocationPermissionStatus(){
         if (category != 0) {
           queryParameters = {
             ApiConstString.page: page,
-            ApiConstString.category: getItemAtIndex(index: category),
+           // ApiConstString.category: getItemAtIndex(index: category),
+            ApiConstString.category: "Coding",
 
          /*  ApiConstString.latitude:21.206158,
             ApiConstString.longitude:72.834858,*/
 
             ApiConstString.latitude: latitude,
             ApiConstString.longitude: longitude,
-
-
             ApiConstString.radius:1,
           };
         } else {
           queryParameters = {
             ApiConstString.page: page,
 
-            ApiConstString.latitude:latitude,
+            /*ApiConstString.latitude:latitude,
             ApiConstString.longitude:longitude,
-
+              ApiConstString.radius:1,
+*/
           /*  ApiConstString.latitude:21.206158,
             ApiConstString.longitude:72.834858,
 */
 
-            ApiConstString.radius:1,
+
           };
         }
 

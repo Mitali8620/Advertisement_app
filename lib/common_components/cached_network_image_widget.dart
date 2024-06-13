@@ -21,7 +21,6 @@ Widget cachedNetworkImageWidget({
       },
         errorWidget: (context, url, error) {
 
-          print("url :: $url");
           return const Icon(Icons.image_not_supported_outlined);
         },
         /* placeholder: (context, url) {

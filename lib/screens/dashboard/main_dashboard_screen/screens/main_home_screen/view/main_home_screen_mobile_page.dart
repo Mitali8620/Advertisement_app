@@ -42,8 +42,7 @@ class _MainHomeScreenTabBarMobilePageState
                 Container(
                   height: 40,
                   decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.primary.withOpacity(0.06),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),

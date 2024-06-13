@@ -28,29 +28,35 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
 
   void initState() {
     super.initState();
-
     dashBoardController.tabController = TabController(length: dashBoardController.homeTabsCategoryItem.length, vsync: this);
-    dashBoardController.setInitialAllHomeDataValue();
-    dashBoardController.scrollController.addListener(() {
-      if (dashBoardController.scrollController.position.pixels ==
-          dashBoardController.scrollController.position.maxScrollExtent) {
-        Future.delayed(const Duration(milliseconds: 200)).then((value) {
-          dashBoardController.getLoginUserAllRequestData(
-            pageSize: dashBoardController.paginationDataPageSize,
-            pageValue: dashBoardController.page,
-            isFirstPage: false,
-            category: 0
-          );
-        });
-      }
-    });
 
-    dashBoardController.getLoginUserAllRequestData(
-      pageSize: dashBoardController.paginationDataPageSize,
-      pageValue: dashBoardController.page,
-      isFirstPage: true,
-      category: 0
-    );
+
+    locationController.askPermission().then((value) {});
+    Future.delayed( Duration(milliseconds: 0)).then((value) {
+
+
+      dashBoardController.setInitialAllHomeDataValue();
+      dashBoardController.scrollController.addListener(() {
+        if (dashBoardController.scrollController.position.pixels ==
+            dashBoardController.scrollController.position.maxScrollExtent) {
+          Future.delayed(const Duration(milliseconds: 200)).then((value) {
+            dashBoardController.getLoginUserAllRequestData(
+                pageSize: dashBoardController.paginationDataPageSize,
+                pageValue: dashBoardController.page,
+                isFirstPage: false,
+                category: 0
+            );
+          });
+        }
+      });
+
+      dashBoardController.getLoginUserAllRequestData(
+          pageSize: dashBoardController.paginationDataPageSize,
+          pageValue: dashBoardController.page,
+          isFirstPage: true,
+          category: 0
+      );
+    });
   }
 
   @override

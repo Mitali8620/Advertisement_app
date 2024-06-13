@@ -156,14 +156,14 @@ class _KCommonTextFieldState extends State<KCommonTextField> {
                 obscureText: widget.obscureText ?? false,
               ),
             ),
-            Visibility(
+         /*   Visibility(
                 visible: (widget.controller.text == "")?false: widget.errorMsg != "",
                 child: Container(
                     padding: const EdgeInsets.only(left: 15.0, top: 2.0),
                     child: Text(
                       widget.errorMsg ?? "",
                       style: getErrorTextFieldStyle(),
-                    ))),
+                    ))),*/
           ],
         ),
       ),

@@ -34,7 +34,7 @@ class SideMenu extends StatelessWidget {
                 left: AppConstant.defaultPadding,
                 right: AppConstant.defaultPadding),
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               child: ConstrainedBox(
                 constraints:
                 BoxConstraints(minHeight: constraints.maxHeight),
@@ -76,12 +76,15 @@ class SideMenu extends StatelessWidget {
                         child: Center(
                           child: GetBuilder<DashBoardController>(
                               builder: (controller) {
-                            controller.currentLocation = locator<StoreService>()
+                            controller.currentLocation.value = locator<StoreService>()
                                     .getCurrentAddressLocation(
                                         locationAddressKey:
                                             StoreKeys.currentLocation) ??
                                 "";
-                            return Text(controller.currentLocation);
+
+
+                            print("- - --  - - - -  -   - -  - - - - - - - - - - - - --  -- - -  - - - - - - mi");
+                            return Obx(() => Text(controller.currentLocation.value));
                           }),
                         ),
                       ),
@@ -213,7 +216,7 @@ class SideMenu extends StatelessWidget {
                           */
 
                       Container(
-                        height: Get.height *0.9,
+                        height: Get.height *0.5,
                         width: Get.width *0.3,
                         child: GetBuilder <DashBoardController>(
                           builder: (dController) {
@@ -221,7 +224,7 @@ class SideMenu extends StatelessWidget {
                               itemCount:dController.homeTabsCategoryItem.length ?? 0,
                               shrinkWrap: true,
 
-                              physics: const NeverScrollableScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
 
                                 return  Container(

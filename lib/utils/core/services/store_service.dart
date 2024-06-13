@@ -77,7 +77,11 @@ class StoreService {
   }
 
   double? getLatitude({required String latitudeKey}) {
+
+
     double? data = storage.read(latitudeKey);
+    print("----------------------   hello 1 :: $data");
+
     return data;
   }
 
@@ -88,6 +92,8 @@ class StoreService {
 
   double? getLongitude({required String longitude}) {
     double? data = storage.read(longitude);
+    print("----------------------   hello  2 :: $data");
+
     return data;
   }
 

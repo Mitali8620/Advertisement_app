@@ -128,42 +128,73 @@ class _HomePageTabletWebTabWidgetState
                               Expanded(
                                 child: PageView.builder(
                                   itemCount: requestListDataAssign.imagePath?.length ?? 0,
+                                  controller: dashBoardController.pageController,
                                   itemBuilder: (context, imageIndex) {
+
+                                    print("------ index :$imageIndex :: ${requestListDataAssign.imagePath![imageIndex]}");
+                                    print("------ length : :: ${requestListDataAssign.imagePath!.length}");
+
                                     return Stack(
                                       children: [
                                         cachedNetworkImageWidget(
-                                          netWorkImageUrl: requestListDataAssign
-                                              .imagePath![imageIndex],
+                                          netWorkImageUrl: requestListDataAssign.imagePath![imageIndex],
                                           width: itemWidth - 2,
                                         ),
-                                        ((requestListDataAssign
-                                                        .imagePath?.length ??
-                                                    0) >
-                                                1)
+                                        ((requestListDataAssign.imagePath?.length ?? 0) > 1)
                                             ? Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Icon(
-                                                        Icons
-                                                            .arrow_back_ios_new_sharp,
-                                                        color: blackColor,
-                                                      )),
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: RotatedBox(
-                                                        quarterTurns: 2,
-                                                        child: Icon(
-                                                          Icons
-                                                              .arrow_back_ios_new_sharp,
-                                                          color: blackColor,
-                                                        ),
-                                                      )),
+
+                                                  ///previous
+                                                 InkWell(onTap: (){
+
+
+
+                                                   if (imageIndex > 1){
+                                                     dashBoardController.pageController.animateToPage(imageIndex,
+                                                         duration: const Duration(
+                                                             milliseconds: 200),
+                                                         curve: Curves.fastLinearToSlowEaseIn);
+                                                   }else{
+
+                                                   }
+
+
+
+
+
+
+
+                                                 },child:  Align(
+                                                     alignment: Alignment.centerLeft,
+                                                     child: Icon(
+                                                       Icons.arrow_back_ios_new_sharp,
+                                                       color: blackColor,
+                                                     )),),
+
+
+                                                  ///next
+                                                  InkWell(
+                                                    onTap: () {
+
+                                                      dashBoardController.pageController.animateToPage(imageIndex +1      ,
+                                                            duration: const Duration(
+                                                                milliseconds: 200),
+                                                            curve: Curves.fastLinearToSlowEaseIn);
+
+
+
+                                                    },
+                                                    child: Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: RotatedBox(
+                                                          quarterTurns: 2,
+                                                          child: Icon(
+                                                            Icons.arrow_back_ios_new_sharp,
+                                                            color: blackColor,
+                                                          ),
+                                                        )),
+                                                  )
                                                 ],
                                               )
                                             : const SizedBox(),
