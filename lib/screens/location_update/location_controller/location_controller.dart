@@ -183,7 +183,7 @@ class LocationController extends GetxController {
     print("longitude :: $longitude");
 
     EasyLoading.show();
-    try {
+ //   try {
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
@@ -206,12 +206,12 @@ class LocationController extends GetxController {
         EasyLoading.showError(response.statusCode.toString() ?? "0");
         address = "";
       }
-    } catch (e) {
+   /* } catch (e) {
       print('Error: $e');
       EasyLoading.showError(e.toString());
       address = "";
-    }
-print("=============== :: $address");
+    }*/
+    print("=============== :: $address");
     await locator<StoreService>().setCurrentAddressLocation(
         locationAddressKey: StoreKeys.currentLocation, data: address);
     return address;
@@ -220,11 +220,13 @@ print("=============== :: $address");
 
 
   Future<Map<String, double>?> getCoordinatesFromAddress({required String address, required bool isSaveLatLng}) async {
-    String apiKey = ApiEndpoints.googleMapsApiKey1;
+    String apiKey = ApiEndpoints.googleMapsApiKey;
     final encodedAddress = Uri.encodeQueryComponent(address); // Use encodeQueryComponent for encoding the address
 
     final url = '${ApiEndpoints.googlePlaceSearchFromLatLagApi}?${ApiConstString.address}=$encodedAddress&${ApiConstString.key}=$apiKey';
-print("url :: $url");
+   // 'https://maps.googleapis.com/maps/api/geocode/json?address=${Uri.encodeComponent(address)}&key=$apiKey');
+
+    print("url :: $url");
    // try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
@@ -235,6 +237,9 @@ print("url :: $url");
           final lat = location['lat'];
           final lng = location['lng'];
         if (lat != 0 && lng != 0) {
+          print("lat :: $lat");
+          print("lng :: $lng");
+
           if (isSaveLatLng == true) {
             StoreService().setLatitude(latitudeKey: StoreKeys.latitude, data: lat ?? 0);
             StoreService().setLongitude(longitude: StoreKeys.longitude, data: lng ?? 0);

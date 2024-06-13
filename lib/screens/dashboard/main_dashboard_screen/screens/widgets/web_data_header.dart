@@ -22,10 +22,9 @@ Widget clientHeader({String? title, required String? subTitle}) {
               minFontSize: 10,
               style: const TextStyle(fontSize: 20, color: AppTheme.dividerColor))),
       Container(
-        decoration: BoxDecoration(shape: BoxShape.circle,color: AppTheme.primaryColor),
         height: 50,
         width: 50,
-        child: Image.asset(Assets.imagesBuyerTabImage),
+        child: Image.asset(Assets.appLogoImage),
       ),
     ],
   );

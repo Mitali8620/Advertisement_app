@@ -4,6 +4,7 @@ class ApiEndpoints {
   static const googleMapsApiKey1 = "AIzaSyATPaB756WeXWwJVUUHy_lJ-bO2bV1CJUY";
   static const googleMapsApiKey3 = "AIzaSyD77iSXiorGVMdVXMwrkIBsFdEjePBdtTU";
   static const googleMapsApiKey = "AIzaSyAtfbdK1Uk1Zr1keTVOQO2Y-V3ZwaV3ORQ";
+  static const googleMapsApiKey4 = "AIzaSyD77iSXiorGVMdVXMwrkIBsFdEjePBdtTU";
   static const googleMapsApi = "https://www.google.com/maps/search/?api=1&query=";
   static const googlePlaceSearchFromLatLagApi = "https://maps.googleapis.com/maps/api/geocode/json";
 

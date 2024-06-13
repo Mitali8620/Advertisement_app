@@ -1,4 +1,5 @@
 class Assets {
+  static const String appLogoImage = 'assets/img_app_logo.jpeg';
   static const String assetsImagesImgTrofy = 'assets/images/img_trofy.svg';
   static const String imagesBid = 'assets/images/bid.svg';
   static const String imagesBuyerTabImage = 'assets/images/buyer_tab_image.png';

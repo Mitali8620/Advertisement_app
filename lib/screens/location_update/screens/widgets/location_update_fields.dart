@@ -101,7 +101,7 @@ Widget buildSaveLocationButton({required AuthController authController}) {
       ///location_update location
       if (authController.locationSearchCtr.text.isNotEmpty) {
         authController.chooseSearchableLocation(
-            text: authController.locationSearchCtr.text, isSaveLatLng: false);
+            text: authController.locationSearchCtr.text, isSaveLatLng: true);
       } else {
         EasyLoading.showError(ValidationString.enterLocation);
       }

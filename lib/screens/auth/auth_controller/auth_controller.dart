@@ -88,7 +88,7 @@ class AuthController extends GetxController {
 
   chooseSearchableLocation({required String text, required bool isSaveLatLng}) {
     locationSearchCtr.text = text;
-    if(!kIsWeb){
+    if(kIsWeb){
       Get.find<LocationController>().getCoordinatesFromAddress(address:text,isSaveLatLng:  isSaveLatLng);
     }else{
       getLocationFromAddress(searchingAddress: text, isSaveLatLng: isSaveLatLng);

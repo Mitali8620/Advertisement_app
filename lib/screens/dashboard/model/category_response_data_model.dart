@@ -129,7 +129,7 @@ class CategoryData {
     category = json['category'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    imagePath = json['images'].cast<String>();
+    imagePath = (json['images']==null) ? []:   json['images'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {

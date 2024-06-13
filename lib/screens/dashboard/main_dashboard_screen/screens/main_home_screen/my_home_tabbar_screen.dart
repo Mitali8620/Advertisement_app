@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../../common_components/app_base_widget.dart';
 import '../../../../../constants/auth_header.dart';
+import '../../../../../utils/app_utils/assets/assets_data.dart';
+import '../../../../../utils/app_utils/colors/app_colors.dart';
 import '../../../../../utils/app_utils/string/strings.dart';
 import '../../../../location_update/location_controller/location_controller.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
@@ -77,6 +79,14 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
                     isCenter: false,
                     mainAxisAlignment: MainAxisAlignment.start,
                   ),
+                actions: [
+
+                  Container(
+                    height: 50,
+                    width: 50,
+                    child: Image.asset(Assets.appLogoImage),
+                  ),
+                ],
                 ):null,
                 child: ResponsiveBuilder(builder: (context, sizingInformation) {
                   if (sizingInformation.deviceScreenType ==

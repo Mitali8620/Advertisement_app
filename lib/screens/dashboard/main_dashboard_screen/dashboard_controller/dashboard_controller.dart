@@ -357,10 +357,28 @@ isCheckLocationPermissionStatus(){
           queryParameters = {
             ApiConstString.page: page,
             ApiConstString.category: getItemAtIndex(index: category),
+
+         /*  ApiConstString.latitude:21.206158,
+            ApiConstString.longitude:72.834858,*/
+
+            ApiConstString.latitude: latitude,
+            ApiConstString.longitude: longitude,
+
+
+            ApiConstString.radius:1,
           };
         } else {
           queryParameters = {
             ApiConstString.page: page,
+
+            ApiConstString.latitude:latitude,
+            ApiConstString.longitude:longitude,
+
+          /*  ApiConstString.latitude:21.206158,
+            ApiConstString.longitude:72.834858,
+*/
+
+            ApiConstString.radius:1,
           };
         }
 

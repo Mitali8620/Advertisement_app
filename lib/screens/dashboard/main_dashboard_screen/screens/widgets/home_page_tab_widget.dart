@@ -84,7 +84,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                                   Expanded(
                                     child: PageView.builder(
                                       itemCount:
-                                          requestListDataAssign.image?.length ??
+                                          requestListDataAssign.imagePath?.length ??
                                               0,
                                       itemBuilder: (context, imageIndex) {
                                         return Stack(
@@ -92,10 +92,10 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                                             cachedNetworkImageWidget(
                                               netWorkImageUrl:
                                                   requestListDataAssign
-                                                      .image![imageIndex],
+                                                      .imagePath![imageIndex],
                                             ),
                                             ((requestListDataAssign
-                                                            .image?.length ??
+                                                            .imagePath?.length ??
                                                         0) >
                                                     1)
                                                 ? Row(
