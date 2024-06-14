@@ -6,13 +6,17 @@ import '../../../../config/routes/route_constants.dart';
 import '../../../../constants/app_constants.dart';
 import '../../../../constants/app_spacer_constants.dart';
 import '../../../../utils/core/helpers/global_helper.dart';
+import '../../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import '../../../dashboard/main_dashboard_screen/screens/widgets/main_menu.dart';
+import '../../../dashboard/model/category_response_data_model.dart';
 import '../../../network_home_page/initial_page.dart';
+import '../../widgets/image_bottom_description_widget.dart';
 
 class ImagePreviewTabletWebPage extends StatefulWidget {
   final List<String> imageData;
+  final CategoryData categoryData;
 
-  const ImagePreviewTabletWebPage({super.key, required this.imageData});
+  const ImagePreviewTabletWebPage({super.key, required this.imageData, required this.categoryData});
 
   @override
   State<ImagePreviewTabletWebPage> createState() =>
@@ -48,7 +52,15 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
 
   @override
   Widget build(BuildContext context) {
-    return imagePreview();
+    return Column(
+      children: [
+        imagePreview(),
+        AppSpacer.p16(),
+        imageBottomDescriptionWidget(description: widget.categoryData.description ?? ""),
+        AppSpacer.p16(),
+        imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
+      ],
+    );
   }
 
 
@@ -74,7 +86,10 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
 
   Widget imagePreview() {
     return Container(
+      color: Colors.transparent,
+      height: Get.height * 0.6,
       child: PageView.builder(
+        controller: Get.find<DashBoardController>().pageController,
         itemCount: widget.imageData.length ?? 0,
         itemBuilder: (context, imageIndex) {
           return Stack(

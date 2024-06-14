@@ -2,15 +2,11 @@ import 'package:advertisement_app/common_components/cached_network_image_widget.
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
 import 'package:advertisement_app/constants/app_constants.dart';
 import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screens/widgets/category_data_not_found_Widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../../../common/tabView_text_widget.dart';
-import '../../../../../common_components/app_elevated_button.dart';
 import '../../../../../config/routes/route_constants.dart';
 import '../../../../../constants/app_spacer_constants.dart';
-import '../../../../../utils/app_utils/assets/assets_data.dart';
 import '../../../../../utils/core/helpers/global_helper.dart';
 import '../../../../../utils/core/services/locator_service.dart';
 import '../../../../../utils/core/services/store_keys.dart';
@@ -31,7 +27,6 @@ class HomePageTabWidget extends StatefulWidget {
 }
 
 class _HomePageTabWidgetState extends State<HomePageTabWidget> {
-  // DashBoardController requestCubit = Get.put(DashBoardController());
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +41,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                 itemCount: requestCubit.requestItemsList.length,
                 controller: requestCubit.scrollController,
                 itemBuilder: (context, index) {
-                  var requestListDataAssign =
-                      requestCubit.requestItemsList[index];
+                  var requestListDataAssign =   requestCubit.requestItemsList[index];
 
                   return ((requestCubit.requestItemsList.isNotEmpty))
                       ? Card(
@@ -69,8 +63,9 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                               GlobalInit.navKey.currentState?.pushNamed(
                                 AppRoutes.imagePreviewMainScreen,
                                 arguments: ImagePreviewScreenArgs(
-                                    imagesList:
-                                        requestListDataAssign.imagePath ?? []),
+                                    imagesList: requestListDataAssign.imagePath ?? [],
+                                    categoryData:  requestListDataAssign
+                                ),
                               );
 
                               ///for this when call tile to request details pass just uncomment and pass requestId here
@@ -83,6 +78,7 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                                 children: [
                                   Expanded(
                                     child: PageView.builder(
+                                      controller: Get.find<DashBoardController>().pageController,
                                       itemCount:
                                           requestListDataAssign.imagePath?.length ??
                                               0,

@@ -44,6 +44,7 @@ class AppRouter {
         final args = settings.arguments as ImagePreviewScreenArgs;
         return PageTransition(ImagePreviewMainScreen(
           imageData: args.imagesList ?? [],
+          categoryData: args.categoryData,
         ));
       default:
         return MaterialPageRoute(builder: (_) => const InitiallyHomePage());

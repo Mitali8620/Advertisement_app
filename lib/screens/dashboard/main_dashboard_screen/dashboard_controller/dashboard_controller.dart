@@ -356,14 +356,14 @@ isCheckLocationPermissionStatus(){
         if (category != 0) {
           queryParameters = {
             ApiConstString.page: page,
-           // ApiConstString.category: getItemAtIndex(index: category),
-            ApiConstString.category: "Coding",
+            ApiConstString.category: getItemAtIndex(index: category),
 
-         /*  ApiConstString.latitude:21.206158,
-            ApiConstString.longitude:72.834858,*/
 
-            ApiConstString.latitude: latitude,
-            ApiConstString.longitude: longitude,
+           ApiConstString.latitude:21.210883,
+            ApiConstString.longitude:72.830539,
+
+         /*   ApiConstString.latitude: latitude,
+            ApiConstString.longitude: longitude,*/
             ApiConstString.radius:1,
           };
         } else {
@@ -374,9 +374,8 @@ isCheckLocationPermissionStatus(){
             ApiConstString.longitude:longitude,
               ApiConstString.radius:1,
 */
-          /*  ApiConstString.latitude:21.206158,
-            ApiConstString.longitude:72.834858,
-*/
+            ApiConstString.latitude:21.210883,
+            ApiConstString.longitude:72.830539,
 
 
           };
@@ -417,7 +416,7 @@ isCheckLocationPermissionStatus(){
               update();
             }
 
-            if (totalData >= 0/*(responseData['data']['total'] ?? 0)*/) {
+            if (totalData >= (responseData['data']['total'] ?? 0)) {
               hasReachedEnd = true;
               isFetchDataLoading = false;
               isLezyLoading = false;

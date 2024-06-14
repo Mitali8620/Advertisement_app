@@ -1,17 +1,11 @@
 import 'package:advertisement_app/common_components/app_base_widget.dart';
-import 'package:advertisement_app/constants/auth_header.dart';
-import 'package:advertisement_app/utils/app_utils/string/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../../config/routes/route_constants.dart';
 import '../../../../../../constants/app_spacer_constants.dart';
-import '../../../../../../utils/core/helpers/global_helper.dart';
 import '../../../dashboard_controller/dashboard_controller.dart';
 import '../../widgets/home_page_tab_widget.dart';
-import '../../widgets/home_screen_mobile_header.dart';
 import '../../widgets/tab_view.dart';
-import '../../widgets/user_avatar_widget.dart';
 
 class MainHomeScreenTabBarMobilePage extends StatefulWidget {
   const MainHomeScreenTabBarMobilePage({super.key});

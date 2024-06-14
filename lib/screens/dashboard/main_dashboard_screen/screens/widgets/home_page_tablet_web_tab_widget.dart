@@ -3,18 +3,11 @@ import 'package:advertisement_app/common_components/cached_network_image_widget.
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
 import 'package:advertisement_app/constants/app_constants.dart';
 import 'package:advertisement_app/utils/app_utils/string/strings.dart';
-import 'package:advertisement_app/utils/app_utils/string/validation_string.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import '../../../../../common/tabView_text_widget.dart';
-import '../../../../../common_components/app_elevated_button.dart';
 import '../../../../../config/routes/route_constants.dart';
 import '../../../../../constants/app_spacer_constants.dart';
-import '../../../../../utils/app_utils/assets/assets_data.dart';
-import '../../../../../utils/core/constants/app_constants.dart';
 import '../../../../../utils/core/helpers/global_helper.dart';
 import '../../../../../utils/core/services/locator_service.dart';
 import '../../../../../utils/core/services/store_keys.dart';
@@ -116,7 +109,8 @@ class _HomePageTabletWebTabWidgetState
                           GlobalInit.mainNavigation.currentState?.pushNamed(
                             AppRoutes.imagePreviewMainScreen,
                             arguments: ImagePreviewScreenArgs(
-                                imagesList: requestListDataAssign.imagePath ?? []),
+                                imagesList: requestListDataAssign.imagePath ?? [],
+                                categoryData:  requestListDataAssign),
                           );
                         },
                         child: Padding(
@@ -126,78 +120,76 @@ class _HomePageTabletWebTabWidgetState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: PageView.builder(
+                                child: ListView.builder(
                                   itemCount: requestListDataAssign.imagePath?.length ?? 0,
-                                  controller: dashBoardController.pageController,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
                                   itemBuilder: (context, imageIndex) {
 
                                     print("------ index :$imageIndex :: ${requestListDataAssign.imagePath![imageIndex]}");
                                     print("------ length : :: ${requestListDataAssign.imagePath!.length}");
 
                                     return Stack(
+                                      alignment: Alignment.center,
                                       children: [
                                         cachedNetworkImageWidget(
                                           netWorkImageUrl: requestListDataAssign.imagePath![imageIndex],
                                           width: itemWidth - 2,
                                         ),
-                                        ((requestListDataAssign.imagePath?.length ?? 0) > 1)
-                                            ? Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
+                                       /* ((requestListDataAssign.imagePath?.length ?? 0) > 1)
+                                            ? Container(
+                                          width: itemWidth-30,
+                                            color:Colors.red,
+                                          child:Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                                                  ///previous
-                                                 InkWell(onTap: (){
+                                            children: [
 
+                                              ///previous
+                                              InkWell(onTap: (){
 
+                                                if (imageIndex > 1){
+                                                  dashBoardController.pageController.animateToPage(imageIndex,
+                                                      duration: const Duration(
+                                                          milliseconds: 200),
+                                                      curve: Curves.fastLinearToSlowEaseIn);
+                                                }else{
 
-                                                   if (imageIndex > 1){
-                                                     dashBoardController.pageController.animateToPage(imageIndex,
-                                                         duration: const Duration(
-                                                             milliseconds: 200),
-                                                         curve: Curves.fastLinearToSlowEaseIn);
-                                                   }else{
-
-                                                   }
-
-
-
-
-
-
-
-                                                 },child:  Align(
-                                                     alignment: Alignment.centerLeft,
-                                                     child: Icon(
-                                                       Icons.arrow_back_ios_new_sharp,
-                                                       color: blackColor,
-                                                     )),),
+                                                }
+                                              },child:  Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Icon(
+                                                    Icons.arrow_back_ios_new_sharp,
+                                                    color: blackColor,
+                                                  )),),
 
 
-                                                  ///next
-                                                  InkWell(
-                                                    onTap: () {
+                                              ///next
+                                              InkWell(
+                                                onTap: () {
 
-                                                      dashBoardController.pageController.animateToPage(imageIndex +1      ,
-                                                            duration: const Duration(
-                                                                milliseconds: 200),
-                                                            curve: Curves.fastLinearToSlowEaseIn);
+                                                  dashBoardController.pageController.animateToPage(imageIndex +1      ,
+                                                      duration: const Duration(
+                                                          milliseconds: 200),
+                                                      curve: Curves.fastLinearToSlowEaseIn);
 
 
 
-                                                    },
-                                                    child: Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: RotatedBox(
-                                                          quarterTurns: 2,
-                                                          child: Icon(
-                                                            Icons.arrow_back_ios_new_sharp,
-                                                            color: blackColor,
-                                                          ),
-                                                        )),
-                                                  )
-                                                ],
+                                                },
+                                                child: Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: RotatedBox(
+                                                      quarterTurns: 2,
+                                                      child: Icon(
+                                                        Icons.arrow_back_ios_new_sharp,
+                                                        color: blackColor,
+                                                      ),
+                                                    )),
                                               )
-                                            : const SizedBox(),
+                                            ],
+                                          )
+                                        )
+                                            : const SizedBox(),*/
                                       ],
                                     );
                                   },

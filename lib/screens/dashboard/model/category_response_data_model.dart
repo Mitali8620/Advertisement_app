@@ -105,6 +105,9 @@ class CategoryData {
   int? id;
   String? title;
   String? description;
+  String? location;
+  String? latitude;
+  String? longitude;
   String? image;
   String? category;
   String? createdAt;
@@ -115,6 +118,9 @@ class CategoryData {
       {this.id,
       this.title,
       this.description,
+      this.location,
+      this.latitude,
+      this.longitude,
       this.image,
       this.category,
       this.createdAt,
@@ -125,6 +131,9 @@ class CategoryData {
     id = json['id'];
     title = json['title'];
     description = json['description'];
+    location = json['location'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
     image = json['image'];
     category = json['category'];
     createdAt = json['created_at'];
@@ -137,6 +146,9 @@ class CategoryData {
     data['id'] = id;
     data['title'] = title;
     data['description'] = description;
+    data['location'] = location;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
     data['image'] = image;
     data['category'] = category;
     data['created_at'] = createdAt;

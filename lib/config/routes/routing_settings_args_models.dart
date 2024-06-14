@@ -1,3 +1,5 @@
+import '../../screens/dashboard/model/category_response_data_model.dart';
+
 /// for PersonalInformationScreen arguments
 class PersonalInformationScreenArgs {
   final String fullName;
@@ -16,8 +18,10 @@ class PersonalInformationScreenArgs {
 
 class ImagePreviewScreenArgs {
   final List<String> imagesList;
+  final CategoryData categoryData;
 
   ImagePreviewScreenArgs({
     required this.imagesList,
+    required this.categoryData,
   });
 }
