@@ -17,6 +17,7 @@ import '../../../utils/core/helpers/global_helper.dart';
 import '../../../utils/core/services/locator_service.dart';
 import '../../../utils/core/services/store_keys.dart';
 import '../../../utils/core/services/store_service.dart';
+import '../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import '../../splash/screens/splash_screen.dart';
 import '../models/auth_model.dart';
 import 'package:dio/dio.dart' as d;
@@ -24,6 +25,9 @@ import 'package:dio/dio.dart';
 
 class AuthController extends GetxController {
   final Dio _dio = Dio();
+
+
+  DashBoardController dashBoardController = Get.put(DashBoardController());
 
   @override
   void onInit() {
@@ -86,6 +90,16 @@ class AuthController extends GetxController {
     }
   }
 
+  updateLocation(){
+    if (locationSearchCtr.text.isNotEmpty) {
+      chooseSearchableLocation(
+          text: locationSearchCtr.text, isSaveLatLng: true);
+    } else {
+      EasyLoading.showError(ValidationString.enterLocation);
+    }
+  }
+
+
   chooseSearchableLocation({required String text, required bool isSaveLatLng}) {
     locationSearchCtr.text = text;
     if(kIsWeb){
@@ -93,6 +107,25 @@ class AuthController extends GetxController {
     }else{
       getLocationFromAddress(searchingAddress: text, isSaveLatLng: isSaveLatLng);
     }
+
+    if (isSaveLatLng == true) {
+      Future.delayed(const Duration(milliseconds: 300)).then((value) {
+        dashBoardController.setInitialAllHomeDataValue();
+
+        ///initially set  0 [When user change location and reload the page]
+        dashBoardController.currentTabIndex = 0;
+        dashBoardController.currentIndex = 0;
+        dashBoardController.tabBarIndex = 0;
+        dashBoardController.update();
+
+        Future.delayed(const Duration(milliseconds: 300)).then((value) {
+          dashBoardController.changeTabBarIndex(0);
+        });
+      });
+    } else {
+      print("Not for save location only choose location");
+    }
+
   }
 
   Future<void> getLocationFromAddress(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:advertisement_app/screens/auth/auth_controller/auth_controller.dart';
 import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -15,6 +16,8 @@ import '../../../utils/core/services/store_service.dart';
 import 'package:http/http.dart' as http;
 
 class LocationController extends GetxController {
+
+
   Future<void> askPermission() async {
     String isUserSavedLocation = locator<StoreService>()
             .getCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation) ??
@@ -39,7 +42,8 @@ class LocationController extends GetxController {
         EasyLoading.dismiss();
       });
     } else {
-
+  //    authController.locationSearchCtr.text = isUserSavedLocation;
+      update();
     }
   }
 

@@ -88,6 +88,7 @@ locationUpdateWebDialog(
                                 backGroundColor: AppTheme.transparent,
                                 onPressed: () {
                                   Navigator.pop(context);
+                                  authController.updateLocation();
                                 },
                               )),
                               

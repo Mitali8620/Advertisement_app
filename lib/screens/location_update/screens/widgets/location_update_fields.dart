@@ -1,12 +1,16 @@
 import 'package:advertisement_app/screens/auth/auth_controller/auth_controller.dart';
 import 'package:advertisement_app/utils/app_utils/string/validation_string.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
 import '../../../../common_components/app_elevated_button.dart';
 import '../../../../constants/app_spacer_constants.dart';
 import '../../../../utils/app_utils/colors/app_colors.dart';
 import '../../../../utils/app_utils/string/strings.dart';
+import '../../../../utils/core/helpers/global_helper.dart';
+import '../../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 
 Widget ProfileFields({required AuthController authController , required BuildContext context}) {
   return Column(
@@ -91,20 +95,30 @@ Widget typeAheadLocationSearchField(
         color: Theme.of(context).cardColor),
   );
 }
+DashBoardController dashBoardController = Get.find<DashBoardController>();
 
-Widget buildSaveLocationButton({required AuthController authController}) {
+Widget buildSaveLocationButton({required AuthController authController,required BuildContext context}) {
   return AppElevatedButton(
     title: Strings.save,
     isLoading: authController.isProfileUpdateLoading.value,
     onPressed: () async {
       ///location_update image update
       ///location_update location
-      if (authController.locationSearchCtr.text.isNotEmpty) {
-        authController.chooseSearchableLocation(
-            text: authController.locationSearchCtr.text, isSaveLatLng: true);
-      } else {
+
+      if(authController.locationSearchCtr.text.isNotEmpty){
+        GlobalInit.navKey.currentState?.pop();
+        dashBoardController.currentTabIndex = 0;
+        dashBoardController.currentIndex = 0;
+        dashBoardController.tabBarIndex = 0;
+        authController.updateLocation();
+      }else{
         EasyLoading.showError(ValidationString.enterLocation);
+
       }
+
+
+
+
     },
   );
 }

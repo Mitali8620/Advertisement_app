@@ -54,6 +54,8 @@ class SideMenu extends StatelessWidget {
                             context: context,
                             des: Strings.updateLocation,
                             onTap: () {
+
+
                               Navigator.pop(context);
                             },
                           );

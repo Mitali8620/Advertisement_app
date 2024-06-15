@@ -264,9 +264,10 @@ isCheckLocationPermissionStatus(){
     isLoading = false;
     totalData = 0;
     hasReachedEnd = false;
+    currentTabIndex= 0;
     isNoData = false;
-      requestItemsList.clear();
-      requestItemsList = [];
+    requestItemsList.clear();
+    requestItemsList = [];
   }
 
   reloadCategoryData() {
@@ -359,11 +360,11 @@ isCheckLocationPermissionStatus(){
             ApiConstString.category: getItemAtIndex(index: category),
 
 
-           ApiConstString.latitude:21.210883,
-            ApiConstString.longitude:72.830539,
+          /* ApiConstString.latitude:21.210883,
+            ApiConstString.longitude:72.830539,*/
 
-         /*   ApiConstString.latitude: latitude,
-            ApiConstString.longitude: longitude,*/
+            ApiConstString.latitude: latitude,
+            ApiConstString.longitude: longitude,
             ApiConstString.radius:1,
           };
         } else {
@@ -374,9 +375,9 @@ isCheckLocationPermissionStatus(){
             ApiConstString.longitude:longitude,
               ApiConstString.radius:1,
 */
-            ApiConstString.latitude:21.210883,
+        /*    ApiConstString.latitude:21.210883,
             ApiConstString.longitude:72.830539,
-
+*/
 
           };
         }
