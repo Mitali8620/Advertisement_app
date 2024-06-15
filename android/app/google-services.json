@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "178214932315",
+    "project_id": "fyndeg-d1f50",
+    "storage_bucket": "fyndeg-d1f50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178214932315:android:81e064f4d6d988df2d547e",
+        "android_client_info": {
+          "package_name": "com.fyndeg.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDluic8LMNyZAl-bQighEk9uP8Qehd6H2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

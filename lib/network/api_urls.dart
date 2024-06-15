@@ -1,7 +1,7 @@
 
 
 class APIUrls{
-    String baseUrl ="https://fyndeg.tech/api/";
+    String baseUrl ="https://fyndeg.com/api/";
     String login ="login";
     String signup ="signup";
     ///user

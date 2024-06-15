@@ -1,4 +1,4 @@
-package com.example.advertisement_app
+package com.fyndeg.app
 
 import io.flutter.embedding.android.FlutterActivity
 
