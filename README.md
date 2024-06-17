@@ -10,6 +10,7 @@ A new Flutter project.
 
 
 flutter run -d chrome --web-browser-flag "--disable-web-security"
+flutter run -d chrome --web-renderer html
 
 npm install -g firebase-tools
 

@@ -277,7 +277,11 @@ class AuthController extends GetxController {
       d.Response response = await _dio.post(apiUrl, data: {
         'email': email,
         'password': password,
-      });
+      },options: d.Options(headers: {
+        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        'Accept': '*/*'
+      }));
 
       if (response.statusCode == 200) {
         print("------------- 1 ------------");

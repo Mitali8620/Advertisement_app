@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../utils/core/networking/api_endpoints.dart';
 
 Future getPlaces(String input, String sessionToken) async {
-  String kPlacesApiKey = ApiEndpoints.googleMapsApiKey4;
+  String kPlacesApiKey = ApiEndpoints.googleMapsApiKey;
   String baseURL = (kIsWeb)
       ? 'https://proxy.cors.sh/https://maps.googleapis.com/maps/api/place/autocomplete/json'
       : 'https://maps.googleapis.com/maps/api/place/autocomplete/json';

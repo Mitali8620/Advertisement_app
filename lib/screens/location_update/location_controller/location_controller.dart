@@ -16,16 +16,13 @@ import '../../../utils/core/services/store_service.dart';
 import 'package:http/http.dart' as http;
 
 class LocationController extends GetxController {
-
-
   Future<void> askPermission() async {
     String isUserSavedLocation = locator<StoreService>()
             .getCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation) ??
         "";
 
     bool isUserPermission = locator<StoreService>().getLocationPermissionStatus(
-            locationStatusKey: StoreKeys.permissionStatus) ??
-        false;
+        locationStatusKey: StoreKeys.permissionStatus) ?? false;
 
     EasyLoading.show();
     print("isUserSavedLocation :: $isUserSavedLocation");
@@ -42,6 +39,7 @@ class LocationController extends GetxController {
         EasyLoading.dismiss();
       });
     } else {
+      EasyLoading.dismiss();
   //    authController.locationSearchCtr.text = isUserSavedLocation;
       update();
     }
@@ -60,11 +58,6 @@ class LocationController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    if(serviceEnabled){
-      storeLocation();
-    }
-
-
     if (!serviceEnabled) {
       await Geolocator.checkPermission();
       Permission.location;
@@ -81,6 +74,7 @@ class LocationController extends GetxController {
 
       if (permission == LocationPermission.denied) {
         EasyLoading.showError("Location permissions are denied");
+        return false;
       }
     }
 
@@ -92,23 +86,22 @@ class LocationController extends GetxController {
     return true;
   }
 
-  Future<String> storeLocation() async {
+  Future<void> storeLocation() async {
     try {
       Position position = await Geolocator.getCurrentPosition();
       print("position.latitude :: ${position.longitude}");
       String gAddress = "";
 
-      if(kIsWeb){
+      if (kIsWeb) {
         gAddress = await getGeocodingData(latitude: position.latitude, longitude: position.longitude);
-      }else{
+      } else {
         gAddress = await buildFullAddressFromLatLong(latitude: position.latitude, longitude: position.longitude);
       }
 
       print("=============== gAddress :: $gAddress");
-      return gAddress;
     } catch (e) {
       print('Failed to get location: $e');
-      throw e.toString();
+      EasyLoading.showError("Failed to get location: $e");
     }
   }
 
@@ -148,7 +141,6 @@ class LocationController extends GetxController {
       await locator<StoreService>().setCurrentAddressLocation(
           locationAddressKey: StoreKeys.currentLocation, data: address);
       print("address :: $address");
-
     }
     return address;
   }
@@ -188,7 +180,6 @@ class LocationController extends GetxController {
     String url = '${ApiEndpoints.googlePlaceSearchFromLatLagApi}?${ApiConstString.latLng}=$latitude,$longitude&${ApiConstString.key}=$apiKey';
     String address = "";
 
-
     await locator<StoreService>()
         .setLatitude(latitudeKey: StoreKeys.latitude, data: latitude);
     await locator<StoreService>()
@@ -199,7 +190,7 @@ class LocationController extends GetxController {
     print("longitude :: $longitude");
 
     EasyLoading.show();
- //   try {
+    try {
       final response = await http.get(Uri.parse(url));
 
       if (response.statusCode == 200) {
@@ -216,36 +207,34 @@ class LocationController extends GetxController {
           print('Geocoding failed: ${data['status']}');
           EasyLoading.showError(data['status']);
         }
-        EasyLoading.dismiss();
       } else {
         print('HTTP error: ${response.statusCode}');
         EasyLoading.showError(response.statusCode.toString() ?? "0");
         address = "";
       }
-   /* } catch (e) {
+    } catch (e) {
       print('Error: $e');
       EasyLoading.showError(e.toString());
       address = "";
-    }*/
+    } finally {
+      EasyLoading.dismiss();
+    }
     print("=============== :: $address");
     await locator<StoreService>().setCurrentAddressLocation(locationAddressKey: StoreKeys.currentLocation, data: address);
 
     Get.find<DashBoardController>().currentLocation.value = address;
-      update();
+    update();
     return address;
   }
 
-
-
   Future<Map<String, double>?> getCoordinatesFromAddress({required String address, required bool isSaveLatLng}) async {
     String apiKey = ApiEndpoints.googleMapsApiKey;
-    final encodedAddress = Uri.encodeQueryComponent(address); // Use encodeQueryComponent for encoding the address
+    final encodedAddress = Uri.encodeQueryComponent(address);
 
     final url = '${ApiEndpoints.googlePlaceSearchFromLatLagApi}?${ApiConstString.address}=$encodedAddress&${ApiConstString.key}=$apiKey';
-   // 'https://maps.googleapis.com/maps/api/geocode/json?address=${Uri.encodeComponent(address)}&key=$apiKey');
 
     print("url :: $url");
-   // try {
+    try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -254,16 +243,16 @@ class LocationController extends GetxController {
           final location = data['results'][0]['geometry']['location'];
           final lat = location['lat'];
           final lng = location['lng'];
-        if (lat != 0 && lng != 0) {
-          print("lat :: $lat");
-          print("lng :: $lng");
+          if (lat != 0 && lng != 0) {
+            print("lat :: $lat");
+            print("lng :: $lng");
 
-          if (isSaveLatLng == true) {
-            StoreService().setLatitude(latitudeKey: StoreKeys.latitude, data: lat ?? 0);
-            StoreService().setLongitude(longitude: StoreKeys.longitude, data: lng ?? 0);
-          }
-          update();
-        } else {
+            if (isSaveLatLng == true) {
+              StoreService().setLatitude(latitudeKey: StoreKeys.latitude, data: lat ?? 0);
+              StoreService().setLongitude(longitude: StoreKeys.longitude, data: lng ?? 0);
+            }
+            update();
+          } else {
             Future.delayed(const Duration(seconds: 2), () {
               Get.back();
             });
@@ -275,11 +264,10 @@ class LocationController extends GetxController {
         }
       } else {
         print('HTTP error: ${response.statusCode}');
-      }/*
+      }
     } catch (e) {
       print('Error: $e');
-    }*/
+    }
     return null;
   }
-
 }
