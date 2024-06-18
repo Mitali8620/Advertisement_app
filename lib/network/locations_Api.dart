@@ -4,9 +4,7 @@ import '../utils/core/networking/api_endpoints.dart';
 
 Future getPlaces(String input, String sessionToken) async {
   String kPlacesApiKey = ApiEndpoints.googleMapsApiKey;
-  String baseURL = (kIsWeb)
-      ? 'https://proxy.cors.sh/https://maps.googleapis.com/maps/api/place/autocomplete/json'
-      : 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+  String baseURL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 
   var headers = {
     "Access-Control-Allow-Origin": "*",
@@ -19,8 +17,7 @@ Future getPlaces(String input, String sessionToken) async {
 
   print("request :: $request");
   var response = await http
-      .get(Uri.parse(request), headers: headers)
-      .timeout(const Duration(seconds: 4));
-
+      .get(Uri.parse(request));
+  print("response :: $response");
   return response;
 }

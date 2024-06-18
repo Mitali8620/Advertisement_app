@@ -70,30 +70,33 @@ locationUpdateWebDialog(
                                 context: context, authController: authController),
                           ),
                       
-                          TabViewTextWidget(
-                              color: Theme.of(context).colorScheme.shadow,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              text: des),
-                          AppSpacer.p24(),
-                          Row(
-                            children: [
-                              Expanded(child: AppElevatedButton(
+
+                          AppSpacer.p10(),
+
+                           /*   Expanded(child: AppElevatedButton(
                                 title: Strings.update,
                                 onPressed: onTap,
                               )),
-                              AppSpacer.p16(),
-                              Expanded(child: AppElevatedButton(
-                                title: Strings.no,
-                                backGroundColor: AppTheme.transparent,
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  authController.updateLocation();
-                                },
-                              )),
+                              AppSpacer.p16(),*/
+
+
+
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 0),
+                            child:  AppElevatedButton(
+                              title: Strings.no,
+                              backGroundColor: AppTheme.transparent,
+                              onPressed: () {
+                                Navigator.pop(context);
+                                authController.updateLocation();
+                              },
+                            ),
+                          ),
+
+
                               
-                            ],
-                          )
+
                         ],
                       ),
                     ),

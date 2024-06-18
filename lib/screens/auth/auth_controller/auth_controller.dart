@@ -79,7 +79,7 @@ class AuthController extends GetxController {
     places.clear();
     if (response != null) {
       placesList = jsonDecode(response.body.toString())['predictions'];
-
+print("-------- :: $placesList");
       for (int i = 0; i < placesList.length; i++) {
         places.add(placesList[i]['description']);
       }

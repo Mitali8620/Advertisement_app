@@ -16,8 +16,10 @@ Widget cachedNetworkImageWidget({
         width: width ?? 150,
         imageUrl: netWorkImageUrl,
         fit: BoxFit.cover,
-        httpHeaders:  {
+        httpHeaders:  const {
       'Access-Control-Allow-Origin': '*',
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token"
       },
         errorWidget: (context, url, error) {
 

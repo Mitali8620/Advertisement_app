@@ -43,7 +43,7 @@ class AppSpacer extends StatelessWidget {
         w: 12,
       );
 
-  factory AppSpacer.p10() => const AppSpacer._(
+factory AppSpacer.p10() => const AppSpacer._(
         h: 10,
         w: 10,
       );
