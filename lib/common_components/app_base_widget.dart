@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -55,7 +57,7 @@ class AppBaseScaffold extends StatelessWidget {
             Scaffold(
           backgroundColor: Theme.of(context).colorScheme.onSecondary,
           resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-          drawer: (drawerWidget != null) ? drawerWidget! : SizedBox(),
+          drawer: (drawerWidget != null) ? drawerWidget! : const SizedBox(),
           appBar: appbar != null
               ? PreferredSize(
                   preferredSize: Size(
@@ -69,11 +71,20 @@ class AppBaseScaffold extends StatelessWidget {
                   child: Padding(
                     padding:  EdgeInsets.symmetric(
                         horizontal: 15.0, vertical: topPadding ?? 8),
-                    child: Column(
-                      children: [
-                       // AppSpacer.p24(),
-                        appbar ?? const SizedBox.shrink()
-                      ],
+                    child: SingleChildScrollView(
+                      physics: (sizingInformation.deviceScreenType ==
+                                  DeviceScreenType.desktop ||
+                              sizingInformation.deviceScreenType ==
+                                  DeviceScreenType.tablet)
+                          ? const BouncingScrollPhysics()
+                          : const NeverScrollableScrollPhysics(),
+                      child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                        children: [
+                         // AppSpacer.p24(),
+                          appbar ?? const SizedBox.shrink()
+                        ],
+                      ),
                     ),
                   ),
                 )

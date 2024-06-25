@@ -45,7 +45,7 @@ class _HomePageTabletWebTabWidgetState
       return ((requestCubit.isNoData))
           ? Column(
             children: [
-              clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value)),
+              clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value),searchFlyerController: requestCubit.txtSearchFydeg),
               AppSpacer.p10(),
               categoryDataNotFoundWeb(context: context,reLoadOnTap: () {
                 requestCubit.reloadCategoryData();
@@ -54,7 +54,7 @@ class _HomePageTabletWebTabWidgetState
           )
           : Column(
               children: [
-                clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value)),
+                clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value),searchFlyerController: requestCubit.txtSearchFydeg),
                 AppSpacer.p10(),
                 buildWebTabletBody(dashBoardController: requestCubit),
               ],
@@ -78,7 +78,7 @@ class _HomePageTabletWebTabWidgetState
                       : 4)) -
               10;
           return Container(
-            height: MediaQuery.of(context).size.height - 105,
+            height: MediaQuery.of(context).size.height - 139,
             width: MediaQuery.of(context).size.width,
             child: SingleChildScrollView(
               child: Wrap(

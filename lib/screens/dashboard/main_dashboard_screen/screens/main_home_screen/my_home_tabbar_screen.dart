@@ -2,6 +2,7 @@ import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screen
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import '../../../../../common/tabView_text_widget.dart';
 import '../../../../../common_components/app_base_widget.dart';
 import '../../../../../constants/auth_header.dart';
 import '../../../../../utils/app_utils/assets/assets_data.dart';
@@ -9,8 +10,8 @@ import '../../../../../utils/app_utils/colors/app_colors.dart';
 import '../../../../../utils/app_utils/string/strings.dart';
 import '../../../../location_update/location_controller/location_controller.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
-import '../widgets/home_screen_mobile_header.dart';
 import '../widgets/mobile_drawer_menu.dart';
+import '../widgets/web_data_header.dart';
 import 'view/main_home_screen_mobile_page.dart';
 import 'view/main_home_screen_tabbar_teblet_web_page.dart';
 
@@ -71,7 +72,7 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
               },
               child: AppBaseScaffold(topPadding: 0,
                 padding:  EdgeInsets.symmetric(
-                  horizontal: 15.0, vertical: (sizingInformation.deviceScreenType ==
+                  horizontal: 0.0, vertical: (sizingInformation.deviceScreenType ==
                     DeviceScreenType.mobile) ? 0:10),
                 drawerWidget: (sizingInformation.deviceScreenType ==
                       DeviceScreenType.mobile)
@@ -79,11 +80,32 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
                   : null,
               appbar: (sizingInformation.deviceScreenType ==
                     DeviceScreenType.mobile) ? AppBar(
-                  title: const AuthHeader(
-                    headerText: Strings.appName,
-                    hasBackButton: false,
-                    isCenter: false,
+
+
+                centerTitle: false,
+                  title: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
+
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child:
+
+                          TabViewTextWidget(
+                              color:
+                                  Theme.of(context).colorScheme.shadow,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              text: Strings.appName)
+                      ),
+                          Expanded(
+                              flex: 5,
+                              child: buildSearchTextField(
+                                  searchFlyerController:
+                                      dashBoardController.txtSearchFydeg))
+                        ],
                   ),
                 actions: [
 
@@ -129,3 +151,6 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
     super.dispose();
   }
 }
+
+
+ValueNotifier<int> vendorRating = ValueNotifier<int>(0);

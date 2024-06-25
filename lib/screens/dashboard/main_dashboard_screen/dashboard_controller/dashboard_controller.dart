@@ -34,6 +34,9 @@ class DashBoardController extends GetxController {
       compact: false,
     ));
 
+  TextEditingController txtSearchFydeg = TextEditingController();
+
+
 final  currentLocation = "".obs;
   PageController pageController = PageController();
 

@@ -79,6 +79,8 @@ class Strings {
   static const String logOutText = "Logout";
   static const String logOutDescriptionText = "Are you sure you want to logout?";
 
+  ///search
+  static const String search = "Search";
 
 
 }
