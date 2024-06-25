@@ -17,6 +17,14 @@ class LocationUpdateMainScreen extends StatefulWidget {
 }
 
 class _LocationUpdateMainScreenState extends State<LocationUpdateMainScreen> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBaseScaffold(child: GetBuilder<AuthController>(

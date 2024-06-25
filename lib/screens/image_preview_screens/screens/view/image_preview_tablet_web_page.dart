@@ -53,6 +53,8 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         imagePreview(),
         AppSpacer.p16(),

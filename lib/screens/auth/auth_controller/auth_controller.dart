@@ -33,7 +33,29 @@ class AuthController extends GetxController {
   void onInit() {
 ///clear initial data;
     clearInitialData();
+
+    ///set Initial location
+
+
+    getInitialSavedLocation();
+
     super.onInit();
+  }
+
+
+  getInitialSavedLocation() {
+    String isUserSavedLocation = locator<StoreService>()
+        .getCurrentAddressLocation(
+        locationAddressKey: StoreKeys.currentLocation) ??
+        "";
+
+    print("Saved current initial location is :: $isUserSavedLocation");
+
+    if (isUserSavedLocation != "") {
+      locationSearchCtr.text = isUserSavedLocation;
+    } else {
+      locationSearchCtr.text = "";
+    }
   }
 
 

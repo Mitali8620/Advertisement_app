@@ -6,6 +6,7 @@ class ApiEndpoints {
   static const googleMapsApiKey = "AIzaSyAtfbdK1Uk1Zr1keTVOQO2Y-V3ZwaV3ORQ";
   static const googleMapsApiKey4 = "AIzaSyD77iSXiorGVMdVXMwrkIBsFdEjePBdtTU";*/
   static const googleMapsApi = "https://www.google.com/maps/search/?api=1&query=";
+  static const placeApi = "https://fyndeg.tech/api/map?input=";
   static const googlePlaceSearchFromLatLagApi = "https://maps.googleapis.com/maps/api/geocode/json";
 
   ///log_in
