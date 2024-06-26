@@ -69,7 +69,7 @@ class KTextField extends StatelessWidget {
         decoration: InputDecoration(
           errorMaxLines: 2,
           contentPadding: contentPadding ??
-              const EdgeInsets.only(left: 30, bottom: 0, top: 10, right: 10),
+              const EdgeInsets.only(left: 10, bottom: 0, top: 10, right: 10),
           suffixIcon: suffixIcon,
           filled: true,
           fillColor: bgColor,

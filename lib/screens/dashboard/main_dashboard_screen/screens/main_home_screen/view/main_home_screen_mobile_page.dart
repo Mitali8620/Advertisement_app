@@ -35,11 +35,12 @@ class _MainHomeScreenTabBarMobilePageState
               children: [
                 Container(
                   height: 40,
+                  width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primary.withOpacity(0.06),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
                     child: TabBar(
                       isScrollable: true,
                       tabAlignment: TabAlignment.start,
@@ -89,9 +90,7 @@ class _MainHomeScreenTabBarMobilePageState
                 AppSpacer.p16(),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 0,
-                    ),
+                    padding: const EdgeInsets.only(left: 15,right: 15),
                     child: HomePageTabWidget(
                       onTapTile: (index) {},
                     ),

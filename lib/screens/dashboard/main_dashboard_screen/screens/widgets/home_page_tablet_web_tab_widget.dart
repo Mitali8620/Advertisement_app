@@ -1,9 +1,11 @@
+import 'package:advertisement_app/common/container_dot_decoration.dart';
 import 'package:advertisement_app/common_components/app_base_widget.dart';
 import 'package:advertisement_app/common_components/cached_network_image_widget.dart';
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
 import 'package:advertisement_app/constants/app_constants.dart';
 import 'package:advertisement_app/utils/app_utils/string/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import '../../../../../common/tabView_text_widget.dart';
 import '../../../../../config/routes/route_constants.dart';
@@ -32,6 +34,7 @@ class _HomePageTabletWebTabWidgetState
   @override
   void initState() {
     print("requestCubit.requestItemsList :: ${Get.find<DashBoardController>().requestItemsList.length}");
+    Get.find<DashBoardController>().setInitialCurrentIndex();
     super.initState();
   }
 
@@ -45,8 +48,12 @@ class _HomePageTabletWebTabWidgetState
       return ((requestCubit.isNoData))
           ? Column(
             children: [
-              clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value),searchFlyerController: requestCubit.txtSearchFydeg),
-              AppSpacer.p10(),
+                clientHeader(
+                    title: Strings.appName,
+                    subTitle: requestCubit.getItemAtIndex(
+                        index: requestCubit.currentDrawerIndex.value),
+                    searchFlyerController: requestCubit.txtSearchFydeg,dashBoardController: requestCubit),
+                AppSpacer.p10(),
               categoryDataNotFoundWeb(context: context,reLoadOnTap: () {
                 requestCubit.reloadCategoryData();
               }),
@@ -54,7 +61,11 @@ class _HomePageTabletWebTabWidgetState
           )
           : Column(
               children: [
-                clientHeader(title: Strings.appName, subTitle: requestCubit.getItemAtIndex(index: requestCubit.currentDrawerIndex.value),searchFlyerController: requestCubit.txtSearchFydeg),
+                clientHeader(
+                    title: Strings.appName,
+                    subTitle: requestCubit.getItemAtIndex(
+                        index: requestCubit.currentDrawerIndex.value),
+                    searchFlyerController: requestCubit.txtSearchFydeg,dashBoardController: requestCubit),
                 AppSpacer.p10(),
                 buildWebTabletBody(dashBoardController: requestCubit),
               ],
@@ -120,79 +131,55 @@ class _HomePageTabletWebTabWidgetState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: ListView.builder(
-                                  itemCount: requestListDataAssign.imagePath?.length ?? 0,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemBuilder: (context, imageIndex) {
+                                child: Stack(
+                                  children: [
+                                    PageView.builder(
+                                      controller: dashBoardController.pageController,
+                                      itemCount: requestListDataAssign.imagePath?.length ?? 0,
+                                      scrollDirection: Axis.horizontal,
+                                      onPageChanged: (value){
+                                        dashBoardController.imageCurrentIndex  = value;
 
-                                    print("------ index :$imageIndex :: ${requestListDataAssign.imagePath![imageIndex]}");
-                                    print("------ length : :: ${requestListDataAssign.imagePath!.length}");
+                                        setState(() {});
 
-                                    return Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        cachedNetworkImageWidget(
-                                          netWorkImageUrl: requestListDataAssign.imagePath![imageIndex],
-                                          width: itemWidth - 2,
-                                        ),
-                                       /* ((requestListDataAssign.imagePath?.length ?? 0) > 1)
-                                            ? Container(
-                                          width: itemWidth-30,
-                                            color:Colors.red,
-                                          child:Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        print("======== CIndex :: ${dashBoardController.imageCurrentIndex}");
 
-                                            children: [
+                                      },
+                                      itemBuilder: (context, imageIndex) {
 
-                                              ///previous
-                                              InkWell(onTap: (){
-
-                                                if (imageIndex > 1){
-                                                  dashBoardController.pageController.animateToPage(imageIndex,
-                                                      duration: const Duration(
-                                                          milliseconds: 200),
-                                                      curve: Curves.fastLinearToSlowEaseIn);
-                                                }else{
-
-                                                }
-                                              },child:  Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Icon(
-                                                    Icons.arrow_back_ios_new_sharp,
-                                                    color: blackColor,
-                                                  )),),
+                                        return
+                                            cachedNetworkImageWidget(
+                                              netWorkImageUrl: requestListDataAssign.imagePath![imageIndex],
+                                              width: itemWidth - 2,
+                                            );
+                                      },
+                                    ),
 
 
-                                              ///next
-                                              InkWell(
-                                                onTap: () {
+                                    Positioned(
+                                        bottom: 0.0,
+                                        left: 0.0,
+                                        right: 0.0,
+                                        child: Container(
+                                            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                                            child: ((requestListDataAssign.imagePath?.isNotEmpty ?? false)    &&
+                                                ((requestListDataAssign.imagePath?.length ?? 0) >1) ) ?
+                                            Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: (requestListDataAssign
+                                                    .imagePath ?? []).asMap().entries.map((entry) {
+                                                  return GestureDetector(
+                                                    onTap: () => dashBoardController.carouselController?.animateToPage(entry.key),
+                                                    child: dotContainer(color: (Theme.of(context).brightness == Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.black)
+                                                        .withOpacity(dashBoardController.imageCurrentIndex == entry.key ? 0.9 : 0.4)),
+                                                  );
+                                                }).toList()
+                                            )
+                                                : Container()))
 
-                                                  dashBoardController.pageController.animateToPage(imageIndex +1      ,
-                                                      duration: const Duration(
-                                                          milliseconds: 200),
-                                                      curve: Curves.fastLinearToSlowEaseIn);
-
-
-
-                                                },
-                                                child: Align(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: RotatedBox(
-                                                      quarterTurns: 2,
-                                                      child: Icon(
-                                                        Icons.arrow_back_ios_new_sharp,
-                                                        color: blackColor,
-                                                      ),
-                                                    )),
-                                              )
-                                            ],
-                                          )
-                                        )
-                                            : const SizedBox(),*/
-                                      ],
-                                    );
-                                  },
+                                  ],
                                 ),
                               ),
                               AppSpacer.p4(),

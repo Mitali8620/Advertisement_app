@@ -1,12 +1,9 @@
-import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screens/widgets/main_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../../common/tabView_text_widget.dart';
 import '../../../../../common_components/app_base_widget.dart';
-import '../../../../../constants/auth_header.dart';
 import '../../../../../utils/app_utils/assets/assets_data.dart';
-import '../../../../../utils/app_utils/colors/app_colors.dart';
 import '../../../../../utils/app_utils/string/strings.dart';
 import '../../../../location_update/location_controller/location_controller.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
@@ -81,7 +78,6 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
               appbar: (sizingInformation.deviceScreenType ==
                     DeviceScreenType.mobile) ? AppBar(
 
-
                 centerTitle: false,
                   title: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -104,15 +100,18 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
                               flex: 5,
                               child: buildSearchTextField(
                                   searchFlyerController:
-                                      dashBoardController.txtSearchFydeg))
+                                      dashBoardController.txtSearchFydeg,dashBoardController:dashBoardController ))
                         ],
                   ),
                 actions: [
 
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Image.asset(Assets.appLogoImage),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      child: Image.asset(Assets.appLogoImage),
+                    ),
                   ),
                 ],
                 ):null,
@@ -152,5 +151,3 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
   }
 }
 
-
-ValueNotifier<int> vendorRating = ValueNotifier<int>(0);

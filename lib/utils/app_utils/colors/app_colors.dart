@@ -45,7 +45,7 @@ class AppTheme{
   static Color lightGrey =  const Color(0xFFD8DADC);
 
 
-  static Color white = Colors.white;
+  static const Color white = Colors.white;
   static Color black = Colors.black;
   static Color primaryColor = const Color(0xff79AEA3);
   static Color hintTextColor = const Color(0xff828282);

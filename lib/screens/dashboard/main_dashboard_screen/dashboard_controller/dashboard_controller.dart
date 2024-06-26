@@ -1,6 +1,10 @@
+
+
 import 'package:advertisement_app/screens/location_update/location_controller/location_controller.dart';
 import 'package:advertisement_app/utils/app_utils/assets/assets_data.dart';
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -14,6 +18,7 @@ import '../../../../utils/core/services/locator_service.dart';
 import '../../../../utils/core/services/store_keys.dart';
 import '../../../../utils/core/services/store_service.dart';
 import '../../../auth/models/auth_model.dart';
+import '../../../splash/screens/splash_screen.dart';
 import '../../model/category_response_data_model.dart';
 import 'package:dio/dio.dart' as d;
 
@@ -23,6 +28,7 @@ final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 final GlobalKey<ScaffoldState> tabScaffoldKey = GlobalKey<ScaffoldState>();
 
 LocationController locationController = Get.put(LocationController());
+
 
 class DashBoardController extends GetxController {
   final d.Dio _dio = d.Dio()
@@ -35,6 +41,18 @@ class DashBoardController extends GetxController {
     ));
 
   TextEditingController txtSearchFydeg = TextEditingController();
+
+  ///      CarouselSlider
+  int  imageCurrentIndex = 0;
+  List<Widget>? imageSliders = [];
+  CarouselController? carouselController;
+
+  setInitialCurrentIndex(){
+    imageCurrentIndex = 0;
+
+  }
+  /// end CarouselSlider
+
 
 
 final  currentLocation = "".obs;
@@ -125,7 +143,7 @@ isCheckLocationPermissionStatus(){
     update();
   }
 
-  Future<void> changeTabBarIndex(int newIndex) async {
+  Future<void> changeTabBarIndex(int newIndex , { bool? isFromSearch}) async {
     tabBarIndex = newIndex;
     print("=========================== 1 ::  $tabBarIndex ");
     print("=========================== 2 :: $newIndex ");
@@ -136,6 +154,7 @@ isCheckLocationPermissionStatus(){
       pageValue: page,
       category: newIndex ?? 0,
       isFirstPage: true,
+      isFromSearch: isFromSearch ?? false
     );
     update();
   }
@@ -153,13 +172,15 @@ isCheckLocationPermissionStatus(){
 
   void firstMenuOnTap() {
    // currentDrawerIndex.value = 0;
-    GlobalInit.mainNavigation.currentState!
-        .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
-    if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
-      Future.delayed(const Duration(microseconds: 0)).then((value) {
-        Get.back();
-      });
-    }
+   if(kIsWeb){
+     GlobalInit.mainNavigation.currentState!
+         .pushReplacementNamed(AppRoutes.homePageTabletWebTabWidget);
+     if (scaffoldKey.currentState?.isDrawerOpen ?? false) {
+       Future.delayed(const Duration(microseconds: 0)).then((value) {
+         Get.back();
+       });
+     }
+   }
   }
 
   void secondMenuOnTap() {
@@ -259,7 +280,7 @@ isCheckLocationPermissionStatus(){
     print("Current tab index: ${tabController?.index}");
   }
 
-  setInitialAllHomeDataValue() {
+  setInitialAllHomeDataValue({ bool? isFRomSearch}) {
     print("Page value after :: $page");
     page = 1;
     print("Page value before :: $page");
@@ -271,7 +292,20 @@ isCheckLocationPermissionStatus(){
     isNoData = false;
     requestItemsList.clear();
     requestItemsList = [];
+
+    if(isFRomSearch != true){
+      clearSearchData();
+    }
+
   }
+
+
+  clearSearchData(){
+    searchFyndeg.value = "";
+    txtSearchFydeg.text = "";
+    update();
+  }
+
 
   reloadCategoryData() {
     setInitialAllHomeDataValue();
@@ -342,6 +376,7 @@ isCheckLocationPermissionStatus(){
     required int pageSize,
     required int category,
     bool? isFirstPage,
+    bool? isFromSearch,
   }) async {
 
     EasyLoading.show();
@@ -357,6 +392,9 @@ isCheckLocationPermissionStatus(){
     try {
       if (hasReachedEnd != true) {
         isFetchDataLoading = true;
+
+
+
         if (category != 0) {
           queryParameters = {
             ApiConstString.page: page,
@@ -371,18 +409,27 @@ isCheckLocationPermissionStatus(){
             ApiConstString.radius:1,
           };
         } else {
-          queryParameters = {
-            ApiConstString.page: page,
 
-            /*ApiConstString.latitude:latitude,
+          if(isFromSearch == true){
+            queryParameters = {
+              ApiConstString.page: page,
+              ApiConstString.title: searchFyndeg.value,
+
+            };
+          }else{
+            queryParameters = {
+              ApiConstString.page: page,
+
+              /*ApiConstString.latitude:latitude,
             ApiConstString.longitude:longitude,
               ApiConstString.radius:1,
 */
-        /*    ApiConstString.latitude:21.210883,
+              /*    ApiConstString.latitude:21.210883,
             ApiConstString.longitude:72.830539,
 */
 
-          };
+            };
+          }
         }
 
         print("queryParameters :: $queryParameters");

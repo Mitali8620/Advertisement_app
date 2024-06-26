@@ -1,7 +1,8 @@
+import 'package:advertisement_app/common/container_dot_decoration.dart';
 import 'package:advertisement_app/common_components/cached_network_image_widget.dart';
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
-import 'package:advertisement_app/constants/app_constants.dart';
 import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screens/widgets/category_data_not_found_Widget.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../common/tabView_text_widget.dart';
@@ -27,6 +28,12 @@ class HomePageTabWidget extends StatefulWidget {
 }
 
 class _HomePageTabWidgetState extends State<HomePageTabWidget> {
+
+  @override
+  void initState() {
+    Get.find<DashBoardController>().setInitialCurrentIndex();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,56 +83,61 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+
                                   Expanded(
-                                    child: PageView.builder(
-                                      controller: Get.find<DashBoardController>().pageController,
-                                      itemCount:
-                                          requestListDataAssign.imagePath?.length ??
-                                              0,
-                                      itemBuilder: (context, imageIndex) {
-                                        return Stack(
-                                          children: [
-                                            cachedNetworkImageWidget(
-                                              netWorkImageUrl:
-                                                  requestListDataAssign
-                                                      .imagePath![imageIndex],
-                                            ),
-                                            ((requestListDataAssign
-                                                            .imagePath?.length ??
-                                                        0) >
-                                                    1)
-                                                ? Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Icon(
-                                                            Icons
-                                                                .arrow_back_ios_new_sharp,
-                                                            color: blackColor,
-                                                          )),
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: RotatedBox(
-                                                            quarterTurns: 2,
-                                                            child: Icon(
-                                                              Icons
-                                                                  .arrow_back_ios_new_sharp,
-                                                              color: blackColor,
-                                                            ),
-                                                          )),
-                                                    ],
-                                                  )
-                                                : const SizedBox(),
-                                          ],
-                                        );
-                                      },
+                                    child: Stack(
+
+                                      children: [
+                                        PageView.builder(
+                                          controller: Get.find<DashBoardController>().pageController,
+                                          itemCount: requestListDataAssign.imagePath?.length ?? 0,
+                                          scrollDirection: Axis.horizontal,
+                                          onPageChanged: (value) {
+                                            requestCubit.imageCurrentIndex = value;
+                                            setState(() {});
+                                            print("======== CIndex :: ${requestCubit.imageCurrentIndex}");
+                                          },
+                                          itemBuilder: (context, imageIndex) {
+
+                                            return
+                                              cachedNetworkImageWidget(
+                                                netWorkImageUrl:
+                                                requestListDataAssign
+                                                    .imagePath![imageIndex],
+
+                                              );
+                                          },
+                                        ),
+
+
+                                        Positioned(
+                                            bottom: 0.0,
+                                            left: 0.0,
+                                            right: 0.0,
+                                            child: Container(
+                                                padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                                                child: ((requestListDataAssign.imagePath?.isNotEmpty ?? false)    &&
+                                                    ((requestListDataAssign.imagePath?.length ?? 0) >1) )
+                                                    ?
+                                                Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: (requestListDataAssign
+                                                        .imagePath ?? []).asMap().entries.map((entry) {
+
+                                                            return GestureDetector(
+                                                        onTap: () => requestCubit. carouselController?.animateToPage(entry.key),
+                                                        child: dotContainer(color: (Theme.of(context).brightness == Brightness.dark
+                                                            ? Colors.white
+                                                            : Colors.black)
+                                                            .withOpacity(requestCubit.imageCurrentIndex == entry.key ? 0.9 : 0.4)),
+                                                      );
+                                                    }).toList()
+                                                )
+                                                    : Container()))
+                                      ],
                                     ),
                                   ),
+
                                   AppSpacer.p4(),
                                   TabViewTextWidget(
                                       color: Theme.of(context)
@@ -147,4 +159,15 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
       },
     );
   }
+}
+
+
+buildImageSlider({required List<String> images , required BuildContext context , required   List<Widget> imageSliders}) {
+  return imageSliders = images
+      .map((item) => cachedNetworkImageWidget(
+    width: Get.width,
+        netWorkImageUrl:
+      item,
+      ))
+      .toList();
 }

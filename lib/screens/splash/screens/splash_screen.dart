@@ -10,7 +10,7 @@ import '../../auth/auth_controller/auth_controller.dart';
 import '../../auth/models/auth_model.dart';
 import '../widget/text_widget.dart';
 ValueNotifier<UserDetails?> userDetailsValue = ValueNotifier(null);
-
+ValueNotifier<String> searchFyndeg = ValueNotifier<String>("");
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

@@ -4,13 +4,18 @@ import 'package:advertisement_app/utils/app_utils/colors/app_colors.dart';
 import 'package:advertisement_app/utils/app_utils/string/strings.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../../common/kTextField.dart';
 import '../../../../../utils/core/constants/app_constants.dart';
+import '../../../../splash/screens/splash_screen.dart';
+import '../../dashboard_controller/dashboard_controller.dart';
 
 Widget clientHeader(
     {String? title,
     required String? subTitle,
-    required TextEditingController searchFlyerController}) {
+    required TextEditingController searchFlyerController
+      , required DashBoardController dashBoardController
+    }) {
   return Column(
     children: [
       Row(
@@ -43,7 +48,7 @@ Widget clientHeader(
         children: [
           Expanded(
             flex: 2,
-            child: buildSearchTextField(searchFlyerController: searchFlyerController),
+            child: buildSearchTextField(searchFlyerController: searchFlyerController,dashBoardController: dashBoardController),
           ),
           const Expanded(flex: 7, child: SizedBox())
         ],
@@ -52,13 +57,45 @@ Widget clientHeader(
   );
 }
 
-Widget buildSearchTextField({required TextEditingController searchFlyerController}) {
-  return KTextField(
-    controller: searchFlyerController,
-    labelText: Strings.search,
-    bgColor: AppTheme.greyBackGroundColor,
-    fontSize: 14,
-    borderColor: Colors.transparent,
-    keyboardType: TextInputType.text,
+Widget buildSearchTextField({required TextEditingController searchFlyerController, required DashBoardController dashBoardController}) {
+  return GetBuilder<DashBoardController>(
+    builder: (controller) {
+      return KTextField(
+        controller: searchFlyerController,
+        labelText: Strings.search,
+        fontColor: AppTheme.black,
+        suffixIcon: InkWell(
+           onTap:  (){
+              controller.clearSearchData();
+            }
+        ,child: const Icon(Icons.close)),
+        onChanged: (value){
+          searchFyndeg.value = value;
+          controller.update();
+
+          Future.delayed(const Duration(milliseconds: 300)).then((v) {
+            controller.setInitialAllHomeDataValue(isFRomSearch: true);
+          print("searchFyndeg.value :: ${searchFyndeg.value}");
+
+          controller.currentDrawerIndex.value = 0;
+
+            controller.update();
+
+            controller.changeTabBarIndex(0,isFromSearch: true);
+            controller.update();
+
+            controller.firstMenuOnTap();
+
+
+            controller.tabController?.animateTo(0);
+            controller.update();
+          });
+        },
+        bgColor: AppTheme.greyBackGroundColor,
+        fontSize: 14,
+        borderColor: Colors.transparent,
+        keyboardType: TextInputType.text,
+      );
+    }
   );
 }

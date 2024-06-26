@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pinch_zoom_release_unzoom/pinch_zoom_release_unzoom.dart';
+import '../../../../common/container_dot_decoration.dart';
 import '../../../../common_components/cached_network_image_widget.dart';
 import '../../../../config/routes/app_router.dart';
 import '../../../../config/routes/route_constants.dart';
@@ -27,28 +29,17 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
   int? currentIndex;
   List<Widget>? imageSliders;
   PageController? _pageController;
-
+  bool blockScroll = false;
   @override
   void initState() {
     print("------------ Image is :: ${widget.imageData}");
+
+    Get.find<DashBoardController>().setInitialCurrentIndex();
     currentIndex = 0;
     _pageController = PageController(initialPage: currentIndex ?? 0);
     super.initState();
   }
 
-  void _incrementPage() {
-    if ((currentIndex ?? 0) < widget.imageData.length - 1) {
-      _pageController?.nextPage(
-          duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-    }
-  }
-
-  void _decrementPage() {
-    if ((currentIndex ?? 0) > 0) {
-      _pageController?.previousPage(
-          duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,62 +76,78 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
   }
 
   Widget imagePreview() {
-    return Container(
-      color: Colors.transparent,
-      height: Get.height * 0.6,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+          maxHeight: Get.height * 0.6,
+      ),
       child: PageView.builder(
+        allowImplicitScrolling: true,
+
         controller: Get.find<DashBoardController>().pageController,
         itemCount: widget.imageData.length ?? 0,
+        scrollDirection: Axis.horizontal,
+        onPageChanged: (value) {
+          Get.find<DashBoardController>().imageCurrentIndex = value;
+          setState(() {});
+          print("======== CIndex :: ${Get.find<DashBoardController>().imageCurrentIndex}");
+        },
         itemBuilder: (context, imageIndex) {
           return Stack(
             children: [
-              cachedNetworkImageWidget(
+
+              SizedBox(
                 height: Get.height * 0.9,
                 width: Get.width,
-                netWorkImageUrl: widget.imageData[imageIndex],
+                child: PinchZoomReleaseUnzoomWidget(
+                  twoFingersOn: () => setState(() => blockScroll = true),
+                  twoFingersOff: () => Future.delayed(
+                    const Duration(milliseconds: 150),
+                        () => setState(() => blockScroll = false),
+                  ),
+                  minScale: 0.8,
+                  maxScale: 4,
+                  resetDuration: const Duration(milliseconds: 150),
+                  boundaryMargin: const EdgeInsets.only(bottom: 0),
+                  clipBehavior: Clip.none,
+                  maxOverlayOpacity: 0.5,
+                  overlayColor: Colors.black,
+                  child:   cachedNetworkImageWidget(
+                    height: Get.height * 0.9,
+                    width: Get.width,
+                    netWorkImageUrl: widget.imageData[imageIndex],
+                  ),
+                ),
               ),
-              ((widget.imageData.length ?? 0) > 1)
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              onTap: () {
-                                if ((currentIndex ?? 0) > 0) {
-                                  _pageController?.previousPage(
-                                      duration: Duration(milliseconds: 300),
-                                      curve: Curves.easeIn);
-                                }
-                              },
-                              child: Icon(
-                                Icons.arrow_back_ios_new_sharp,
-                                color: blackColor,
-                              ),
-                            )),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: InkWell(
-                              onTap: () {
-                                if ((currentIndex ?? 0) <
-                                    widget.imageData.length - 1) {
-                                  _pageController?.animateToPage(
-                                      (currentIndex ?? 0) + 1,
-                                      duration: Duration(milliseconds: 300),
-                                      curve: Curves.easeIn);
-                                }
-                              },
-                              child: RotatedBox(
-                                quarterTurns: 2,
-                                child: Icon(
-                                  Icons.arrow_back_ios_new_sharp,
-                                  color: blackColor,
-                                ),
-                              ),
-                            )),
-                      ],
-                    )
-                  : SizedBox(),
+
+
+
+              Positioned(
+                  bottom: 0.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20.0),
+                      child: ((widget.imageData.isNotEmpty ?? false)    &&
+                          ((widget.imageData.length ?? 0) >1) )
+                          ?
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: (widget.imageData).asMap().entries.map((entry) {
+
+                            return GestureDetector(
+                              onTap: () => Get.find<DashBoardController>(). carouselController?.animateToPage(entry.key),
+                              child: dotContainer(color: (Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black)
+                                  .withOpacity(Get.find<DashBoardController>().imageCurrentIndex == entry.key ? 0.9 : 0.4)),
+                            );
+                          }).toList()
+                      )
+                          : Container()))
+
+
+
+
             ],
           );
         },

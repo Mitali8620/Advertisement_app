@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../../common_components/app_base_widget.dart';
 import '../../../../constants/auth_header.dart';
@@ -13,6 +14,13 @@ class OnBoardingMainScreen extends StatefulWidget {
 }
 
 class _OnBoardingMainScreenState extends State<OnBoardingMainScreen> {
+  @override
+  void initState() {
+    EasyLoading.dismiss();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBaseScaffold(
