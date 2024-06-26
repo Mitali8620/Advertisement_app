@@ -81,6 +81,10 @@ class Strings {
 
   ///search
   static const String search = "Search";
+  static const String searchYourProducts = "Search your product";
+  static const String about = "About ";
+
+
 
 
 }

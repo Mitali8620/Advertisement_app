@@ -22,6 +22,7 @@ class KTextField extends StatelessWidget {
   int? maxLines;
   FormFieldValidator<String>? validator;
   final EdgeInsetsGeometry? contentPadding;
+  final ValueChanged<String>? onFieldSubmit;
 
   KTextField(
       {this.labelText,
@@ -43,6 +44,7 @@ class KTextField extends StatelessWidget {
       this.maxLength,
       this.maxLines,
       this.hintText,
+      this.onFieldSubmit,
       Key? key})
       : super(key: key);
 
@@ -60,6 +62,7 @@ class KTextField extends StatelessWidget {
         maxLength: maxLength,
         maxLines: maxLines ?? 1,
         minLines: minLines ?? 1,
+        onFieldSubmitted: onFieldSubmit ?? (v){},
         style: TextStyle(
           color: fontColor,
           fontSize: fontSize ?? 16,

@@ -3,8 +3,10 @@ import 'package:advertisement_app/utils/app_utils/assets/assets_data.dart';
 import 'package:advertisement_app/utils/app_utils/colors/app_colors.dart';
 import 'package:advertisement_app/utils/app_utils/string/strings.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../../common/kTextField.dart';
 import '../../../../../utils/core/constants/app_constants.dart';
 import '../../../../splash/screens/splash_screen.dart';
@@ -36,21 +38,40 @@ Widget clientHeader(
                   minFontSize: 10,
                   style: const TextStyle(
                       fontSize: 20, color: AppTheme.dividerColor))),
-          Container(
-            height: 50,
-            width: 50,
-            child: Image.asset(Assets.appLogoImage),
-          ),
+
+
+         Row(
+           mainAxisAlignment: MainAxisAlignment.end,
+           children: [
+
+
+
+             Text(
+               Strings.about,
+               maxLines: 5,
+               style: GoogleFonts.poppins(
+                   color: AppTheme.black,
+                   fontWeight: FontWeight.w500,
+                   fontSize: 17),
+             ),
+
+             Container(
+               height: 50,
+               width: 50,
+               child:   Image.asset(Assets.appLogoImage),
+             )
+           ],
+         ).paddingOnly(right: 15),
         ],
       ),
       AppSpacer.p10(),
       Row(
         children: [
           Expanded(
-            flex: 2,
+            flex: 4,
             child: buildSearchTextField(searchFlyerController: searchFlyerController,dashBoardController: dashBoardController),
           ),
-          const Expanded(flex: 7, child: SizedBox())
+          const Expanded(flex: 5, child: SizedBox())
         ],
       ),
     ],
@@ -64,33 +85,31 @@ Widget buildSearchTextField({required TextEditingController searchFlyerControlle
         controller: searchFlyerController,
         labelText: Strings.search,
         fontColor: AppTheme.black,
+        hintText: Strings.searchYourProducts,
+
         suffixIcon: InkWell(
            onTap:  (){
               controller.clearSearchData();
+              controller.searchFyndegData(isFRomSearch: false);
             }
         ,child: const Icon(Icons.close)),
-        onChanged: (value){
+
+        onFieldSubmit:  (value){
           searchFyndeg.value = value;
           controller.update();
+          controller.searchFyndegData( isFRomSearch: true);
 
-          Future.delayed(const Duration(milliseconds: 300)).then((v) {
-            controller.setInitialAllHomeDataValue(isFRomSearch: true);
-          print("searchFyndeg.value :: ${searchFyndeg.value}");
-
-          controller.currentDrawerIndex.value = 0;
-
-            controller.update();
-
-            controller.changeTabBarIndex(0,isFromSearch: true);
-            controller.update();
-
-            controller.firstMenuOnTap();
-
-
-            controller.tabController?.animateTo(0);
-            controller.update();
-          });
         },
+        onChanged: (value){
+          if(!kIsWeb){
+            searchFyndeg.value = value;
+            controller.update();
+            controller.searchFyndegData( isFRomSearch: true);
+          }
+
+
+
+      },
         bgColor: AppTheme.greyBackGroundColor,
         fontSize: 14,
         borderColor: Colors.transparent,

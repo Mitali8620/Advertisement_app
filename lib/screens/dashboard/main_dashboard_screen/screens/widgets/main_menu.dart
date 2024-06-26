@@ -48,22 +48,32 @@ class SideMenu extends StatelessWidget {
 
                       ///side menu top image
 
-                      InkWell(
-                        onTap:(){
-                          locationUpdateWebDialog(
-                            context: context,
-                            des: Strings.updateLocation,
-                            onTap: () {
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap:(){
+                              locationUpdateWebDialog(
+                                context: context,
+                                des: Strings.updateLocation,
+                                onTap: () {
 
 
-                              Navigator.pop(context);
+                                  Navigator.pop(context);
+                                },
+                              );
                             },
-                          );
-                        },
-                        child: Lottie.asset(Assets.locationJson, height: 50),
+                            child: Lottie.asset(Assets.locationJson, height: 50),
 
+                          ),
+                          Container(
+                            height: 50,
+                            width: 100,
+                            child: Image.asset(Assets.appLogoImage),
+                          ).paddingOnly(right: 15),
+                        ],
                       ),
-
 
                       const SizedBox(height: 8,),
 

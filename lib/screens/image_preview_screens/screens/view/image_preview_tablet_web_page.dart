@@ -5,7 +5,6 @@ import '../../../../common/container_dot_decoration.dart';
 import '../../../../common_components/cached_network_image_widget.dart';
 import '../../../../config/routes/app_router.dart';
 import '../../../../config/routes/route_constants.dart';
-import '../../../../constants/app_constants.dart';
 import '../../../../constants/app_spacer_constants.dart';
 import '../../../../utils/core/helpers/global_helper.dart';
 import '../../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
@@ -44,9 +43,12 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         imagePreview(),
         AppSpacer.p16(),
+        AppSpacer.p10(),
         imageBottomDescriptionWidget(description: widget.categoryData.description ?? ""),
         AppSpacer.p16(),
         imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
@@ -114,6 +116,7 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
                   child:   cachedNetworkImageWidget(
                     height: Get.height * 0.9,
                     width: Get.width,
+                    boxFit: BoxFit.fitHeight,
                     netWorkImageUrl: widget.imageData[imageIndex],
                   ),
                 ),

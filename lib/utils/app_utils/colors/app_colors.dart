@@ -28,7 +28,7 @@ class AppTheme{
   /// for request dashboard page
   static Color progressColor =  const Color(0xFFF6953C);
   static Color pickUpColor =  const Color(0xFF198155);
-  static Color activeColor =  const Color(0xFF0065D0);
+static Color activeColor =  const Color(0xFF0065D0);
   static Color pendingColor =  const Color(0xFFD3180C);
   static Color successColor =  const Color(0xFF0065D0);
 

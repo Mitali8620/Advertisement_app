@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:pinch_zoom_release_unzoom/pinch_zoom_release_unzoom.dart';
 import '../../../../common/container_dot_decoration.dart';
 import '../../../../common_components/cached_network_image_widget.dart';
-import '../../../../constants/app_constants.dart';
 import '../../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import '../../../dashboard/model/category_response_data_model.dart';
 import '../../widgets/image_bottom_description_widget.dart';

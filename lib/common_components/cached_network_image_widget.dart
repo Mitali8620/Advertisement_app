@@ -6,6 +6,7 @@ Widget cachedNetworkImageWidget({
   required String netWorkImageUrl,
   double? height,
   double? width,
+  BoxFit? boxFit,
 }) {
   return Container(
     height:height ?? 240,
@@ -15,7 +16,7 @@ Widget cachedNetworkImageWidget({
         height: height ?? 240,
         width: width ?? 150,
         imageUrl: netWorkImageUrl,
-        fit: BoxFit.cover,
+        fit:boxFit ?? BoxFit.cover,
         httpHeaders:  const {
       'Access-Control-Allow-Origin': '*',
           "Access-Control-Allow-Methods": "GET, POST, OPTIONS",

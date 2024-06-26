@@ -53,7 +53,23 @@ class DashBoardController extends GetxController {
   }
   /// end CarouselSlider
 
+searchFyndegData({required bool isFRomSearch }){
+  Future.delayed(const Duration(milliseconds: 300)).then((v) {
+    setInitialAllHomeDataValue(isFRomSearch: isFRomSearch);
+    print("searchFyndeg.value :: ${searchFyndeg.value}");
+    currentDrawerIndex.value = 0;
 
+    update();
+
+    changeTabBarIndex(0, isFromSearch: true);
+    update();
+
+    firstMenuOnTap();
+
+    tabController?.animateTo(0);
+    update();
+  });
+}
 
 final  currentLocation = "".obs;
   PageController pageController = PageController();
@@ -414,12 +430,16 @@ isCheckLocationPermissionStatus(){
             queryParameters = {
               ApiConstString.page: page,
               ApiConstString.title: searchFyndeg.value,
-
+              /*ApiConstString.latitude: latitude,
+              ApiConstString.longitude: longitude,
+              ApiConstString.radius:10,*/
             };
           }else{
             queryParameters = {
               ApiConstString.page: page,
-
+              ApiConstString.latitude: latitude,
+              ApiConstString.longitude: longitude,
+              ApiConstString.radius:10,
               /*ApiConstString.latitude:latitude,
             ApiConstString.longitude:longitude,
               ApiConstString.radius:1,

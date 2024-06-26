@@ -2,7 +2,6 @@ import 'package:advertisement_app/common/container_dot_decoration.dart';
 import 'package:advertisement_app/common_components/cached_network_image_widget.dart';
 import 'package:advertisement_app/config/routes/routing_settings_args_models.dart';
 import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/screens/widgets/category_data_not_found_Widget.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../../common/tabView_text_widget.dart';
