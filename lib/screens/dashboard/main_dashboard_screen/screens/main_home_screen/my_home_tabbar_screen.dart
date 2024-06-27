@@ -73,7 +73,7 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
                     DeviceScreenType.mobile) ? 0:10),
                 drawerWidget: (sizingInformation.deviceScreenType ==
                       DeviceScreenType.mobile)
-                  ? mobileDrawerMenu(context: context)
+                  ? MobileDrawerMenu()
                   : null,
               appbar: (sizingInformation.deviceScreenType ==
                     DeviceScreenType.mobile) ? AppBar(

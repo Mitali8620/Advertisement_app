@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../../common/kTextField.dart';
 import '../../../../../utils/core/constants/app_constants.dart';
+import '../../../../../utils/core/services/launcher_url_link.dart';
 import '../../../../splash/screens/splash_screen.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
 
@@ -39,8 +40,16 @@ Widget clientHeader(
                   style: const TextStyle(
                       fontSize: 20, color: AppTheme.dividerColor))),
 
+          InkWell(
+              onTap: (){
 
-         Row(
+                print("=-------- launch URL");
+
+                LauncherLink().launcherLink(link: Strings.aboutRedirectionUrl
+                );
+              },
+              child:
+              Row(
            mainAxisAlignment: MainAxisAlignment.end,
            children: [
 
@@ -56,12 +65,13 @@ Widget clientHeader(
              ),
 
              Container(
-               height: 50,
-               width: 50,
-               child:   Image.asset(Assets.appLogoImage),
-             )
+                height: 50,
+                width: 50,
+                child:   Image.asset(Assets.appLogoImage),
+              ),
+
            ],
-         ).paddingOnly(right: 15),
+         )).paddingOnly(right: 15),
         ],
       ),
       AppSpacer.p10(),

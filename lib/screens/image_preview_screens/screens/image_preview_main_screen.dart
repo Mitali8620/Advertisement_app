@@ -21,7 +21,8 @@ class _ImagePreviewMainScreenState extends State<ImagePreviewMainScreen> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, sizingInformation) {
-      return AppBaseScaffold(appbar: AuthHeader(arrowOnTap: () async {
+      return SafeArea(child: AppBaseScaffold(appbar:
+      AuthHeader(arrowOnTap: () async {
         if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
           GlobalInit.navKey.currentState?.pop();
         } else {
@@ -42,7 +43,7 @@ class _ImagePreviewMainScreenState extends State<ImagePreviewMainScreen> {
           }
           return const SizedBox.shrink();
         },
-      ));
+      )));
     });
   }
 }

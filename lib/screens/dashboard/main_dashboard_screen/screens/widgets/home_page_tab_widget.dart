@@ -61,6 +61,9 @@ class _HomePageTabWidgetState extends State<HomePageTabWidget> {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(10),
                             onTap: () {
+
+                              FocusManager.instance.primaryFocus?.unfocus();
+
                               widget.onTapTile(index);
                               UserDetails? storedLoginModel =
                                   locator<StoreService>()

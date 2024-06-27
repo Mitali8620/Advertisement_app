@@ -7,7 +7,7 @@ class LauncherLink{
         await launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication);
       }
     }catch(e){
-      print("e  is :: ${e.toString()}");
+      print("e  ${e.toString()}");
     }
   }
 }

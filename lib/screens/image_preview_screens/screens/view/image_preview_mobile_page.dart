@@ -39,17 +39,19 @@ class _ImagePreviewMobilePageState extends State<ImagePreviewMobilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        imagePreview(),
-        AppSpacer.p16(),
-        imageBottomDescriptionWidget(description: widget.categoryData.description ?? ""),
-        AppSpacer.p16(),
-        imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          imagePreview(),
+          AppSpacer.p16(),
+          imageBottomDescriptionWidget(description: widget.categoryData.description ?? ""),
+          AppSpacer.p16(),
+          imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
 
-      ],
+        ],
+      ),
     );
   }
 

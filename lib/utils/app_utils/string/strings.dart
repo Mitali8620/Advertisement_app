@@ -1,5 +1,6 @@
 class Strings {
   static String fontFamily = "JakartaSans";
+  static String aboutRedirectionUrl = "www.flipp.com";
 
   /// for splash screen
   static const String appName = "FyndEG";
@@ -72,7 +73,7 @@ class Strings {
   static const String sportingGoods = "Sporting-goods";
   static const String pets = "Pets";
   static const String office = "Office";
-  static const String specialty = "star.png";
+  static const String specialty = "Star";
   static const String yes = "Yes";
   static const String update = "Update";
   static const String no = "No";
