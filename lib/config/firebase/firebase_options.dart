@@ -48,29 +48,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: "AIzaSyBK8RLb7qiEOC1v3tIoAZOneSIqNpLRFsQ",
-      appId: "1:378282776139:web:a2fdfd8f1c5a8fb8379fce",
-      messagingSenderId: "378282776139",
-      projectId: "fyndeg-7cbc3",
-    authDomain: "fyndeg-7cbc3.firebaseapp.com",
-      storageBucket: "fyndeg-7cbc3.appspot.com",
-      measurementId: "G-E6Z1X70GF1"
+    apiKey: "AIzaSyCfciFB-AZSA716FhRXm-9yzj-kfA35wIA",
+    appId: "1:178214932315:web:6f38911fc42321082d547e",
+    messagingSenderId: "178214932315",
+    projectId: "fyndeg-d1f50",
+    authDomain: "fyndeg-d1f50.firebaseapp.com",
+    storageBucket: "fyndeg-d1f50.appspot.com",
+      measurementId: "G-QJ8RCK3MPD"
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: "AIzaSyBK8RLb7qiEOC1v3tIoAZOneSIqNpLRFsQ",
-    appId: "1:378282776139:web:a2fdfd8f1c5a8fb8379fce",
-    messagingSenderId: "378282776139",
-    projectId: "fyndeg-7cbc3",
-    storageBucket: "fyndeg-7cbc3.appspot.com",
+    apiKey: "AIzaSyCfciFB-AZSA716FhRXm-9yzj-kfA35wIA",
+    appId: "1:178214932315:web:6f38911fc42321082d547e",
+    messagingSenderId: "178214932315",
+    projectId: "fyndeg-d1f50",
+    storageBucket: "fyndeg-d1f50.appspot.com",
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: "AIzaSyBK8RLb7qiEOC1v3tIoAZOneSIqNpLRFsQ",
-    appId: "1:378282776139:web:a2fdfd8f1c5a8fb8379fce",
-    messagingSenderId: "378282776139",
-    projectId: "fyndeg-7cbc3",
-    storageBucket: "fyndeg-7cbc3.appspot.com",
+    apiKey: "AIzaSyCfciFB-AZSA716FhRXm-9yzj-kfA35wIA",
+    appId: "1:178214932315:web:6f38911fc42321082d547e",
+    messagingSenderId: "178214932315",
+    projectId: "fyndeg-d1f50",
+    storageBucket: "fyndeg-d1f50.appspot.com",
     androidClientId: '',
     iosClientId: '',
     iosBundleId: '',

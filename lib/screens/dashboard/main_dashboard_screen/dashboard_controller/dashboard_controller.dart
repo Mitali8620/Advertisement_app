@@ -430,6 +430,9 @@ isCheckLocationPermissionStatus(){
             queryParameters = {
               ApiConstString.page: page,
               ApiConstString.title: searchFyndeg.value,
+              ApiConstString.latitude: latitude,
+              ApiConstString.longitude: longitude,
+              ApiConstString.radius:10,
               /*ApiConstString.latitude: latitude,
               ApiConstString.longitude: longitude,
               ApiConstString.radius:10,*/

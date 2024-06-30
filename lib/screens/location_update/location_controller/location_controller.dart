@@ -250,6 +250,8 @@ class LocationController extends GetxController {
             if (isSaveLatLng == true) {
               StoreService().setLatitude(latitudeKey: StoreKeys.latitude, data: lat ?? 0);
               StoreService().setLongitude(longitude: StoreKeys.longitude, data: lng ?? 0);
+              await locator<StoreService>().setCurrentAddressLocation(
+                  locationAddressKey: StoreKeys.currentLocation, data: address);
             }
             update();
           } else {

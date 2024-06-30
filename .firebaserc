@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "fyndeg-d1f50"
-  }
+    "default": "fyndeg-d1f50",
+    "fyndeg m": "fyndeg-d1f50"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

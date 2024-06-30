@@ -35,3 +35,6 @@ firebase deploy --only hosting:fyndeg-com
     -> No
 9) flutter build web
 10) firebase deploy --only hosting:fyndeg.com
+10) firebase deploy --only hosting:fyndeg-com
+
+firebase login --reauth      
