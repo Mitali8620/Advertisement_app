@@ -34,7 +34,6 @@ Widget locationUpdateWebBody(
       ///location_save__Button
       ///location save
       Obx(() => buildSaveLocationButton(authController: authController, context: context)),
-      AppSpacer.p12(),
     ],
   );
 }

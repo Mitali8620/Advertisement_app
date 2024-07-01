@@ -1,6 +1,8 @@
 
-import 'package:flutter/material.dart' show BorderSide, BuildContext, Color, Colors, EdgeInsets, EdgeInsetsGeometry, FocusNode, FontWeight, FormFieldValidator, InputDecoration, Key, OutlineInputBorder, SizedBox, StatelessWidget, TextEditingController, TextFormField, TextInputType, TextStyle, UnderlineInputBorder, ValueChanged, Widget;
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show BorderSide, BoxDecoration, BuildContext, Color, Colors, Container, EdgeInsets, EdgeInsetsGeometry, FocusNode, FontWeight, FormFieldValidator, InputDecoration, Key, OutlineInputBorder, SizedBox, StatelessWidget, TextEditingController, TextFormField, TextInputType, TextStyle, UnderlineInputBorder, ValueChanged, Widget;
 import 'package:flutter/services.dart';
+import '../utils/app_utils/colors/app_colors.dart';
 
 class KTextField extends StatelessWidget {
   String? labelText;
@@ -50,7 +52,10 @@ class KTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+          color: AppTheme.greyBackGroundColor,
+          borderRadius: BorderRadius.circular(4)),
       //height: 70,
       child: TextFormField(
         readOnly: readOnly ?? false,

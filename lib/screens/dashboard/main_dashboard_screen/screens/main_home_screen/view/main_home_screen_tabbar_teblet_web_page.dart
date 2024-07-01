@@ -33,7 +33,7 @@ class _MainHomeScreenTabBarTabletWebPageState
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: [
-          SideMenu(),
+          SideMenu(dashBoardController: dashBoardController,),
          AppSpacer.p10(),
           Expanded(
               child: Navigator(

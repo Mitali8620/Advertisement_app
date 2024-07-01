@@ -57,10 +57,10 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
   }
 
 
-  Widget  buildImagePreviewBody(){
+  Widget  buildImagePreviewBody({required DashBoardController dashBoardController }){
     return Row(
       children: [
-        SideMenu(),
+        SideMenu(dashBoardController: dashBoardController,),
         AppSpacer.p10(),
         Expanded(
             child: Navigator(

@@ -1,3 +1,4 @@
+import 'package:advertisement_app/screens/auth/auth_controller/auth_controller.dart';
 import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import 'package:advertisement_app/utils/app_utils/assets/assets_data.dart';
 import 'package:advertisement_app/utils/app_utils/colors/app_colors.dart';
@@ -14,10 +15,35 @@ import '../../../../../utils/core/services/store_keys.dart';
 import '../../../../../utils/core/services/store_service.dart';
 import '../../../../location_update/screens/widgets/location_update_web_dialog.dart';
 
-class SideMenu extends StatelessWidget {
-  SideMenu({Key? key}) : super(key: key);
 
-  final DashBoardController drawerController2 = Get.put(DashBoardController());
+
+class SideMenu extends StatefulWidget {
+  final DashBoardController dashBoardController;
+
+  const SideMenu({Key? key,required this.dashBoardController}) : super(key: key);
+
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
+
+  //final DashBoardController drawerController2 = Get.put(DashBoardController());
+
+
+  @override
+  initState() {
+    String savedLocation = locator<StoreService>().getCurrentAddressLocation(
+            locationAddressKey: StoreKeys.currentLocation) ?? "";
+
+    print("--------- :: $savedLocation");
+
+
+    if (savedLocation != "") {
+      Get.find<AuthController>().locationSearchCtr.text = savedLocation;
+      setState(() {});
+    }
+  }
 
   @override
 
@@ -182,7 +208,7 @@ class SideMenu extends StatelessWidget {
                                   contentText: Strings.logOutDescriptionText,
                                   context: context,
                                   positiveOnTapBtnEvent: () {
-                                    drawerController2.logOutOnTap();
+                                    dController.logOutOnTap();
                                   });
 
 
