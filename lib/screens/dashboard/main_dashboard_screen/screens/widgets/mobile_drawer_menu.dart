@@ -175,12 +175,11 @@ Widget listTile({
   return ListTile(
     onTap: onTap,
     leading: leading,
-    minLeadingWidth: 30,
+    minLeadingWidth: 25,
     hoverColor: Theme.of(context).colorScheme.primary,
     title: Text(
       text,
-      style:
-          GoogleFonts.poppins(color: blackColor, fontWeight: fontWeight ?? FontWeight.w600),
+      style:GoogleFonts.poppins(fontSize:12,color: blackColor, fontWeight: fontWeight ?? FontWeight.w600,),
     ),
   );
 }

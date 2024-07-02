@@ -79,7 +79,9 @@ Widget clientHeader(
         children: [
           Expanded(
             flex: 4,
-            child: buildSearchTextField(searchFlyerController: searchFlyerController,dashBoardController: dashBoardController),
+            child: buildSearchTextField(
+                searchFlyerController: searchFlyerController,
+                dashBoardController: dashBoardController),
           ),
           const Expanded(flex: 5, child: SizedBox())
         ],
@@ -89,42 +91,54 @@ Widget clientHeader(
 }
 
 Widget buildSearchTextField({required TextEditingController searchFlyerController, required DashBoardController dashBoardController}) {
-  return GetBuilder<DashBoardController>(
-    builder: (controller) {
-      return KTextField(
-        controller: searchFlyerController,
-        labelText: Strings.search,
-        fontColor: AppTheme.black,
-        hintText: Strings.searchYourProducts,
+  return Row(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.center,children: [
+    Expanded(child: GetBuilder<DashBoardController>(
+        builder: (controller) {
+          return KTextField(
+            controller: searchFlyerController,
+            labelText: Strings.search,
+            fontColor: AppTheme.black,
+            hintText: Strings.searchYourProducts,
+            suffixIcon: InkWell(
+                onTap:  (){
+                  controller.clearSearchData();
+                  controller.searchFyndegData(isFRomSearch: true,isEmpty: true);
+                }
+                ,child: const Icon(Icons.close)),
 
-        suffixIcon: InkWell(
-           onTap:  (){
-              controller.clearSearchData();
-              controller.searchFyndegData(isFRomSearch: false);
-            }
-        ,child: const Icon(Icons.close)),
+            onFieldSubmit:  (value){
+              searchFyndeg.value = value;
+              controller.update();
+              if(value ==""){
+                controller.searchFyndegData( isFRomSearch: true, isEmpty: true);
 
-        onFieldSubmit:  (value){
-          searchFyndeg.value = value;
-          controller.update();
-          controller.searchFyndegData( isFRomSearch: true);
+              }else{
+                controller.searchFyndegData( isFRomSearch: true);
 
-        },
-        onChanged: (value){
-          if(!kIsWeb){
-            searchFyndeg.value = value;
-            controller.update();
-            controller.searchFyndegData( isFRomSearch: true);
-          }
+              }
 
 
+            },
+            onChanged: (value){
+              if(!kIsWeb){
+                searchFyndeg.value = value;
+                controller.update();
+                controller.searchFyndegData( isFRomSearch: true);
+              }
 
-      },
-        bgColor: AppTheme.greyBackGroundColor,
-        fontSize: 14,
-        borderColor: Colors.transparent,
-        keyboardType: TextInputType.text,
-      );
-    }
-  );
+
+
+            },
+            bgColor: AppTheme.greyBackGroundColor,
+            fontSize: 14,
+            borderColor: Colors.transparent,
+            keyboardType: TextInputType.text,
+          );
+        }
+    )),
+      const Padding(
+        padding: EdgeInsets.only(left: 10),
+        child: Icon(Icons.search),
+      )
+    ],);
 }

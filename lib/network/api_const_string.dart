@@ -5,6 +5,7 @@ class ApiConstString{
   static const password = "password";
   static const name = "name";
   static const page = "page";
+  static const perPage = "perpage";
   static const title = "title";
   static const category = "category";
   static const latitude = "latitude";

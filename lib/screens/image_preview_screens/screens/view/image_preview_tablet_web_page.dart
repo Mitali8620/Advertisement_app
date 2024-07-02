@@ -7,6 +7,8 @@ import '../../../../config/routes/app_router.dart';
 import '../../../../config/routes/route_constants.dart';
 import '../../../../constants/app_spacer_constants.dart';
 import '../../../../utils/core/helpers/global_helper.dart';
+import '../../../../utils/core/networking/api_endpoints.dart';
+import '../../../../utils/core/services/launcher_url_link.dart';
 import '../../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import '../../../dashboard/main_dashboard_screen/screens/widgets/main_menu.dart';
 import '../../../dashboard/model/category_response_data_model.dart';
@@ -51,8 +53,24 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
         AppSpacer.p10(),
         imageBottomDescriptionWidget(description: widget.categoryData.description ?? ""),
         AppSpacer.p16(),
-        imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
-      ],
+        Row(
+          children: [
+            imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
+            InkWell(
+              onTap: (){
+                LauncherLink().launcherLink(
+                    link: ApiEndpoints().buildLocationRedirectionString(
+                        lat: (widget.categoryData.latitude.toString().contains(".")) ?
+                        double.parse(widget.categoryData.latitude.toString() ?? "0") :
+                        int.parse(widget.categoryData.latitude.toString() ?? "0"),
+                        lng: (widget.categoryData.longitude.toString().contains(".")) ?
+                        double.parse(widget.categoryData.longitude.toString() ?? "0") :
+                        int.parse(widget.categoryData.longitude.toString() ?? "0")));
+              },
+              child: Icon(Icons.location_on_outlined),
+            )
+          ],
+        )      ],
     );
   }
 

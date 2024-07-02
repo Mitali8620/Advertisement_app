@@ -1,9 +1,11 @@
 import 'package:advertisement_app/constants/app_spacer_constants.dart';
+import 'package:advertisement_app/utils/core/networking/api_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom_release_unzoom/pinch_zoom_release_unzoom.dart';
 import '../../../../common/container_dot_decoration.dart';
 import '../../../../common_components/cached_network_image_widget.dart';
+import '../../../../utils/core/services/launcher_url_link.dart';
 import '../../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import '../../../dashboard/model/category_response_data_model.dart';
 import '../../widgets/image_bottom_description_widget.dart';
@@ -48,7 +50,24 @@ class _ImagePreviewMobilePageState extends State<ImagePreviewMobilePage> {
           AppSpacer.p16(),
           imageBottomDescriptionWidget(description: widget.categoryData.description ?? ""),
           AppSpacer.p16(),
-          imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
+          Row(
+            children: [
+              imageBottomLocationWidget(location: widget.categoryData.location ?? ""),
+              InkWell(
+                onTap: (){
+                  LauncherLink().launcherLink(
+                      link: ApiEndpoints().buildLocationRedirectionString(
+                          lat: (widget.categoryData.latitude.toString().contains(".")) ?
+                          double.parse(widget.categoryData.latitude.toString() ?? "0") :
+                          int.parse(widget.categoryData.latitude.toString() ?? "0"),
+                          lng: (widget.categoryData.longitude.toString().contains(".")) ?
+                          double.parse(widget.categoryData.longitude.toString() ?? "0") :
+                          int.parse(widget.categoryData.longitude.toString() ?? "0")));
+                },
+                child: Icon(Icons.location_on_outlined),
+              )
+            ],
+          )
 
         ],
       ),

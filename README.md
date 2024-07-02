@@ -39,4 +39,4 @@ firebase deploy --only hosting:fyndeg-com
 
 
 #if getting authentication error accure
-firebase login --reauth      
+firebase login --reauth

@@ -1,5 +1,7 @@
 
 
+import 'dart:io';
+
 import 'package:advertisement_app/screens/location_update/location_controller/location_controller.dart';
 import 'package:advertisement_app/utils/app_utils/assets/assets_data.dart';
 import 'package:carousel_slider/carousel_controller.dart';
@@ -53,7 +55,7 @@ class DashBoardController extends GetxController {
   }
   /// end CarouselSlider
 
-searchFyndegData({required bool isFRomSearch }){
+searchFyndegData({required bool isFRomSearch,  bool? isEmpty }){
   Future.delayed(const Duration(milliseconds: 300)).then((v) {
     setInitialAllHomeDataValue(isFRomSearch: isFRomSearch);
     print("searchFyndeg.value :: ${searchFyndeg.value}");
@@ -61,7 +63,7 @@ searchFyndegData({required bool isFRomSearch }){
 
     update();
 
-    changeTabBarIndex(0, isFromSearch: true);
+    changeTabBarIndex(0, isFromSearch: isFRomSearch,isFromEmpty: isEmpty ??false);
     update();
 
     firstMenuOnTap();
@@ -159,7 +161,7 @@ isCheckLocationPermissionStatus(){
     update();
   }
 
-  Future<void> changeTabBarIndex(int newIndex , { bool? isFromSearch}) async {
+  Future<void> changeTabBarIndex(int newIndex , { bool? isFromSearch, bool ?isFromEmpty}) async {
     tabBarIndex = newIndex;
     print("=========================== 1 ::  $tabBarIndex ");
     print("=========================== 2 :: $newIndex ");
@@ -170,7 +172,8 @@ isCheckLocationPermissionStatus(){
       pageValue: page,
       category: newIndex ?? 0,
       isFirstPage: true,
-      isFromSearch: isFromSearch ?? false
+      isFromSearch: isFromSearch ?? false,
+      isEmpty: isFromEmpty ??false
     );
     update();
   }
@@ -286,7 +289,7 @@ isCheckLocationPermissionStatus(){
   int page = 1;
   bool isLoading = false;
   bool isNoData = false;
-  int paginationDataPageSize = 20;
+  int paginationDataPageSize =  (kIsWeb) ? 35 : 20;
   int totalData = 0;
   bool hasReachedEnd = false;
   bool isTapInTabBar = false;
@@ -393,6 +396,7 @@ isCheckLocationPermissionStatus(){
     required int category,
     bool? isFirstPage,
     bool? isFromSearch,
+    bool? isEmpty,
   }) async {
 
     EasyLoading.show();
@@ -414,6 +418,8 @@ isCheckLocationPermissionStatus(){
         if (category != 0) {
           queryParameters = {
             ApiConstString.page: page,
+            ApiConstString.perPage: paginationDataPageSize,
+
             ApiConstString.category: getItemAtIndex(index: category),
 
 
@@ -422,17 +428,29 @@ isCheckLocationPermissionStatus(){
 
             ApiConstString.latitude: latitude,
             ApiConstString.longitude: longitude,
-            ApiConstString.radius:1,
+            ApiConstString.radius:10,
           };
         } else {
+if(isEmpty == true){
+  queryParameters = {
+    ApiConstString.page: page,
+    ApiConstString.perPage: paginationDataPageSize,
+    ApiConstString.latitude: latitude,
+    ApiConstString.longitude: longitude,
+    ApiConstString.radius:10,
 
-          if(isFromSearch == true){
+
+  };
+}
+      else if(isFromSearch == true ){
             queryParameters = {
               ApiConstString.page: page,
+              ApiConstString.perPage: paginationDataPageSize,
+
               ApiConstString.title: searchFyndeg.value,
-              ApiConstString.latitude: latitude,
+            /*  ApiConstString.latitude: latitude,
               ApiConstString.longitude: longitude,
-              ApiConstString.radius:10,
+              ApiConstString.radius:1,*/
               /*ApiConstString.latitude: latitude,
               ApiConstString.longitude: longitude,
               ApiConstString.radius:10,*/
@@ -440,16 +458,11 @@ isCheckLocationPermissionStatus(){
           }else{
             queryParameters = {
               ApiConstString.page: page,
+              ApiConstString.perPage: paginationDataPageSize,
               ApiConstString.latitude: latitude,
               ApiConstString.longitude: longitude,
               ApiConstString.radius:10,
-              /*ApiConstString.latitude:latitude,
-            ApiConstString.longitude:longitude,
-              ApiConstString.radius:1,
-*/
-              /*    ApiConstString.latitude:21.210883,
-            ApiConstString.longitude:72.830539,
-*/
+
 
             };
           }
