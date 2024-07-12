@@ -34,6 +34,8 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
   @override
   void initState() {
     print("------------ Image is :: ${widget.imageData}");
+    print("------------ Image is latitude :: ${widget.categoryData.latitude}");
+    print("------------ Image is longitude:: ${widget.categoryData.longitude}");
 
     Get.find<DashBoardController>().setInitialCurrentIndex();
     currentIndex = 0;

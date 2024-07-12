@@ -11,6 +11,8 @@ class NetworkConnectivityCubit extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
+    print("------- network");
     _initConnectivity();
   }
 
@@ -25,8 +27,10 @@ class NetworkConnectivityCubit extends GetxController {
     print("result :: $result");
     if (result == ConnectivityResult.none) {
       isNetworkOn.value = false;
+      update();
     } else {
       isNetworkOn.value = true;
+      update();
     }
   }
 

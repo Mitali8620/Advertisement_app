@@ -4,22 +4,22 @@ import '../../../utils/app_utils/string/strings.dart';
 
 /// this widget is stateless widget for showing logo
 class TextWidget extends StatelessWidget {
-  const TextWidget({Key? key, this.flex = 1}) : super(key: key);
+  const TextWidget({Key? key, this.flex = 2}) : super(key: key);
 
   final int flex;
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return /*Flexible(
       flex: flex,
-      child: Text(
-        Strings.appName,
-        textAlign: TextAlign.center,
-        style: GoogleFonts.poppins(
-            fontSize: 50,
-            fontWeight: FontWeight.w800,
-            color: Theme.of(context).colorScheme.onSecondary),
-      ),
-    );
+      child:*/ Padding(padding: EdgeInsets.only(left: 8,right: 20),child: Text(
+      Strings.appName,
+      textAlign: TextAlign.center,
+      style: GoogleFonts.poppins(
+          fontSize: 50,
+          fontWeight: FontWeight.w800,
+          color: Theme.of(context).colorScheme.onSecondary),
+      //  ),
+    ),);
   }
 }

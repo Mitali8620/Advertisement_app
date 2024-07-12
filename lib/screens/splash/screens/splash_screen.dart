@@ -63,10 +63,11 @@ class _SplashScreenState extends State<SplashScreen> {
             Theme.of(context).colorScheme.primary
           ],
         )),
-        child: Center(
-          child: SizedBox(
+        child: Container(
+        //  color: Colors.deepPurple,
             height: MediaQuery.of(context).size.height * 0.08,
-            child: Column(
+            width: MediaQuery.of(context).size.width,
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -74,7 +75,6 @@ class _SplashScreenState extends State<SplashScreen> {
               ],
             ),
           ),
-        ),
       ),
     );
   }

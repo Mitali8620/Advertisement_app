@@ -49,7 +49,7 @@ class AppBaseScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, sizingInformation) {
-
+print("cubitData.isNetworkOn.value :: ${cubitData.isNetworkOn.value}");
       return Obx(() {
         return
 
@@ -94,7 +94,9 @@ class AppBaseScaffold extends StatelessWidget {
           floatingActionButton: floatingWidget,
           body: Padding(
             padding: padding ?? padding16,
-            child: (cubitData.isNetworkOn.value)
+            child: (
+
+                cubitData.isNetworkOn.value)
                 ? child
                 : const NoInterNetConnectionView(),
           ),

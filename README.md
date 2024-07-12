@@ -8,6 +8,8 @@ A new Flutter project.
 ## Android
 ## WEB
 
+------------ Image is latitude :: 21.210883
+------------ Image is longitude:: 72.830539
 
 flutter run -d chrome --web-browser-flag "--disable-web-security"
 flutter run -d chrome --web-renderer html
@@ -40,3 +42,11 @@ firebase deploy --only hosting:fyndeg-com
 
 #if getting authentication error accure
 firebase login --reauth
+
+
+
+
+Changes
+
+- tag 
+- 
