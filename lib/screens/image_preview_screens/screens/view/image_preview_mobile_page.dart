@@ -1,10 +1,15 @@
 import 'package:advertisement_app/constants/app_spacer_constants.dart';
 import 'package:advertisement_app/utils/core/networking/api_endpoints.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinch_zoom_release_unzoom/pinch_zoom_release_unzoom.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../common/container_dot_decoration.dart';
+import '../../../../common_components/app_elevated_button.dart';
 import '../../../../common_components/cached_network_image_widget.dart';
+import '../../../../utils/app_utils/colors/app_colors.dart';
+import '../../../../utils/app_utils/string/strings.dart';
 import '../../../../utils/core/services/launcher_url_link.dart';
 import '../../../dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import '../../../dashboard/model/category_response_data_model.dart';
@@ -67,8 +72,13 @@ class _ImagePreviewMobilePageState extends State<ImagePreviewMobilePage> {
                 child: Icon(Icons.location_on_outlined),
               )
             ],
-          )
+          ),
+///direction, website Button
+          AppSpacer.p16(),
 
+          webSireAndDirectionBtnRow(
+              directionLink: widget.categoryData.directionLink ?? "",
+              webSiteLink: widget.categoryData.websiteLink ?? "")
         ],
       ),
     );
@@ -160,4 +170,72 @@ class _ImagePreviewMobilePageState extends State<ImagePreviewMobilePage> {
     _pageController?.dispose();
     super.dispose();
   }
+}
+
+
+
+Widget webSireAndDirectionBtnRow({required String webSiteLink , required String directionLink}){
+  return  (kIsWeb)?
+
+      Container(width: Get.width*0.4,
+      child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                  flex: (kIsWeb) ? 1 : 2,
+                  child: directionBtn(directionLink: directionLink)),
+              AppSpacer.p4(),
+              Expanded(
+                flex: (kIsWeb) ? 1 : 2,
+                child: webSiteBtn(webSiteLink: webSiteLink),
+              ),
+            ],
+          ),
+        )
+      : Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(
+                flex: 2, child: directionBtn(directionLink: directionLink)),
+            AppSpacer.p4(),
+            Expanded(
+              flex: 2,
+              child: webSiteBtn(webSiteLink: webSiteLink),
+            ),
+          ],
+        );
+}
+
+Widget webSiteBtn({required String webSiteLink}){
+  return Padding(
+    padding: const EdgeInsets.symmetric(
+        horizontal: 0, vertical: 0),
+    child:  AppElevatedButton(
+      title: Strings.webSite,
+      backGroundColor: AppTheme.transparent,
+      onPressed: () {
+        print("----------- website ----------");
+        LauncherLink().launcherLink(link: webSiteLink
+        );
+      },
+    ),
+  );
+}
+
+Widget directionBtn({required String directionLink}){
+  return  Padding(
+    padding: const EdgeInsets.symmetric(
+        horizontal: 0, vertical: 0),
+    child:  AppElevatedButton(
+      title: Strings.direction,
+      backGroundColor: AppTheme.transparent,
+      onPressed: () async {
+        print("----------- direction ----------");
+        print("=-------- launch URL");
+
+        LauncherLink().launcherLink(link: directionLink);
+
+      },
+    ),
+  );
 }

@@ -14,6 +14,7 @@ import '../../../dashboard/main_dashboard_screen/screens/widgets/main_menu.dart'
 import '../../../dashboard/model/category_response_data_model.dart';
 import '../../../network_home_page/initial_page.dart';
 import '../../widgets/image_bottom_description_widget.dart';
+import 'image_preview_mobile_page.dart';
 
 class ImagePreviewTabletWebPage extends StatefulWidget {
   final List<String> imageData;
@@ -72,7 +73,15 @@ class _ImagePreviewTabletWebPageState extends State<ImagePreviewTabletWebPage> {
               child: Icon(Icons.location_on_outlined),
             )
           ],
-        )      ],
+        ),
+
+        ///direction, website Button
+        AppSpacer.p16(),
+
+        webSireAndDirectionBtnRow(
+            directionLink: widget.categoryData.directionLink ?? "",
+            webSiteLink: widget.categoryData.websiteLink ?? "")
+      ],
     );
   }
 

@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 Widget imageBottomDescriptionWidget({required String description}) {
   return Text(
     description,
-    maxLines: 5,
+    maxLines: 50,
     style: GoogleFonts.poppins(
         color: AppTheme.activeColor,
         fontWeight: FontWeight.w400,

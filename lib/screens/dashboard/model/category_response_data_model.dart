@@ -112,7 +112,12 @@ class CategoryData {
   String? category;
   String? createdAt;
   String? updatedAt;
-   List<String>?imagePath;
+  List<String>?imagePath;
+  String? toDate;
+  String? directionLink;
+  String? websiteLink;
+
+
 
   CategoryData(
       {this.id,
@@ -125,7 +130,12 @@ class CategoryData {
       this.category,
       this.createdAt,
       this.updatedAt,
-      this.imagePath});
+      this.imagePath,
+      this.toDate,
+      this.directionLink,
+      this.websiteLink,
+
+      });
 
   CategoryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -139,6 +149,10 @@ class CategoryData {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     imagePath = (json['images']==null) ? []:   json['images'].cast<String>();
+    toDate = json['to_date'];
+    directionLink = json['direction_link'];
+    websiteLink = json['website_link'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -154,6 +168,9 @@ class CategoryData {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['images'] = imagePath;
+    data['to_date'] = toDate;
+    data['direction_link'] = directionLink;
+    data['website_link'] = websiteLink;
     return data;
   }
 }

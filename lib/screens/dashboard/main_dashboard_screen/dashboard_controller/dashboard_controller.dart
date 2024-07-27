@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../../../../config/routes/route_constants.dart';
 import '../../../../network/api_const_string.dart';
@@ -96,6 +97,31 @@ final  currentLocation = "".obs;
     update();
     return currentLocation.value;
   }
+
+  ///manage date
+  String formatDateRange({required String createdAt,required String toDate}) {
+    try {
+      if (createdAt == "" || toDate == "") {
+        ///Invalid input: One or both dates are null
+        return "";
+      }
+
+      // Parse the input date strings
+      DateTime createdDate = DateTime.parse(createdAt);
+      DateTime endDate = DateTime.parse(toDate);
+
+      // Format the dates
+      DateFormat formatter = DateFormat('dd MMM yyyy');
+      String formattedCreatedDate = formatter.format(createdDate);
+      String formattedEndDate = formatter.format(endDate);
+
+      // Return the formatted string
+      return 'Valid $formattedCreatedDate to $formattedEndDate';
+    } catch (e) {
+      return 'Error: ${e.toString()}';
+    }
+  }
+
 
   ///tab list item
   List<String> homeTabsCategoryItem = [

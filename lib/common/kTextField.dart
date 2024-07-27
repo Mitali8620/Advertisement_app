@@ -55,7 +55,7 @@ class KTextField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: AppTheme.greyBackGroundColor,
-          borderRadius: BorderRadius.circular(4)),
+        ),
       //height: 70,
       child: TextFormField(
         readOnly: readOnly ?? false,

@@ -86,6 +86,11 @@ class Strings {
   static const String about = "About ";
 
 
+  ///image_preview_screen
+  static const String direction = "Direction";
+  static const String webSite = "Website";
+
+
 
 
 }

@@ -1,6 +1,8 @@
 import 'package:advertisement_app/common_components/app_base_widget.dart';
 import 'package:advertisement_app/constants/auth_header.dart';
+import 'package:advertisement_app/screens/dashboard/main_dashboard_screen/dashboard_controller/dashboard_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import '../../../utils/core/helpers/global_helper.dart';
 import '../../dashboard/model/category_response_data_model.dart';
@@ -28,7 +30,11 @@ class _ImagePreviewMainScreenState extends State<ImagePreviewMainScreen> {
         } else {
           GlobalInit.mainNavigation.currentState?.pop();
         }
-      }), child: ResponsiveBuilder(
+      },headerText:Get.find<DashBoardController>().formatDateRange(createdAt:widget.categoryData.createdAt ??"" ,
+          toDate: widget.categoryData.toDate ??"")
+
+
+        ,), child: ResponsiveBuilder(
         builder: (context, sizingInformation) {
           if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
             return ImagePreviewTabletWebPage(imageData: widget.imageData ?? [],categoryData: widget.categoryData,);

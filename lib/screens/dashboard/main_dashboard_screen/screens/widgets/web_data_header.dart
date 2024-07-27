@@ -137,7 +137,7 @@ Widget buildSearchTextField({required TextEditingController searchFlyerControlle
         }
     )),
       const Padding(
-        padding: EdgeInsets.only(left: 10),
+        padding: EdgeInsets.only(left: 2),
         child: Icon(Icons.search),
       )
     ],);

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../common/tabView_text_widget.dart';
 import '../../../../../common_components/app_base_widget.dart';
 import '../../../../../utils/app_utils/assets/assets_data.dart';
 import '../../../../../utils/app_utils/string/strings.dart';
+import '../../../../../utils/core/services/launcher_url_link.dart';
 import '../../../../location_update/location_controller/location_controller.dart';
 import '../../dashboard_controller/dashboard_controller.dart';
 import '../widgets/mobile_drawer_menu.dart';
@@ -104,7 +106,11 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
                         ],
                   ),
                 actions: [
-
+                  InkWell(
+                          onTap: () async {
+                            LauncherLink().launcherLink(
+                                link: Strings.aboutRedirectionUrl);
+                          },child:
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Container(
@@ -113,6 +119,8 @@ class _MyHomeTabBarScreenState extends State<MyHomeTabBarScreen>
                       child: Image.asset(Assets.appLogoImage),
                     ),
                   ),
+                  ),
+
                 ],
                 ):null,
                 child: ResponsiveBuilder(builder: (context, sizingInformation) {
