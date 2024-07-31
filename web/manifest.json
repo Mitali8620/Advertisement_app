@@ -1,6 +1,6 @@
 {
-    "name": "advertisement_app",
-    "short_name": "advertisement_app",
+    "name": "Fyndeg",
+    "short_name": "Fyndeg",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

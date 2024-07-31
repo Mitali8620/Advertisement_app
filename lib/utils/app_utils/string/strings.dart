@@ -24,8 +24,8 @@ class Strings {
   static const String passwordHint = "Enter your password";
   static const String confirmPasswordHint = "Enter your confirm password";
   static const String onBoardingDes =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit purus sit amet luctus venenatis, lectus magna fringilla urna, porttitor.";
-  static const String onBoardingTitle = "Lorem ipsum dolor consectetur";
+      "Simply Search for Your City on FyndEG to See What's Available Offer's near by you.";
+  static const String onBoardingTitle = "FyndEG For Better Saving";
 
   static String password = "Password";
   static String loginNow = "Login Now";

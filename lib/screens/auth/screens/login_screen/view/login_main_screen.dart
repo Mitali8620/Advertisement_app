@@ -24,8 +24,8 @@ class _LogInMainScreenState extends State<LogInMainScreen> {
     return GetBuilder<AuthController>(
       builder: (authCubit) {
 
-        authCubit.logInEmailCtr.text = "mexa@gmail.com";
-        authCubit.logInPassWordCtr.text = "12345678";
+       /* authCubit.logInEmailCtr.text = "mexa@gmail.com";
+        authCubit.logInPassWordCtr.text = "12345678";*/
 
         return PopScope(
           canPop: true,

@@ -1,4 +1,4 @@
-# advertisement_app
+# FyndEG
 
 A new Flutter project.
 
