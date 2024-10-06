@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../../../constants/app_spacer_constants.dart';
+import '../../../../../../utils/app_utils/string/strings.dart';
 import '../../../dashboard_controller/dashboard_controller.dart';
 import '../../widgets/home_page_tab_widget.dart';
 import '../../widgets/tab_view.dart';
@@ -65,7 +66,7 @@ class _MainHomeScreenTabBarMobilePageState
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8.0),
                                 child: TabView(
-                                  text: tab,
+                                  text:(tab.toLowerCase() == (Strings.specialty.toLowerCase())) ? "Real Estate":tab,
                                   isView: false,
                                 ),
                               ))

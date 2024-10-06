@@ -73,7 +73,7 @@ class Strings {
   static const String sportingGoods = "Sporting-goods";
   static const String pets = "Pets";
   static const String office = "Office";
-  static const String specialty = "Real Estate";
+  static const String specialty = "RealEstate";
   static const String yes = "Yes";
   static const String update = "Update";
   static const String no = "No";

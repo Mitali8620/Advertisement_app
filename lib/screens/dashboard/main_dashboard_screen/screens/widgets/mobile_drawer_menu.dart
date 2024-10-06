@@ -24,6 +24,9 @@ class MobileDrawerMenu extends StatefulWidget {
 }
 
 class _MobileDrawerMenuState extends State<MobileDrawerMenu> {
+
+  DashBoardController dashBoardController = Get.put(DashBoardController());
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -59,9 +62,18 @@ class _MobileDrawerMenuState extends State<MobileDrawerMenu> {
                       listTile(
                           context: context,
                           onTap: () {
+
+
+                            dashBoardController.setInitialAllHomeDataValue();
+
+                            dashBoardController.currentTabIndex = 0;
+
+                            dashBoardController.tabController?.index=0;
+                            dashBoardController.update();
+                            setState(() {});
+
                             GlobalInit.navKey.currentState?.pop();
-                            GlobalInit.navKey.currentState
-                                ?.pushNamed(AppRoutes.locationUpdateMainScreen);
+                            GlobalInit.navKey.currentState?.pushNamed(AppRoutes.locationUpdateMainScreen);
                           },
                           text: Strings.updateLocation,
                           leading: Lottie.asset(Assets.locationJson, height: 30)),

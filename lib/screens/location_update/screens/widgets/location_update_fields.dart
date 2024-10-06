@@ -106,11 +106,21 @@ Widget buildSaveLocationButton({required AuthController authController,required 
       ///location_update location
 
       if(authController.locationSearchCtr.text.isNotEmpty){
-        GlobalInit.navKey.currentState?.pop();
         dashBoardController.currentTabIndex = 0;
         dashBoardController.currentIndex = 0;
         dashBoardController.tabBarIndex = 0;
+
+        dashBoardController.tabController?.index=0;
+        dashBoardController.update();
+
         authController.updateLocation();
+
+        dashBoardController.currentDrawerIndex.value = 0;
+
+        dashBoardController.update();
+
+        GlobalInit.navKey.currentState?.pop();
+
       }else{
         EasyLoading.showError(ValidationString.enterLocation);
 
